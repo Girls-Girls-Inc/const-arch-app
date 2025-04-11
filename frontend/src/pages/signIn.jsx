@@ -2,11 +2,14 @@
 
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
+
 
 
 export default function SigninPage() {
 //   const { setUser } = useUser();
 //   const router = useRouter();
+const navigate = useNavigate();
 
   return (
     <main>
@@ -20,7 +23,7 @@ export default function SigninPage() {
             const fullName = decoded.name || '';
             const [name, surname] = fullName.split(' ');
 
-            router.push('/App');
+            navigate('/')
           } else {
             console.error('No credential found');
           }
