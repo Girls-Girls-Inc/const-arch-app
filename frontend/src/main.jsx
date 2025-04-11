@@ -7,7 +7,7 @@ import SignIn from './pages/signIn.jsx';
 import SignUp from './pages/signUp.jsx';
 
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { UserProvider } from './context/UserContext';
+import { UserProvider } from './context/userContext';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
