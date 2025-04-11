@@ -26,7 +26,7 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm install --prefix frontend
+          npm install 
           npm run build --prefix frontend
 
       - name: Zip artifact for deployment
