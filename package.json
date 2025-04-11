@@ -4,16 +4,15 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run build --prefix frontend",
+    "start": "node app.js",
+    "serve": "npm run build && npm start",
+    "install-all": "npm install && cd frontend && npm install"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.1.0"
-  },
-  "scripts": {
-    "build": "npm run build --prefix frontend",
-    "start": "node app.js",
-    "serve": "npm run build && npm start"
+    "express": "^5.1.0",
+    "react-router-dom": "^7.5.0"
   }
 }
