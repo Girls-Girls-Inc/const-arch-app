@@ -1,7 +1,7 @@
 Run as follows:
 
 ```
-npm run dev
+npm run serve
 ```
 
 And open:
