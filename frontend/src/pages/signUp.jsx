@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase';
+import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { auth, googleProvider, facebookProvider } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
@@ -16,7 +16,27 @@ export default function SignUp() {
       await createUserWithEmailAndPassword(auth, email, password);
       navigate('/');
     } catch (error) {
-      console.error('Signup error:', error.message);
+      console.error('Email signup error:', error.message);
+    }
+  };
+
+  const handleGoogleSignUp = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      console.log('Google User:', result.user);
+      navigate('/');
+    } catch (error) {
+      console.error('Google Sign-up error:', error.message);
+    }
+  };
+
+  const handleFacebookSignUp = async () => {
+    try {
+      const result = await signInWithPopup(auth, facebookProvider);
+      console.log('Facebook User:', result.user);
+      navigate('/');
+    } catch (error) {
+      console.error('Facebook Sign-up error:', error.message);
     }
   };
 
@@ -40,6 +60,11 @@ export default function SignUp() {
         /><br />
         <button type="submit">Sign Up</button>
       </form>
+
+      <hr />
+
+      <button onClick={handleGoogleSignUp}>Sign Up with Google</button><br />
+      <button onClick={handleFacebookSignUp}>Sign Up with Facebook</button>
     </main>
   );
 }
