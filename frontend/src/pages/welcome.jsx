@@ -1,16 +1,17 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // useNavigate for navigation
+"use client";
 import { useUser } from "../context/UserContext";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function WelcomePage() {
   const { user } = useUser();
-  const navigate = useNavigate(); // useNavigate instead of useRouter
+  const router = useRouter();
 
   useEffect(() => {
     if (!user) {
-      navigate("/signup"); // redirect to signup if no user
+      router.push("/signup"); // redirect to login if no user
     }
-  }, [user, navigate]); // Add navigate to dependency array
+  }, [user]);
 
   return (
     <main>
