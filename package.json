@@ -7,7 +7,8 @@
     "build": "npm run build --prefix frontend",
     "start": "node app.js",
     "serve": "npm run build && npm start",
-    "install-all": "npm install && cd frontend && npm install"
+    "install-all": "npm install && cd frontend && npm install",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
@@ -16,5 +17,6 @@
     "react-router-dom": "^7.5.0"
   },
   "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
