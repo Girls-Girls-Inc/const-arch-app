@@ -20,11 +20,6 @@ export default function SigninPage() {
     };
   }, []);
 
-  function switchTheme() {
-    var element = document.body;
-    element.classList.toggle("dark-mode");
-  }
-
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       if (tokenResponse.access_token) {
@@ -48,6 +43,12 @@ export default function SigninPage() {
     <main>
       <ThemeSwitch />
       <div className="login-container">
+        <button className="btn">
+          <Link to="/">
+            <i className="material-symbols-outlined">arrow_back</i>
+          </Link>
+        </button>
+
         <h2 className="form-title">Login with</h2>
         <div className="social-login">
           <button onClick={() => login()} className="social-button">
