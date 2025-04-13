@@ -10,10 +10,10 @@ export default function SigninPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.body.classList.add("signin-page"); // Add class to the body when this page loads
+    document.body.classList.add("signin-page");
 
     return () => {
-      document.body.classList.remove("signin-page"); // Clean up by removing the class when the component is unmounted
+      document.body.classList.remove("signin-page");
     };
   }, []);
 
