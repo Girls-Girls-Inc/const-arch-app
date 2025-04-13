@@ -17,11 +17,7 @@ export default function Home() {
       <div className="home-container">
         <h2>Constitutional Archive App</h2>
         <div className="welcome-image-container">
-          <img
-            src="../src/assets/logo.png"
-            alt="Welcome"
-            className="welcome-image"
-          />
+          <img src="/assets/logo.png" alt="Logo" className="welcome-image" />
         </div>
         <div>
           <p>

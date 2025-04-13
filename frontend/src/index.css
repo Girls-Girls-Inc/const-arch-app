@@ -41,6 +41,14 @@ input::-ms-clear {
   border: #555 solid 1px;
   transition: 0.3s ease;
   margin-bottom: 1rem;
+  background-color: var(--light-bg);
+}
+
+.dark-theme .btn {
+  background: var(--dark-bg);
+}
+
+.home-container .btn {
   background-color: var(--south-africa-blue);
 }
 
@@ -58,7 +66,7 @@ input::-ms-clear {
   justify-content: center;
 }
 
-.dark-theme .btn {
+.dark-theme .hom .btn {
   background: var(--dark-bg);
   background-color: var(--south-africa-blue);
 }
@@ -173,6 +181,10 @@ input:checked + .slider:before {
   color: #555;
 }
 
+.dark-theme .log-signup-container {
+  background-color: var(--dark-bg);
+}
+
 .home-container {
   max-width: 410px;
   background-color: var(--light-bg);
@@ -207,7 +219,7 @@ input:checked + .slider:before {
   height: 54px;
   width: 100%;
   position: relative;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .input-wrapper .input-field {
@@ -249,7 +261,7 @@ input:checked + .slider:before {
 }
 
 body.home-page {
-  background-image: url("../src/assets/blobBg.png");
+  background-image: url("/assets/blobBg.png");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -258,7 +270,8 @@ body.home-page {
 }
 
 body.signin-page {
-  background-image: url("../src/assets/blobBg.png");
+  padding: 10px;
+  background-image: url("/assets/blobBg.png");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -266,7 +279,8 @@ body.signin-page {
   min-height: 100vh;
 }
 body.signup-page {
-  background-image: url("../src/assets/blobBg.png");
+  padding: 10px;
+  background-image: url("/assets/blobBg.png");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -276,7 +290,7 @@ body.signup-page {
 
 .login-button {
   width: 100%;
-  margin-top: 2.19rem;
+  margin-top: 1rem;
   cursor: pointer;
   outline: none;
   height: 54px;
@@ -402,4 +416,52 @@ a {
   max-width: 200px;
   height: auto;
   margin: 0 auto;
+}
+/* Loader styles */
+.loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10vh;
+  width: 10vh;
+  background-color: var(--light-bg);
+  border-radius: 5%;
+}
+
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid var(--south-africa-blue);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite, fadeColors 4s ease-in-out infinite;
+}
+
+/* Rotation animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Color fading animation */
+@keyframes fadeColors {
+  0% {
+    border-top-color: var(--south-africa-green);
+  }
+  25% {
+    border-top-color: var(--south-africa-yellow);
+  }
+  50% {
+    border-top-color: var(--south-africa-red);
+  }
+  75% {
+    border-top-color: var(--south-africa-blue);
+  }
+  100% {
+    border-top-color: var(--south-africa-green);
+  }
 }

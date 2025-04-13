@@ -17,10 +17,12 @@ export default function SignUp() {
   const [name, setName] = useState(""); // NEW name state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -29,7 +31,6 @@ export default function SignUp() {
       );
       const user = userCredential.user;
 
-      // 👇 Update the display name after signup
       await updateProfile(user, {
         displayName: name,
       });
@@ -39,6 +40,7 @@ export default function SignUp() {
     } catch (error) {
       console.error("Email signup error:", error.message);
     }
+    setLoading(false);
   };
 
   const handleGoogleSignUp = async () => {
@@ -70,6 +72,14 @@ export default function SignUp() {
       document.body.classList.remove("signup-page");
     };
   }, []);
+
+  if (loading) {
+    return (
+      <main className="loader-container">
+        <div className="loader"></div>
+      </main>
+    );
+  }
 
   return (
     <main>
