@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from 'react';
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider, facebookProvider } from '../firebase';
