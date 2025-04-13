@@ -14,7 +14,7 @@ export default function SignUp() {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate('/');
+      navigate('/welcome');
     } catch (error) {
       console.error('Email signup error:', error.message);
     }
@@ -24,7 +24,7 @@ export default function SignUp() {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       console.log('Google User:', result.user);
-      navigate('/');
+      navigate('/welcome');
     } catch (error) {
       console.error('Google Sign-up error:', error.message);
     }
@@ -34,7 +34,7 @@ export default function SignUp() {
     try {
       const result = await signInWithPopup(auth, facebookProvider);
       console.log('Facebook User:', result.user);
-      navigate('/');
+      navigate('/welcome');
     } catch (error) {
       console.error('Facebook Sign-up error:', error.message);
     }
