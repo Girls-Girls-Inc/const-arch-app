@@ -1,15 +1,13 @@
-'use client';
+"use client";
 
-import { GoogleLogin } from '@react-oauth/google';
-import { jwtDecode } from 'jwt-decode';
-import { useNavigate } from 'react-router-dom';
-
-
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 export default function SigninPage() {
-//   const { setUser } = useUser();
-//   const router = useRouter();
-const navigate = useNavigate();
+  //   const { setUser } = useUser();
+  //   const router = useRouter();
+  const navigate = useNavigate();
 
   return (
     <main>
@@ -20,20 +18,18 @@ const navigate = useNavigate();
           console.log(credentialResponse.credential);
           if (credentialResponse?.credential) {
             const decoded = jwtDecode(credentialResponse.credential);
-            const fullName = decoded.name || '';
-            const [name, surname] = fullName.split(' ');
+            const fullName = decoded.name || "";
+            const [name, surname] = fullName.split(" ");
 
-            navigate('/')
+            navigate("/");
           } else {
-            console.error('No credential found');
+            console.error("No credential found");
           }
         }}
         onError={() => {
-          console.log('Google sign-in failed');
+          console.log("Google sign-in failed");
         }}
       />
-
-    
     </main>
   );
 }

@@ -1,25 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
 
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
 :root {
   width: 100%;
   padding: 0 0.6rem;
-  --background: #ffffff;
-  --foreground: #171717;
   --south-africa-green: #007749;
   --south-africa-yellow: #ffb81c;
   --south-africa-black: #000000;
   --south-africa-white: #ffffff;
   --south-africa-red: #e03c31;
   --south-africa-blue: #001489;
-  --dark-bg: #121212;
+  --dark-bg: #272525;
   --light-bg: #f5f5f5;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #121212;
-    --foreground: #f5f5f5;
-  }
 }
 
 * {
@@ -30,6 +28,7 @@
 }
 
 .btn {
+  color: #555;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,7 +36,7 @@
   border-radius: 0.5rem;
   font-size: 1rem;
   cursor: pointer;
-  border: #555 solid 1px;
+  border: #999 solid 2px;
 }
 
 html,
@@ -117,24 +116,6 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.signup-bg {
-  background: linear-gradient(
-    to bottom,
-    var(--south-africa-white) 0%,
-    var(--south-africa-white) 16.66%,
-    var(--south-africa-red) 16.66%,
-    var(--south-africa-red) 33.32%,
-    var(--south-africa-green) 33.32%,
-    var(--south-africa-green) 49.98%,
-    var(--south-africa-yellow) 49.98%,
-    var(--south-africa-yellow) 66.64%,
-    var(--south-africa-blue) 66.64%,
-    var(--south-africa-blue) 83.3%,
-    var(--south-africa-black) 83.3%,
-    var(--south-africa-black) 100%
-  );
-}
-
 .social-login .social-button {
   display: flex;
   width: 100%;
@@ -150,6 +131,10 @@ input:checked + .slider:before {
   transition: all 0.3s ease;
 }
 
+.dark-theme .social-login .social-button {
+  background: var(--dark-bg);
+}
+
 .social-login .social-button:hover {
   border-color: var(--south-africa-green);
   transform: scale(0.98);
@@ -162,6 +147,10 @@ input:checked + .slider:before {
   border-radius: 0.5rem;
   box-shadow: 0 10px 20px rgba(85, 85, 85, 0.2);
   color: #555;
+}
+
+.dark-theme .login-container {
+  background-color: var(--dark-bg);
 }
 
 .form-title {
@@ -181,17 +170,49 @@ input:checked + .slider:before {
   width: 23px;
 }
 
-.dark-mode .input-field {
-  background-color: #1a1919;
-  color: var(--south-africa-white);
-}
-
-.dark-mode .input-field input {
-  color: var(--south-africa-white);
-}
-
-.input-field {
+.input-wrapper {
+  height: 54px;
+  width: 100%;
   position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.input-wrapper .input-field {
+  background: var(--light-bg);
+  height: 100%;
+  width: 100%;
+  outline: none;
+  font-size: 1.06rem;
+  border-radius: 55px;
+  border: 1px solid #999;
+  padding: 0 1.25rem 0 3.12rem;
+  transition: 0.2s ease;
+}
+
+.dark-theme .input-wrapper .input-field {
+  background: var(--dark-bg);
+  color: #fff;
+}
+
+.input-wrapper i {
+  color: #999;
+  position: absolute;
+  top: 50%;
+  left: 0.9rem;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.input-wrapper .input-field:focus {
+  border-color: #555;
+}
+
+.input-wrapper .input-field:focus ~ i {
+  color: #555;
+}
+
+.input-wrapper .input-field::placeholder {
+  color: #555;
 }
 
 body.signin-page {
@@ -201,4 +222,114 @@ body.signin-page {
   background-repeat: no-repeat;
   background-attachment: fixed;
   min-height: 100vh;
+}
+
+.login-button {
+  width: 100%;
+  margin-top: 2.19rem;
+  cursor: pointer;
+  outline: none;
+  height: 54px;
+  background: var(--south-africa-green);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  text-transform: uppercase;
+  font-size: 1.12rem;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.login-button:hover {
+  background: #1a9b6a;
+  transform: scale(0.9);
+}
+
+.login-container .seperator {
+  margin: 1.5rem 0;
+  text-align: center;
+  position: relative;
+}
+
+.seperator span {
+  position: relative;
+  z-index: 1;
+  background: var(--light-bg);
+  padding: 0 0.9rem;
+  font-size: 1.06rem;
+  font-weight: 500;
+}
+
+.seperator::after {
+  border: 0px solid #555;
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+  background: #555;
+}
+
+.dark-theme .seperator span {
+  background: var(--dark-bg);
+}
+
+.login-container .signup-text {
+  text-align: center;
+  margin: 1.75rem 0 0 0.31rem;
+  font-weight: 500;
+}
+
+.login-container a {
+  color: var(--south-africa-green);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-container a:hover {
+  text-decoration: underline;
+  color: var(--south-africa-green);
+}
+
+.login-container .forgot-password-link {
+  display: block;
+  color: var(--south-africa-green);
+  margin: 1.75rem 0 0 0.31rem;
+  font-weight: 500;
+}
+.input-wrapper .lock-icon {
+  color: #999;
+  position: absolute;
+  top: 50%;
+  left: 0.9rem;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.input-wrapper .eye-icon {
+  color: #999;
+  position: absolute;
+  top: 50%;
+  right: 0.9rem;
+  cursor: pointer;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  user-select: none;
+}
+
+.input-wrapper .eye-icon:hover {
+  color: var(--south-africa-green); /* change color on hover */
+}
+
+.input-wrapper .input-field:focus {
+  border-color: #555;
+}
+
+.input-wrapper .input-field:focus ~ .lock-icon {
+  color: #555;
+}
+
+.input-wrapper .input-field:focus ~ .eye-icon {
+  color: #555;
 }

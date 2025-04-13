@@ -4,16 +4,19 @@ import { useUser } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "../index.css";
+import InputField from "../components/InputField";
+import PasswordInputField from "../components/PasswordInputField";
+import ThemeSwitch from "../components/ThemeSwitch";
 
 export default function SigninPage() {
   const { setUser } = useUser();
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.body.classList.add("signin-page");
+    document.body.classList.add("signin-page"); // Add class to the body when this page loads
 
     return () => {
-      document.body.classList.remove("signin-page");
+      document.body.classList.remove("signin-page"); // Clean up by removing the class when the component is unmounted
     };
   }, []);
 
@@ -43,16 +46,9 @@ export default function SigninPage() {
 
   return (
     <main>
-      {/* <label className="switch">
-        <input type="checkbox" checked onchange="switchTheme()" />
-        <span className="slider round">
-          <i className="material-symbols-outlined">wb_sunny</i>
-
-          <i className="material-symbols-outlined">nights_stay</i>
-        </span>
-      </label> */}
+      <ThemeSwitch />
       <div className="login-container">
-        <h2 className="form-title">Log in with</h2>
+        <h2 className="form-title">Login with</h2>
         <div className="social-login">
           <button onClick={() => login()} className="social-button">
             <img
@@ -75,29 +71,23 @@ export default function SigninPage() {
           <span>or</span>
         </p>
         <form action="#" className="login-form">
-          <div className="input-wrapper">
-            <input
-              id="signin-email"
-              type="email"
-              placeholder="Email Address"
-              className="input-field"
-              required
-            />
-            <i className="material-symbols-outlined">mail</i>
-          </div>
-          <div className="input-wrapper">
-            <input
-              type="password"
-              placeholder="Password"
-              className="input-field"
-              required
-            />
-            <i className="material-symbols-outlined">lock</i>
-          </div>
+          <InputField
+            id="sign-up-email"
+            type="email"
+            placeholder="Emails"
+            icon="mail"
+          />
+          {/* <InputField
+            id="sign-up-password"
+            type="password"
+            placeholder="Password"
+            icon="lock"
+          /> */}
+          <PasswordInputField id="sign-up-email" placeholder="Password" />
           <a href="#" className="forgot-password-link">
             Forgot Password?
           </a>
-          <button className="login-button"></button>
+          <button className="login-button">Login</button>
           <p className="signup-text">
             Don&apos;t have an account? <Link to="/signup">Signup Instead</Link>
           </p>
