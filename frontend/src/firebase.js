@@ -1,11 +1,12 @@
 import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
 import { 
   getAuth, 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword,
-  GoogleAuthProvider } from 'firebase/auth';
-import { FacebookAuthProvider } from "firebase/auth";
-import React from 'react';
+  GoogleAuthProvider,
+  FacebookAuthProvider
+} from 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: "AIzaSyC0S4dqBkJWRhRY1FQTxCOFeEtz2F74LSU",
@@ -18,9 +19,11 @@ const firebaseConfig = {
   };
   
 const app = initializeApp(firebaseConfig);
+
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 export const facebookProvider = new FacebookAuthProvider();
+export const db = getFirestore(app);
 
 export async function signInUser(email, password) {
   // adding validation for email and password

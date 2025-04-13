@@ -17,7 +17,8 @@ export default function SigninPage() {
   const [password, setPassword] = useState("");
 
   const LoginButton = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent actual form submission
+
     try {
       const user = await signInUser(email, password);
       setUser(user);
@@ -27,10 +28,43 @@ export default function SigninPage() {
     }
   };
 
+  useEffect(() => {
+    document.body.classList.add("signin-page"); // Add class to the body when this page loads
+
+    return () => {
+      document.body.classList.remove("signin-page"); // Clean up by removing the class when the component is unmounted
+    };
+  }, []);
+
+  function switchTheme() {
+    var element = document.body;
+    element.classList.toggle("dark-mode");
+  }
+
+  const login = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      if (tokenResponse.access_token) {
+        const userInfo = await fetch(
+          "https://www.googleapis.com/oauth2/v3/userinfo",
+          {
+            headers: {
+              Authorization: `Bearer ${tokenResponse.access_token}`,
+            },
+          }
+        ).then((res) => res.json());
+        setUser(userInfo);
+        navigate("/welcome");
+      }
+    },
+    onError: () => console.log("Login Failed"),
+    flow: "implicit",
+  });
+
   const handleGoogleSignIn = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       console.log("Google User:", result.user);
+
       setUser(result.user);
       navigate("/welcome");
     } catch (error) {
@@ -48,13 +82,6 @@ export default function SigninPage() {
       console.error("Facebook Sign-in error:", error.message);
     }
   };
-
-  useEffect(() => {
-    document.body.classList.add("signin-page");
-    return () => {
-      document.body.classList.remove("signin-page");
-    };
-  }, []);
 
   return (
     <main>
