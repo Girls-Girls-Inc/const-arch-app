@@ -1,14 +1,14 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import { useGoogleLogin } from "@react-oauth/google";
+import { useEffect, useState } from "react";
 import { useUser } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import "../index.css";
 import { signInUser } from "../firebase";
-
-import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider, facebookProvider } from '../firebase';
+import { signInWithPopup } from "firebase/auth";
+import { auth, googleProvider, facebookProvider } from "../firebase";
+import "../index.css";
+import InputField from "../components/InputField";
+import PasswordInputField from "../components/PasswordInputField";
+import ThemeSwitch from "../components/ThemeSwitch";
 
 export default function SigninPage() {
   const { setUser } = useUser();
@@ -17,8 +17,7 @@ export default function SigninPage() {
   const [password, setPassword] = useState("");
 
   const LoginButton = async (e) => {
-    e.preventDefault(); // Prevent actual form submission
-  
+    e.preventDefault();
     try {
       const user = await signInUser(email, password);
       setUser(user);
@@ -28,74 +27,46 @@ export default function SigninPage() {
     }
   };
 
-  useEffect(() => {
-    document.body.classList.add("signin-page"); // Add class to the body when this page loads
-
-    return () => {
-      document.body.classList.remove("signin-page"); // Clean up by removing the class when the component is unmounted
-    };
-  }, []);
-
-  function switchTheme() {
-    var element = document.body;
-    element.classList.toggle("dark-mode");
-  }
-
-  const login = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
-      if (tokenResponse.access_token) {
-        const userInfo = await fetch(
-          "https://www.googleapis.com/oauth2/v3/userinfo",
-          {
-            headers: {
-              Authorization: `Bearer ${tokenResponse.access_token}`,
-            },
-          }
-        ).then((res) => res.json());
-        setUser(userInfo);
-        navigate("/welcome");
-      }
-    },
-    onError: () => console.log("Login Failed"),
-    flow: "implicit",
-  });
-
-    const handleGoogleSignIn = async () => {
+  const handleGoogleSignIn = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      console.log('Google User:', result.user);
-
-      setUser(result.user); 
-      navigate('/welcome');
+      console.log("Google User:", result.user);
+      setUser(result.user);
+      navigate("/welcome");
     } catch (error) {
-      console.error('Google Sign-in error:', error.message);
+      console.error("Google Sign-in error:", error.message);
     }
   };
 
-  
-    const handleFacebookSignIn = async () => {
-      try {
-        const result = await signInWithPopup(auth, facebookProvider);
-        console.log('Facebook User:', result.user);
-        setUser(result.user); 
-        navigate('/welcome');
-      } catch (error) {
-        console.error('Facebook Sign-in error:', error.message);
-      }
+  const handleFacebookSignIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, facebookProvider);
+      console.log("Facebook User:", result.user);
+      setUser(result.user);
+      navigate("/welcome");
+    } catch (error) {
+      console.error("Facebook Sign-in error:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    document.body.classList.add("signin-page");
+    return () => {
+      document.body.classList.remove("signin-page");
     };
+  }, []);
 
   return (
     <main>
-      {/* <label className="switch">
-        <input type="checkbox" checked onchange="switchTheme()" />
-        <span className="slider round">
-          <i className="material-symbols-outlined">wb_sunny</i>
-
-          <i className="material-symbols-outlined">nights_stay</i>
-        </span>
-      </label> */}
+      <ThemeSwitch />
       <div className="login-container">
-        <h2 className="form-title">Log in with</h2>
+        <button className="btn">
+          <Link to="/">
+            <i className="material-symbols-outlined">arrow_back</i>
+          </Link>
+        </button>
+
+        <h2 className="form-title">Login with</h2>
         <div className="social-login">
           <button onClick={handleGoogleSignIn} className="social-button">
             <img
@@ -118,31 +89,22 @@ export default function SigninPage() {
           <span>or</span>
         </p>
         <form onSubmit={LoginButton} className="login-form">
-          <div className="input-wrapper">
-            <input
-              id="signin-email"
-              type="email"
-              placeholder="Email Address"
-              className="input-field"
-              required
-              onChange={(e) => setEmail(e.target.value)} // this will get email from input and store it to email state.
-            />
-            <i className="material-symbols-outlined">mail</i>
-          </div>
-          <div className="input-wrapper">
-            <input
-              type="password"
-              placeholder="Password"
-              className="input-field"
-              required
-              onChange={(e) => setPassword(e.target.value)} // this will get password from input and store it to password state.
-            />
-            <i className="material-symbols-outlined">lock</i>
-          </div>
+          <InputField
+            id="sign-up-email"
+            type="email"
+            placeholder="Email Address"
+            icon="mail"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <PasswordInputField
+            id="sign-up-email"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <a href="#" className="forgot-password-link">
             Forgot Password?
           </a>
-          <button className="login-button">Log In</button>
+          <button className="login-button">Login</button>
           <p className="signup-text">
             Don&apos;t have an account? <Link to="/signup">Signup Instead</Link>
           </p>

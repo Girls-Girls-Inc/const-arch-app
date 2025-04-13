@@ -1,70 +1,110 @@
-'use client';
-
-import { useState } from 'react';
-import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider, facebookProvider } from '../firebase';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, googleProvider, facebookProvider } from "../firebase";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserContext";
+import ThemeSwitch from "../components/ThemeSwitch";
+import InputField from "../components/InputField";
+import PasswordInputField from "../components/PasswordInputField";
+import { Link } from "react-router-dom";
 
 export default function SignUp() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { setUser } = useUser();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   document.body.classList.add("signup-page");
+
+  //   return () => {
+  //     document.body.classList.remove("signup-page");
+  //   };
+  // }, []);
 
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate('/welcome');
+      setUser(user);
+      navigate("/welcome");
     } catch (error) {
-      console.error('Email signup error:', error.message);
+      console.error("Email signup error:", error.message);
     }
   };
 
   const handleGoogleSignUp = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      console.log('Google User:', result.user);
-      navigate('/welcome');
+      console.log("Google User:", result.user);
+      setUser(result.user);
+      navigate("/welcome");
     } catch (error) {
-      console.error('Google Sign-up error:', error.message);
+      console.error("Google Sign-up error:", error.message);
     }
   };
 
   const handleFacebookSignUp = async () => {
     try {
       const result = await signInWithPopup(auth, facebookProvider);
-      console.log('Facebook User:', result.user);
-      navigate('/welcome');
+      console.log("Facebook User:", result.user);
+      setUser(result.user);
+      navigate("/welcome");
     } catch (error) {
-      console.error('Facebook Sign-up error:', error.message);
+      console.error("Facebook Sign-up error:", error.message);
     }
   };
 
   return (
     <main>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSignup}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        /><br />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        /><br />
-        <button type="submit">Sign Up</button>
-      </form>
+      <ThemeSwitch />
+      <div className="login-container">
+        <h2 className="form-title">Login with</h2>
+        <div className="social-login">
+          <button onClick={handleGoogleSignUp} className="social-button">
+            <img
+              src="/icons/google.svg"
+              alt="Google Icon"
+              className="social-icon"
+            />
+            Google
+          </button>
+          <button onClick={handleFacebookSignUp} className="social-button">
+            <img
+              src="/icons/facebook.svg"
+              alt="Facebook Icon"
+              className="social-icon"
+            />
+            Facebook
+          </button>
+        </div>
+        <p className="seperator">
+          <span>or</span>
+        </p>
 
-      <hr />
+        <form onSubmit={handleSignup}>
+          <InputField
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            icon="mail"
+          />
 
-      <button onClick={handleGoogleSignUp}>Sign Up with Google</button><br />
-      <button onClick={handleFacebookSignUp}>Sign Up with Facebook</button>
+          <PasswordInputField
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button className="login-button" type="submit">
+            Sign Up
+          </button>
+          <p className="signup-text">
+            Already have an account? <Link to="/signin">Login Instead</Link>
+          </p>
+        </form>
+      </div>
     </main>
   );
 }

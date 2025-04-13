@@ -16,9 +16,7 @@ export default function WelcomePage() {
   return (
     <main>
       {user ? (
-        <h1>
-          Welcome {user.name} {user.surname}!
-        </h1>
+        <h1>Welcome {user.displayName || user.email}!</h1>
       ) : (
         <p>Loading...</p>
       )}
