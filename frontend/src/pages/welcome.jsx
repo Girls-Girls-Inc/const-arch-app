@@ -19,6 +19,13 @@ export default function WelcomePage() {
 
   return (
     <main className="welcome-page">
+      <div className="welcome-image-container">
+        <img
+          src="../src/assets/logo.png"
+          alt="Welcome"
+          className="welcome-image"
+        />
+      </div>
       <h1 className="welcome-title">
         Welcome{user.displayName ? `, ${user.displayName}` : "!"}
       </h1>

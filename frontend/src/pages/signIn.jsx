@@ -59,7 +59,7 @@ export default function SigninPage() {
   return (
     <main>
       <ThemeSwitch />
-      <div className="login-container">
+      <div className="log-signup-container">
         <button className="btn">
           <Link to="/">
             <i className="material-symbols-outlined">arrow_back</i>

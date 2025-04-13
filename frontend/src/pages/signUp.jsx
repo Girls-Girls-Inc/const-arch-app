@@ -74,8 +74,14 @@ export default function SignUp() {
   return (
     <main>
       <ThemeSwitch />
-      <div className="login-container">
-        <h2 className="form-title">Login with</h2>
+
+      <div className="log-signup-container">
+        <button className="btn">
+          <Link to="/">
+            <i className="material-symbols-outlined">arrow_back</i>
+          </Link>
+        </button>
+        <h2 className="form-title">Sign Up with</h2>
         <div className="social-login">
           <button onClick={handleGoogleSignUp} className="social-button">
             <img
