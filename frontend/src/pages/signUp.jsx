@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider, facebookProvider } from '../firebase';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
 
 export default function SignUp() {
+  const { setUser } = useUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -12,6 +14,7 @@ export default function SignUp() {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      setUser(user);
       navigate('/welcome');
     } catch (error) {
       console.error('Email signup error:', error.message);
@@ -22,6 +25,7 @@ export default function SignUp() {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       console.log('Google User:', result.user);
+      setUser(result.user);
       navigate('/welcome');
     } catch (error) {
       console.error('Google Sign-up error:', error.message);
@@ -32,6 +36,7 @@ export default function SignUp() {
     try {
       const result = await signInWithPopup(auth, facebookProvider);
       console.log('Facebook User:', result.user);
+      setUser(result.user);
       navigate('/welcome');
     } catch (error) {
       console.error('Facebook Sign-up error:', error.message);
