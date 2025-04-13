@@ -5,23 +5,24 @@ import { useNavigate } from "react-router-dom";
 
 export default function WelcomePage() {
   const { user } = useUser();
-  const router = useRouter();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!user) {
-      router.push("/signup"); // redirect to login if no user
-      navigate("/signup"); // redirect to login if no user
+      navigate("/signup"); // no user logged in
     }
-  }, [user]);
+  }, [user, navigate]);
+
+  if (!user) {
+    return <p>Loading...</p>; // Show loading while checking user
+  }
 
   return (
-    <main>
-      {user ? (
-        <h1>Welcome {user.displayName || user.email}!</h1>
-      ) : (
-        <p>Loading...</p>
-      )}
+    <main className="welcome-page">
+      <h1 className="welcome-title">
+        Welcome{user.displayName ? `, ${user.displayName}` : "!"}
+      </h1>
+      <p className="welcome-text">We're excited to have you here 🎉</p>
     </main>
   );
 }

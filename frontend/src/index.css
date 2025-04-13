@@ -89,7 +89,7 @@ body {
   padding: 0 5px;
 }
 
-.slider .material-icons {
+.slider .material-symbols-outlined {
   font-size: 20px;
   color: #fff;
   transition: 0.3s;
@@ -225,6 +225,14 @@ input:checked + .slider:before {
 }
 
 body.signin-page {
+  background-image: url("../src/assets/blobBg.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+body.signup-page {
   background-image: url("../src/assets/blobBg.png");
   background-size: cover;
   background-position: center center;
