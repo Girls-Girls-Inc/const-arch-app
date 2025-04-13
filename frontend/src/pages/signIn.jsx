@@ -4,6 +4,9 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { useUser } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import InputField from "../components/InputField";
+import PasswordInputField from "../components/PasswordInputField";
+import ThemeSwitch from "../components/ThemeSwitch";
 import "../index.css";
 import { signInUser } from "../firebase";
 
@@ -35,11 +38,6 @@ export default function SigninPage() {
       document.body.classList.remove("signin-page"); // Clean up by removing the class when the component is unmounted
     };
   }, []);
-
-  function switchTheme() {
-    var element = document.body;
-    element.classList.toggle("dark-mode");
-  }
 
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -86,16 +84,15 @@ export default function SigninPage() {
 
   return (
     <main>
-      {/* <label className="switch">
-        <input type="checkbox" checked onchange="switchTheme()" />
-        <span className="slider round">
-          <i className="material-symbols-outlined">wb_sunny</i>
-
-          <i className="material-symbols-outlined">nights_stay</i>
-        </span>
-      </label> */}
+      <ThemeSwitch />
       <div className="login-container">
-        <h2 className="form-title">Log in with</h2>
+        <button className="btn">
+          <Link to="/">
+            <i className="material-symbols-outlined">arrow_back</i>
+          </Link>
+        </button>
+
+        <h2 className="form-title">Login with</h2>
         <div className="social-login">
           <button onClick={handleGoogleSignIn} className="social-button">
             <img
