@@ -6,7 +6,7 @@ import {
 } from "firebase/auth";
 import { auth, googleProvider, facebookProvider } from "../firebase";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../context/userContext";
 import ThemeSwitch from "../components/ThemeSwitch";
 import InputField from "../components/InputField";
 import PasswordInputField from "../components/PasswordInputField";

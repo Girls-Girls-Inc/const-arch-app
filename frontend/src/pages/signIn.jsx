@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../context/userContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { signInUser } from "../firebase";
