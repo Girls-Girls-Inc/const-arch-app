@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { UserProvider } from "./context/UserContext"; // Make sure path is correct
+import { UserProvider } from "./context/userContext"; // Make sure path is correct
 import App from "./App.jsx";
 import "./index.css";
 
