@@ -12,7 +12,9 @@
   "dependencies": {
     "@react-oauth/google": "^0.12.1",
     "const-arch-app": "file:..",
+    "firebase": "^11.6.0",
     "jwt-decode": "^4.0.0",
+    "next-auth": "^4.24.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.5.0"

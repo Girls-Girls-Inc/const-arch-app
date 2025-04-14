@@ -1,0 +1,12 @@
+import React from "react";
+
+const Loader = ({ message = "Loading..." }) => {
+  return (
+    <main className="loader-page">
+      <div className="loader"></div>
+      <p>{message}</p>
+    </main>
+  );
+};
+
+export default Loader;
