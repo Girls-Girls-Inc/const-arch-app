@@ -4,10 +4,12 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build": "npm run build --prefix frontend",
+    "prebuild": "npm install --prefix frontend",
+    "build": "npm run frontend:build",
+    "frontend:build": "npm run build --prefix frontend",
     "start": "node app.js",
     "serve": "npm run build && npm start",
-    "install-all": "npm install && cd frontend && npm install"
+    "install-all": "npm install && npm install --prefix frontend"
   },
   "author": "",
   "license": "ISC",
