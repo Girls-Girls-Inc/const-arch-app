@@ -36,7 +36,7 @@ export default function SignUp() {
       });
 
       setUser({ ...user, displayName: name }); // also update context with the name
-      navigate("/welcome");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Email signup error:", error.message);
     }
@@ -48,7 +48,7 @@ export default function SignUp() {
       const result = await signInWithPopup(auth, googleProvider);
       console.log("Google User:", result.user);
       setUser(result.user);
-      navigate("/welcome");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Google Sign-up error:", error.message);
     }
@@ -59,7 +59,7 @@ export default function SignUp() {
       const result = await signInWithPopup(auth, facebookProvider);
       console.log("Facebook User:", result.user);
       setUser(result.user);
-      navigate("/welcome");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Facebook Sign-up error:", error.message);
     }

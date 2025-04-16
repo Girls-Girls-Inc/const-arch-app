@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom"; // Remove BrowserRouter from h
 import Home from "./pages/home";
 import SigninPage from "./pages/signIn";
 import SignupPage from "./pages/signUp";
-import WelcomePage from "./pages/welcome";
+import WelcomePage from "./pages/dashboard";
 
 const App = () => {
   return (
@@ -11,7 +11,7 @@ const App = () => {
       <Route path="/" element={<Home />} />
       <Route path="/signin" element={<SigninPage />} />
       <Route path="/signup" element={<SignupPage />} />
-      <Route path="/welcome" element={<WelcomePage />} />
+      <Route path="/dashboard" element={<WelcomePage />} />
       <Route path="/error" element={<WelcomePage />} />
       {/* Add other routes here */}
     </Routes>

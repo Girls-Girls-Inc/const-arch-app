@@ -21,7 +21,7 @@ export default function SigninPage() {
     try {
       const user = await signInUser(email, password);
       setUser(user);
-      navigate("/welcome");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Login failed:", error.message);
     }
@@ -32,7 +32,7 @@ export default function SigninPage() {
       const result = await signInWithPopup(auth, googleProvider);
       console.log("Google User:", result.user);
       setUser(result.user);
-      navigate("/welcome");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Google Sign-in error:", error.message);
     }
@@ -43,7 +43,7 @@ export default function SigninPage() {
       const result = await signInWithPopup(auth, facebookProvider);
       console.log("Facebook User:", result.user);
       setUser(result.user);
-      navigate("/welcome");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Facebook Sign-in error:", error.message);
     }
