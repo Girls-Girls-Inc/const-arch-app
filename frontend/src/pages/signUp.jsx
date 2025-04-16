@@ -1,53 +1,55 @@
 import { useState, useEffect } from "react";
-import {
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-  updateProfile,
-} from "firebase/auth";
-import { auth, googleProvider, facebookProvider } from "../firebase";
+import { googleProvider, facebookProvider } from "../Firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/userContext";
 import ThemeSwitch from "../components/ThemeSwitch";
 import InputField from "../components/InputField";
 import PasswordInputField from "../components/PasswordInputField";
 import { Link } from "react-router-dom";
+import { signUpWithEmail, withProvider } from "../Firebase/authorisation";
 
 export default function SignUp() {
   const { setUser } = useUser();
-  const [name, setName] = useState(""); // NEW name state
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMsg("");
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
-
-      await updateProfile(user, {
-        displayName: name,
-      });
-
-      setUser({ ...user, displayName: name }); // also update context with the name
+      const user = await signUpWithEmail(email, password, name);
+      setUser({ ...user, displayName: name });
       navigate("/welcome");
     } catch (error) {
+      switch (error.code) {
+        case "auth/invalid-email":
+          setErrorMsg("Please enter a valid email address!");
+          break;
+        case "auth/email-already-in-use":
+          setErrorMsg("This email is already in use!");
+          break;
+        case "auth/weak-password":
+          setErrorMsg("Password should be at least 6 characters!");
+          break;
+        default:
+          setErrorMsg("Signup failed. " + error.message);
+      }
       console.error("Email signup error:", error.message);
     }
+  
     setLoading(false);
   };
 
   const handleGoogleSignUp = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
-      console.log("Google User:", result.user);
-      setUser(result.user);
+      const user = await withProvider(googleProvider);
+      console.log("Google User:", user);
+      setUser(user);
       navigate("/welcome");
     } catch (error) {
       console.error("Google Sign-up error:", error.message);
@@ -56,9 +58,9 @@ export default function SignUp() {
 
   const handleFacebookSignUp = async () => {
     try {
-      const result = await signInWithPopup(auth, facebookProvider);
-      console.log("Facebook User:", result.user);
-      setUser(result.user);
+      const user = await withProvider(facebookProvider);
+      console.log("Facebook User:", user);
+      setUser(user);
       navigate("/welcome");
     } catch (error) {
       console.error("Facebook Sign-up error:", error.message);
@@ -124,7 +126,7 @@ export default function SignUp() {
             icon="person"
             required
           />
-
+          
           <InputField
             type="email"
             placeholder="Email"
@@ -140,6 +142,8 @@ export default function SignUp() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+
+          <p className="error-text">{errorMsg}</p>
 
           <button className="login-button" type="submit">
             Sign Up
