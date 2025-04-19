@@ -21,7 +21,7 @@ export default function SigninPage() {
     try {
       const user = await signInUser(email, password);
       setUser(user);
-      navigate("/welcome");
+      navigate("/settings");
     } catch (error) {
       console.error("Login failed:", error.message);
     }
