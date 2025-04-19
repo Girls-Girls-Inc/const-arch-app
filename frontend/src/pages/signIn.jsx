@@ -22,7 +22,7 @@ export default function SigninPage() {
       setUser(user);
       navigate("/dashboard");
     } catch (error) {
-      switch(error.code){
+      switch (error.code) {
         case "auth/invalid-credential":
           setErrorMsg("Email or Password is incorrect!");
           break;
@@ -32,12 +32,13 @@ export default function SigninPage() {
       console.error("Login failed:", error.message);
     }
   };
-  
+
   const handleGoogleSignIn = async () => {
     try {
       const user = await withProvider(googleProvider);
       setUser(user);
       console.log("Google User:", user);
+
       navigate("/dashboard");
     } catch (error) {
       console.error("Google Sign-in error:", error.message);
