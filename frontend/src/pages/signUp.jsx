@@ -8,6 +8,43 @@ import PasswordInputField from "../components/PasswordInputField";
 import { Link } from "react-router-dom";
 import { signUpWithEmail, withProvider } from "../Firebase/authorisation";
 
+function validatePassword(password) 
+{
+  const errors = [];
+
+  if (password.length < 8 || password.length > 16) 
+  {
+    errors.push("be 8-16 characters");
+  }
+
+  if (!/[A-Z]/.test(password)) 
+  {
+    errors.push("include an uppercase letter");
+  }
+
+  if (!/[a-z]/.test(password)) 
+  {
+    errors.push("include a lowercase letter");
+  }
+
+  if (!/\d/.test(password)) 
+  {
+    errors.push("include a digit");
+  }
+
+  if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) 
+  {
+    errors.push("include a special character");
+  }
+
+  if (/\s/.test(password)) 
+  {
+    errors.push("not contain spaces");
+  }
+
+  return errors;
+}
+
 export default function SignUp() {
   const { setUser } = useUser();
   const [name, setName] = useState("");
@@ -19,8 +56,15 @@ export default function SignUp() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setErrorMsg("");
+  
+    const passwordErrors = validatePassword(password);
+    if (passwordErrors.length > 0) {
+      setErrorMsg(`Password must ${passwordErrors.join(", ")}.`);
+      return;
+    }
+  
+    setLoading(true);
     try {
       const user = await signUpWithEmail(email, password, name);
       setUser({ ...user, displayName: name });
@@ -34,7 +78,7 @@ export default function SignUp() {
           setErrorMsg("This email is already in use!");
           break;
         case "auth/weak-password":
-          setErrorMsg("Password should be at least 6 characters!");
+          setErrorMsg("Password should be at least 8 characters!");
           break;
         default:
           setErrorMsg("Signup failed. " + error.message);
@@ -43,7 +87,7 @@ export default function SignUp() {
     }
   
     setLoading(false);
-  };
+  };   
 
   const handleGoogleSignUp = async () => {
     try {
