@@ -4,6 +4,7 @@ input::-ms-reveal,
 input::-ms-clear {
   display: none;
 }
+
 :root {
   width: 100%;
   padding: 0 0.6rem;
@@ -17,8 +18,7 @@ input::-ms-clear {
   --light-bg: #f5f5f5;
 }
 
-@media (prefers-color-scheme: dark) {
-}
+@media (prefers-color-scheme: dark) {}
 
 * {
   font-family: "Poppins", sans-serif;
@@ -118,7 +118,7 @@ body {
   transition: 0.3s;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: var(--south-africa-yellow);
 }
 
@@ -134,7 +134,7 @@ input:checked + .slider {
   transition: 0.4s;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
@@ -252,7 +252,7 @@ input:checked + .slider:before {
   border-color: #555;
 }
 
-.input-wrapper .input-field:focus ~ i {
+.input-wrapper .input-field:focus~i {
   color: #555;
 }
 
@@ -278,6 +278,7 @@ body.signin-page {
   background-attachment: fixed;
   min-height: 100vh;
 }
+
 body.signup-page {
   padding: 10px;
   background-image: url("/assets/blobBg.png");
@@ -367,6 +368,7 @@ a {
   margin: 1.75rem 0 0 0.31rem;
   font-weight: 500;
 }
+
 .input-wrapper .lock-icon {
   color: #999;
   position: absolute;
@@ -389,18 +391,19 @@ a {
 }
 
 .input-wrapper .eye-icon:hover {
-  color: var(--south-africa-green); /* change color on hover */
+  color: var(--south-africa-green);
+  /* change color on hover */
 }
 
 .input-wrapper .input-field:focus {
   border-color: #555;
 }
 
-.input-wrapper .input-field:focus ~ .lock-icon {
+.input-wrapper .input-field:focus~.lock-icon {
   color: #555;
 }
 
-.input-wrapper .input-field:focus ~ .eye-icon {
+.input-wrapper .input-field:focus~.eye-icon {
   color: #555;
 }
 
@@ -417,6 +420,7 @@ a {
   height: auto;
   margin: 0 auto;
 }
+
 /* Loader styles */
 .loader-container {
   display: flex;
@@ -436,6 +440,7 @@ a {
   height: 50px;
   animation: spin 1s linear infinite, fadeColors 4s ease-in-out infinite;
 }
+
 .dashboard-container {
   display: flex;
   flex-direction: row;
@@ -445,12 +450,15 @@ a {
   padding: 2rem;
   background-color: #f3f3f3;
 }
+
 .dashboard-container-lefty {
   flex: 1;
   display: flex;
   position: relative;
-  flex-direction: column; /* <-- Change this */
-  justify-content: space-between; /* <-- Push items to top & bottom */
+  flex-direction: column;
+  /* <-- Change this */
+  justify-content: space-between;
+  /* <-- Push items to top & bottom */
   height: 100vh;
   background-color: #f3f3f3;
   padding: 2rem 1rem;
@@ -465,6 +473,7 @@ a {
   padding: 2rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
+
 .dashboard-nav-item {
   background-color: #f3f3f3;
   border-radius: 7px;
@@ -472,11 +481,12 @@ a {
   display: flex;
   align-items: center;
   font-weight: 600;
-  color:#007749;
+  color: #007749;
   cursor: pointer;
   list-style: none;
-  padding-left: 1rem; 
+  padding-left: 1rem;
 }
+
 .dashboard-nav-item:hover {
   background-color: #007749;
   box-shadow: 0 4px 12px rgba(128, 90, 213, 0.2);
@@ -487,6 +497,7 @@ a {
   margin-right: 1rem;
   flex-shrink: 0;
 }
+
 .nav-padding-top {
   padding-top: 35rem;
 }
@@ -496,6 +507,7 @@ a {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -506,15 +518,19 @@ a {
   0% {
     border-top-color: var(--south-africa-green);
   }
+
   25% {
     border-top-color: var(--south-africa-yellow);
   }
+
   50% {
     border-top-color: var(--south-africa-red);
   }
+
   75% {
     border-top-color: var(--south-africa-blue);
   }
+
   100% {
     border-top-color: var(--south-africa-green);
   }
@@ -524,4 +540,38 @@ a {
   color: red;
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
+}
+
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 16px;
+  margin-top: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  color: white;
+  font-weight: bold;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 250px;
+}
+
+.toast.success {
+  background-color: #4caf50;
+}
+
+.toast.error {
+  background-color: #f44336;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  margin-left: 10px;
+  cursor: pointer;
 }
