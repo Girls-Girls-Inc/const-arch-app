@@ -1,0 +1,31 @@
+.dropzone-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.dropzone-container {
+  width: 100%;
+  max-width: 500px;
+  padding: 2rem;
+  border: 2px dashed #aaa;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  color: #555;
+  text-align: center;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.dropzone-container.active {
+  border-color: var(--south-africa-green);
+
+  color: var(--south-africa-green);
+}
+
+.dropzone-container p {
+  margin: 0;
+  font-size: 1rem;
+}

@@ -20,9 +20,9 @@ export default function SigninPage() {
     try {
       const user = await signInWithEmail(email, password);
       setUser(user);
-      navigate("/welcome");
+      navigate("/dashboard");
     } catch (error) {
-      switch(error.code){
+      switch (error.code) {
         case "auth/invalid-credential":
           setErrorMsg("Email or Password is incorrect!");
           break;
@@ -32,12 +32,12 @@ export default function SigninPage() {
       console.error("Login failed:", error.message);
     }
   };
-  
+
   const handleGoogleSignIn = async () => {
     try {
       const user = await withProvider(googleProvider);
       setUser(user);
-      navigate("/welcome");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Google Sign-in error:", error.message);
     }
@@ -47,7 +47,7 @@ export default function SigninPage() {
     try {
       const user = await withProvider(facebookProvider);
       setUser(user);
-      navigate("/welcome");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Facebook Sign-in error:", error.message);
     }

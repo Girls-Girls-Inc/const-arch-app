@@ -24,7 +24,7 @@ export default function SignUp() {
     try {
       const user = await signUpWithEmail(email, password, name);
       setUser({ ...user, displayName: name });
-      navigate("/welcome");
+      navigate("/dashboard");
     } catch (error) {
       switch (error.code) {
         case "auth/invalid-email":
@@ -41,7 +41,7 @@ export default function SignUp() {
       }
       console.error("Email signup error:", error.message);
     }
-  
+
     setLoading(false);
   };
 
@@ -50,7 +50,7 @@ export default function SignUp() {
       const user = await withProvider(googleProvider);
       console.log("Google User:", user);
       setUser(user);
-      navigate("/welcome");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Google Sign-up error:", error.message);
     }
@@ -61,7 +61,7 @@ export default function SignUp() {
       const user = await withProvider(facebookProvider);
       console.log("Facebook User:", user);
       setUser(user);
-      navigate("/welcome");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Facebook Sign-up error:", error.message);
     }
@@ -126,7 +126,7 @@ export default function SignUp() {
             icon="person"
             required
           />
-          
+
           <InputField
             type="email"
             placeholder="Email"
