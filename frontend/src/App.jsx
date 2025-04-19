@@ -5,6 +5,7 @@ import Home from "./pages/home";
 import SigninPage from "./pages/signIn";
 import SignupPage from "./pages/signUp";
 import WelcomePage from "./pages/dashboard";
+import SettingsPage from "./pages/settings";
 
 const App = () => {
   return (

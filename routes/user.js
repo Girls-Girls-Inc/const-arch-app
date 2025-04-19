@@ -1,7 +1,7 @@
 // routes/user.js
 const express = require("express");
-const admin = require("../modules/firebase"); // Firebase Admin SDK
-const verifyToken = require("../modules/verifyToken"); // Firebase token verification middleware
+const admin = require("../func/firebase"); // Firebase Admin SDK
+const verifyToken = require("../func/verifyToken"); // Firebase token verification middleware
 
 const router = express.Router();
 
