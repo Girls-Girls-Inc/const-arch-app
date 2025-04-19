@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import "../index.css";
 import ThemeSwitch from "../components/ThemeSwitch";
+import NavigationComponent from "../components/NavigationComponent";
 
 export default function Home() {
   useEffect(() => {
@@ -13,7 +14,6 @@ export default function Home() {
   }, []);
   return (
     <main>
-      <ThemeSwitch />
       <div className="home-container">
         <h2>Constitutional Archive App</h2>
         <div className="welcome-image-container">
@@ -30,6 +30,12 @@ export default function Home() {
           </Link>
           <Link className="btn" to="/signUp">
             Sign Up
+          </Link>
+          <Link className="btn" to="/directory">
+            Directory
+          </Link>
+          <Link className="btn" to="/dashboard">
+            Dashboard
           </Link>
         </div>
       </div>

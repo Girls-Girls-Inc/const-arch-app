@@ -38,6 +38,7 @@ export default function SigninPage() {
       const user = await withProvider(googleProvider);
       setUser(user);
       console.log("Google User:", user);
+
       navigate("/dashboard");
     } catch (error) {
       console.error("Google Sign-in error:", error.message);
