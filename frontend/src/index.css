@@ -433,11 +433,11 @@ a {
   background-color: #f3f3f3;
 }
 .dashboard-container-lefty {
+  background-color: var(--south-africa-yellow);
   flex: 1;
   display: flex;
   position: relative;
   flex-direction: column; /* <-- Change this */
-  justify-content: space-between; /* <-- Push items to top & bottom */
   height: 100vh;
   background-color: #f3f3f3;
   padding: 2rem 1rem;
@@ -445,7 +445,6 @@ a {
 
 .dashboard-container-righty {
   flex: 5;
-  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -490,7 +489,7 @@ a {
 .dashboard-details {
   display: flex;
   flex-direction: column;
-  align-items: center; /* center text */
+  align-items: center;
   gap: 2rem;
 }
 
@@ -521,6 +520,7 @@ a {
   border: 4px solid #007749;
   transition: transform 0.2s ease;
 }
+
 .profile-picture-wrapper:hover img {
   transform: scale(1.05);
   box-shadow: 0 0 10px rgba(126, 34, 206, 0.3);
@@ -536,4 +536,28 @@ a {
   padding: 0.25rem 0.5rem;
   border-radius: 9999px;
   cursor: pointer;
+}
+
+.loading-message {
+  text-align: center;
+  margin-top: 2.5rem;
+  font-size: 1.25rem;
+  color: #6b7280;
+}
+
+.detail-label {
+  color: #4b5563;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.detail-text {
+  font-size: 1.125rem;
+  color: #111827;
+}
+
+.detail-muted {
+  font-size: 1.125rem;
+  color: #9ca3af;
+  font-style: italic;
 }
