@@ -125,7 +125,7 @@
   background-color: #222;
   color: #999;
   padding: 1rem 2rem;
-  z-index: 1000; /* Keep the header on top */
+
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
