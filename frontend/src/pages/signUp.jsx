@@ -85,7 +85,7 @@ export default function SignUp() {
       }
       console.error("Email signup error:", error.message);
     }
-  
+
     setLoading(false);
   };   
 
@@ -170,7 +170,7 @@ export default function SignUp() {
             icon="person"
             required
           />
-          
+
           <InputField
             type="email"
             placeholder="Email"

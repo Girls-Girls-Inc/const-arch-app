@@ -1,0 +1,153 @@
+.custom-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem 2rem;
+  background: #222;
+  color: #999;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.header-title-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.header-title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.header-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+/* overlay */
+.drawer-overlay {
+  display: none;
+}
+.drawer-overlay.open {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 998;
+}
+
+.drawer-overlay {
+  display: none;
+}
+
+.drawer-overlay.open {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 998;
+}
+
+/* Mobile Menu */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: #555;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .menu .btn {
+    color: #555;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    margin: 1px;
+  }
+
+  .menu .btn:hover {
+    background: var(--south-africa-green);
+    color: white;
+  }
+
+  .menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    background: var(--light-bg);
+    flex-direction: column;
+    padding: 4rem 1rem 1rem;
+    gap: 1.5rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+  }
+
+  .dark-theme .menu {
+    background: var(--dark-bg);
+  }
+
+  .menu.open {
+    transform: translateX(0);
+  }
+}
+
+.custom-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #222;
+  color: #999;
+  padding: 1rem 2rem;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-title-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.header-title {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.header-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/*  */

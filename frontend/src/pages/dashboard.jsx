@@ -1,12 +1,16 @@
 "use client";
 import { useUser } from "../context/userContext";
 import { useEffect, useState } from "react";
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../index.css";
+import IconButton from "../components/IconButton";
+import InputImage from "../components/InputImage";
+import NavigationComponent from "../components/NavigationComponent";
 
-export default function WelcomePage() {
+const Dashboard = () => {
   const { user } = useUser();
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -14,56 +18,79 @@ export default function WelcomePage() {
     }
   }, [user, navigate]);
 
-  if (!user) return <p className="text-center mt-10">Loading...</p>;
+  if (!user) return <p className="loading-message">Loading...</p>;
 
   return (
-  <section className = "dashboard-container">
-    <section className="dashcoard-container-lefty">
-    {/* Top nav items */}
-      <NavLink to="/profile" className="dashboard-nav-item">
-        <p>My Profile</p>
-      </NavLink>
-      <NavLink to="/bookmarks" className="dashboard-nav-item">
-        <p>Bookmarks</p>
-      </NavLink>
+    <main>
+      {/* Hamburger only visible on mobile */}
+      <button
+        className="hamburger-btn"
+        onClick={() => setMenuOpen((prev) => !prev)}
+      >
+        ☰
+      </button>
 
-    {/* Bottom nav item */}
-      <section className="nav-padding-top">
-        <NavLink to="/settings" className="dashboard-nav-item">
-          <p>Settings</p>
-        </NavLink>
-      </section>
-    </section>
-    <section className="dashboard-container-righty">
-      <header className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">
-            Welcome, {user.displayName || "User"}
-          </h1>
-          <p className="text-gray-500">Member since April '25</p>
-        </header>
+      <section className={`dashboard-container`}>
+        <section
+          className={`dashboard-container-lefty ${menuOpen ? "open" : ""}`}
+        >
+          <section className="nav-top">
+            <IconButton
+              icon={"account_circle"}
+              label="My Profile"
+              route="/profile"
+            />
+            <IconButton
+              icon={"bookmark"}
+              label="Bookmarks"
+              route="/bookmarks"
+            />
+            <IconButton icon={"folder"} label="Directory" route="/directory" />
+          </section>
 
-        <section className="grid grid-cols-2 gap-6 bg-gray-50 p-6 rounded-lg shadow-sm w-full max-w-3xl">
-          <article>
-            <h3 className="text-gray-600 font-medium">First name</h3>
-            <p className="text-lg">{user.displayName}</p>
-          </article>
-          <article>
-            <h3 className="text-gray-600 font-medium">Phone number</h3>
-            <p className="text-lg">{user.phone || "Not provided"}</p>
-          </article>
-          <article>
-            <h3 className="text-gray-600 font-medium">Email address</h3>
-            <p className="text-lg">{user.email}</p>
-          </article>
-          <article>
-            <h3 className="text-gray-600 font-medium">Physical address</h3>
-            <p className="text-lg text-gray-400 italic">No address</p>
-          </article>
+          <section className="nav-bottom">
+            <IconButton icon={"settings"} label="Settings" route="/settings" />
+          </section>
         </section>
 
-        <footer>
-        </footer>
+        <section className="dashboard-container-righty">
+          <main className="dashboard-details">
+            <InputImage />
+            <section className="dashboard-details-grid">
+              <article>
+                <h3 className="detail-label">
+                  <i className="material-symbols-outlined">badge</i> First name
+                </h3>
+                <p className="detail-text">{user.displayName}</p>
+              </article>
+              <article>
+                <h3 className="detail-label">
+                  <i className="material-symbols-outlined">call</i> Phone number
+                </h3>
+                <p className="detail-text">{user.phone || "Not provided"}</p>
+              </article>
+              <article>
+                <h3 className="detail-label">
+                  <i className="material-symbols-outlined">mail</i> Email
+                  address
+                </h3>
+                <p className="detail-text">{user.email}</p>
+              </article>
+              <article>
+                <h3 className="detail-label">
+                  <i className="material-symbols-outlined">home</i> Physical
+                  address
+                </h3>
+                <p className="detail-muted">No address</p>
+              </article>
+            </section>
+
+            <footer></footer>
+          </main>
+        </section>
       </section>
-  </section>
+    </main>
   );
-}
+};
+
+export default Dashboard;
