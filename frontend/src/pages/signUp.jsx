@@ -1,54 +1,100 @@
 import { useState, useEffect } from "react";
-import {
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-  updateProfile,
-} from "firebase/auth";
-import { auth, googleProvider, facebookProvider } from "../firebase";
+import { googleProvider, facebookProvider } from "../Firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/userContext";
 import ThemeSwitch from "../components/ThemeSwitch";
 import InputField from "../components/InputField";
 import PasswordInputField from "../components/PasswordInputField";
 import { Link } from "react-router-dom";
+import { signUpWithEmail, withProvider } from "../Firebase/authorisation";
+
+function validatePassword(password) 
+{
+  const errors = [];
+
+  if (password.length < 8 || password.length > 16) 
+  {
+    errors.push("be 8-16 characters");
+  }
+
+  if (!/[A-Z]/.test(password)) 
+  {
+    errors.push("include an uppercase letter");
+  }
+
+  if (!/[a-z]/.test(password)) 
+  {
+    errors.push("include a lowercase letter");
+  }
+
+  if (!/\d/.test(password)) 
+  {
+    errors.push("include a digit");
+  }
+
+  if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) 
+  {
+    errors.push("include a special character");
+  }
+
+  if (/\s/.test(password)) 
+  {
+    errors.push("not contain spaces");
+  }
+
+  return errors;
+}
 
 export default function SignUp() {
   const { setUser } = useUser();
-  const [name, setName] = useState(""); // NEW name state
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setErrorMsg("");
+  
+    const passwordErrors = validatePassword(password);
+    if (passwordErrors.length > 0) {
+      setErrorMsg(`Password must ${passwordErrors.join(", ")}.`);
+      return;
+    }
+  
     setLoading(true);
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
-
-      await updateProfile(user, {
-        displayName: name,
-      });
-
-      setUser({ ...user, displayName: name }); // also update context with the name
-      navigate("/welcome");
+      const user = await signUpWithEmail(email, password, name);
+      setUser({ ...user, displayName: name });
+      navigate("/dashboard");
     } catch (error) {
+      switch (error.code) {
+        case "auth/invalid-email":
+          setErrorMsg("Please enter a valid email address!");
+          break;
+        case "auth/email-already-in-use":
+          setErrorMsg("This email is already in use!");
+          break;
+        case "auth/weak-password":
+          setErrorMsg("Password should be at least 8 characters!");
+          break;
+        default:
+          setErrorMsg("Signup failed. " + error.message);
+      }
       console.error("Email signup error:", error.message);
     }
+  
     setLoading(false);
-  };
+  };   
 
   const handleGoogleSignUp = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
-      console.log("Google User:", result.user);
-      setUser(result.user);
-      navigate("/welcome");
+      const user = await withProvider(googleProvider);
+      console.log("Google User:", user);
+      setUser(user);
+      navigate("/dashboard");
     } catch (error) {
       console.error("Google Sign-up error:", error.message);
     }
@@ -56,10 +102,10 @@ export default function SignUp() {
 
   const handleFacebookSignUp = async () => {
     try {
-      const result = await signInWithPopup(auth, facebookProvider);
-      console.log("Facebook User:", result.user);
-      setUser(result.user);
-      navigate("/welcome");
+      const user = await withProvider(facebookProvider);
+      console.log("Facebook User:", user);
+      setUser(user);
+      navigate("/dashboard");
     } catch (error) {
       console.error("Facebook Sign-up error:", error.message);
     }
@@ -124,7 +170,7 @@ export default function SignUp() {
             icon="person"
             required
           />
-
+          
           <InputField
             type="email"
             placeholder="Email"
@@ -140,6 +186,8 @@ export default function SignUp() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+
+          <p className="error-text">{errorMsg}</p>
 
           <button className="login-button" type="submit">
             Sign Up
