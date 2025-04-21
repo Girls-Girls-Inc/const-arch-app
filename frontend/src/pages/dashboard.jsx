@@ -24,9 +24,8 @@ const Dashboard = () => {
 
   return (
     <main>
-      {/* Hamburger only visible on mobile */}
       <button
-        className="hamburger-btn"
+        className="hamburger-btn_ca"
         onClick={() => setMenuOpen((prev) => !prev)}
       >
         ☰
