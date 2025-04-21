@@ -7,14 +7,19 @@ import {
     getAuth,
 } from "firebase/auth";
 import { auth } from "./firebase";
+import axios from 'axios';
 
 export async function signUpWithEmail(email, password, name) {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-    if (name) {
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  const user = userCredential.user;
+
+  if (name) {
       await updateProfile(user, { displayName: name });
-    }
-    return user;
+  }
+
+  await axios.post('http://localhost:4000/api/addUser', user);
+
+  return user;
 }
 
 export async function signInWithEmail(email, password) {
@@ -30,6 +35,7 @@ export async function signInWithEmail(email, password) {
 
 export async function withProvider(provider){
     const result = await signInWithPopup(auth, provider);
+    await axios.post('http://localhost:4000/api/addUser', result.user);
     return result.user
 }
 

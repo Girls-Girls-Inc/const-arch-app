@@ -1,10 +1,9 @@
 class User {
-    constructor(id, firstName, lastName, email, role, photoURL, signUpDate, profileComplete){
+    constructor(id, name, email, role, photoURL, signUpDate, profileComplete){
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name,
         this.email = email;
-        this.role = role;
+        this.isAdmin = role;
         this.photoURL = photoURL;
         this.signUpDate = signUpDate;
         this.profileComplete = profileComplete;

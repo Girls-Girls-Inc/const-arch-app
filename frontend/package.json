@@ -14,6 +14,7 @@
     "@react-oauth/google": "^0.12.1",
     "@redux-devtools/extension": "^3.3.0",
     "@reduxjs/toolkit": "^2.7.0",
+    "axios": "^1.8.4",
     "const-arch-app": "file:..",
     "dropzone": "^6.0.0-beta.2",
     "firebase": "^11.6.0",
