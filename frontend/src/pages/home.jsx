@@ -34,7 +34,7 @@ export default function Home() {
           <Link className="btn" to="/directory">
             Directory
           </Link>
-          <Link className="btn" to="/dashboard">
+          <Link className="btn" to="/bookmarks">
             Dashboard
           </Link>
         </div>

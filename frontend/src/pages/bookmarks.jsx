@@ -5,10 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { handleLogout } from "../Firebase/authorisation";
 import "../index.css";
 import IconButton from "../components/IconButton";
-import InputImage from "../components/InputImage";
-import NavigationComponent from "../components/NavigationComponent";
+  
 
-const Dashboard = () => {
+const Bookmarks = () => {
   const { user, loading, setUser } = useUser();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -21,6 +20,24 @@ const Dashboard = () => {
   
   if (loading) return <p className="loading-message">Loading...</p>;
   if (!user) return null;
+
+  
+    const [bookmarks, setBookmarks] = useState([
+        {
+        id: "1",
+        title: "Treaty of Westphalia",
+        date: "1648-10-24",
+        description: "A series of peace treaties ending the Thirty Years' War.",
+        image: "https://via.placeholder.com/120x80.png?text=Westphalia",
+        },
+        {
+        id: "2",
+        title: "Magna Carta",
+        date: "1215-06-15",
+        description: "A charter of rights agreed to by King John of England.",
+        image: "https://via.placeholder.com/120x80.png?text=Magna+Carta",
+        },
+    ]);
 
   return (
     <main>
@@ -57,43 +74,27 @@ const Dashboard = () => {
         </section>
 
         <section className="dashboard-container-righty">
-          <main className="dashboard-details">
-            <InputImage />
-            <section className="dashboard-details-grid">
-              <article>
-                <h3 className="detail-label">
-                  <i className="material-symbols-outlined">badge</i> First name
-                </h3>
-                <p className="detail-text">{user.displayName}</p>
-              </article>
-              <article>
-                <h3 className="detail-label">
-                  <i className="material-symbols-outlined">call</i> Phone number
-                </h3>
-                <p className="detail-text">{user.phone || "Not provided"}</p>
-              </article>
-              <article>
-                <h3 className="detail-label">
-                  <i className="material-symbols-outlined">mail</i> Email
-                  address
-                </h3>
-                <p className="detail-text">{user.email}</p>
-              </article>
-              <article>
-                <h3 className="detail-label">
-                  <i className="material-symbols-outlined">home</i> Physical
-                  address
-                </h3>
-                <p className="detail-muted">No address</p>
-              </article>
+            <section> 
+                <h2 style={{ color: "#007749" }}>
+                    Bookmarks
+                </h2>
             </section>
-
-            <footer></footer>
-          </main>
+            <section className="bookmark-grid">
+                {bookmarks.map((bookmark) => (
+                    <article key={bookmark.id} className="bookmark-card">
+                    <img src={bookmark.image} alt={bookmark.title} className="bookmark-image" />
+                    <div className="bookmark-info">
+                        <h3 className="bookmark-title">{bookmark.title}</h3>
+                        <p className="bookmark-date">{new Date(bookmark.date).toDateString()}</p>
+                        <p className="bookmark-description">{bookmark.description}</p>
+                    </div>
+                    </article>
+        ))}
+        </section>
         </section>
       </section>
     </main>
   );
 };
 
-export default Dashboard;
+export default Bookmarks;
