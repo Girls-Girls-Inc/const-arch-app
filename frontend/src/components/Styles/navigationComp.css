@@ -81,14 +81,14 @@
     display: block;
   }
 
-  .menu .btn {
+  .menu .btn_ca {
     color: #555;
     width: 100%;
     padding: 0.5rem 1rem;
     margin: 1px;
   }
 
-  .menu .btn:hover {
+  .menu .btn_ca:hover {
     background: var(--south-africa-green);
     color: white;
   }

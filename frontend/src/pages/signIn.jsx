@@ -7,6 +7,7 @@ import PasswordInputField from "../components/PasswordInputField";
 import ThemeSwitch from "../components/ThemeSwitch";
 import { withProvider, signInWithEmail } from "../Firebase/authorisation";
 import { facebookProvider, googleProvider } from "../Firebase/firebase";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function SigninPage() {
   const { setUser } = useUser();
@@ -22,13 +23,17 @@ export default function SigninPage() {
       setUser(user);
       navigate("/dashboard");
     } catch (error) {
+      let message = "Login failed. Please try again.";
       switch (error.code) {
         case "auth/invalid-credential":
-          setErrorMsg("Email or Password is incorrect!");
+          message = "Email or Password is incorrect!";
           break;
         default:
-          setErrorMsg("Signup failed. " + error.message);
+          message = "Login failed. " + error.message;
       }
+      toast.error(message, {
+        duration: 5000,
+      });
       console.error("Login failed:", error.message);
     }
   };
@@ -62,9 +67,10 @@ export default function SigninPage() {
 
   return (
     <main>
-      <ThemeSwitch />
+      <Toaster />
+      {/* <ThemeSwitch /> */}
       <div className="log-signup-container">
-        <button className="btn">
+        <button className="btn_ca">
           <Link to="/">
             <i className="material-symbols-outlined">arrow_back</i>
           </Link>
@@ -106,7 +112,13 @@ export default function SigninPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <p className="error-text">{errorMsg}</p>
+          {errorMsg && (
+            <div className="container mt-3">
+              <div className="alert alert-danger" role="alert">
+                {errorMsg}
+              </div>
+            </div>
+          )}
 
           <a href="#" className="forgot-password-link">
             Forgot Password?
