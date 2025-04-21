@@ -22,6 +22,14 @@ export default function SignUp() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setErrorMsg("");
+
+    const passwordErrors = validatePassword(password);
+    if (passwordErrors.length > 0) {
+      setErrorMsg(`Password must ${passwordErrors.join(", ")}.`);
+      return;
+    }
+
     setLoading(true);
     try {
       const user = await signUpWithEmail(email, password, name);

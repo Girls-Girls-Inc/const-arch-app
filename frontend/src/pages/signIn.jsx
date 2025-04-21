@@ -42,6 +42,8 @@ export default function SigninPage() {
     try {
       const user = await withProvider(googleProvider);
       setUser(user);
+      console.log("Google User:", user);
+
       navigate("/dashboard");
     } catch (error) {
       console.error("Google Sign-in error:", error.message);
@@ -52,6 +54,7 @@ export default function SigninPage() {
     try {
       const user = await withProvider(facebookProvider);
       setUser(user);
+      console.log("Facebook User:", user);
       navigate("/dashboard");
     } catch (error) {
       console.error("Facebook Sign-in error:", error.message);
