@@ -16,6 +16,7 @@
     "@redux-devtools/extension": "^3.3.0",
     "@reduxjs/toolkit": "^2.7.0",
     "bootstrap": "^5.3.5",
+    "axios": "^1.8.4",
     "const-arch-app": "file:..",
     "dropzone": "^6.0.0-beta.2",
     "firebase": "^11.6.0",
@@ -29,6 +30,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
