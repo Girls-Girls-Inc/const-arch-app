@@ -5,7 +5,14 @@ import IconButton from "../components/IconButton";
 const Directory = () => {
   return (
     <main>
-      <NavigationComponent PageName="Directory" />
+      <NavigationComponent
+        PageName="Directory"
+        links={[
+          { label: "LOGIN", to: "/signin" },
+          { label: "SIGN UP", to: "/signup" },
+        ]}
+      />
+
       <div className="directory-page">
         <div className="upload-buttons">
           <IconButton route="/upload" icon="upload_file" label="Upload File" />

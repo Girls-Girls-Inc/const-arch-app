@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
 import SigninPage from "./pages/signIn";
 import SignupPage from "./pages/signUp";
+import ErrorPage from "./pages/error";
 import UploadPage from "./pages/uploadPage";
 import Directory from "./pages/directory";
 import Dashboard from "./pages/dashboard";
