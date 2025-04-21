@@ -35,12 +35,6 @@ export default function Home() {
           <Link className="btn_ca" to="/directory">
             Directory
           </Link>
-          <Link className="btn_ca" to="/dashboard">
-            Dashboard
-          </Link>
-        <Link className="btn" to="/bookmarks">
-          Bookmarks
-        </Link>
         </div>
       </div>
     </main>

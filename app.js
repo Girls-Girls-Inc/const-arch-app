@@ -22,7 +22,9 @@ app.get("/", (req, res) => {
 
 // Define a route to handle any other paths and serve the index.html
 app.get(/.*/, (req, res) => {
-  res.sendFile("index.html", { root: path.join(__dirname, "frontend", "dist") });
+  res.sendFile("index.html", {
+    root: path.join(__dirname, "frontend", "dist"),
+  });
 });
 
 // Start the server with the specified port from the config, fallback to 4000
