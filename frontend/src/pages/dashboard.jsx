@@ -2,23 +2,25 @@
 import { useUser } from "../context/userContext";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { handleLogout } from "../Firebase/authorisation";
 import "../index.css";
 import IconButton from "../components/IconButton";
 import InputImage from "../components/InputImage";
 import NavigationComponent from "../components/NavigationComponent";
 
 const Dashboard = () => {
-  const { user } = useUser();
+  const { user, loading, setUser } = useUser();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    if (!user) {
-      navigate("/signup");
+    if (!loading && !user) {
+      navigate("/signIn");
     }
-  }, [user, navigate]);
-
-  if (!user) return <p className="loading-message">Loading...</p>;
+  }, [user, loading, navigate]);
+  
+  if (loading) return <p className="loading-message">Loading...</p>;
+  if (!user) return null;
 
   return (
     <main>
@@ -49,6 +51,7 @@ const Dashboard = () => {
           </section>
 
           <section className="nav-bottom">
+            <IconButton onClick={() => handleLogout(setUser)} label="Log Out" />
             <IconButton icon={"settings"} label="Settings" route="/settings" />
           </section>
         </section>

@@ -4,6 +4,7 @@ import {
     signInWithPopup,
     signOut,
     updateProfile,
+    getAuth,
 } from "firebase/auth";
 import { auth } from "./firebase";
 
@@ -31,3 +32,14 @@ export async function withProvider(provider){
     const result = await signInWithPopup(auth, provider);
     return result.user
 }
+
+export const handleLogout = async (setUser) => {
+  const userAuth = getAuth();
+  try {
+    await signOut(userAuth);
+    setUser(null);
+    console.log("User signed out.");
+  } catch (error) {
+    console.error("Error signing out:", error);
+  }
+};
