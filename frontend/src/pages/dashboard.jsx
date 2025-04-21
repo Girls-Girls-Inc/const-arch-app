@@ -18,7 +18,7 @@ const Dashboard = () => {
       navigate("/signIn");
     }
   }, [user, loading, navigate]);
-  
+
   if (loading) return <p className="loading-message">Loading...</p>;
   if (!user) return null;
 

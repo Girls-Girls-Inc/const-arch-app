@@ -1,10 +1,13 @@
-const express = require('express');
-const {addUser} = require('../controllers/userController');
+// routes/user-routes.js
+const express = require("express");
+const { addUser, updateUser } = require("../controllers/userController");
+const verifyToken = require("../controllers/verifyToken");
 
 const router = express.Router();
 
-router.post('/addUser', addUser);
+// Define routes
+router.post("/addUser", addUser);
+router.post("/updateUser", verifyToken, updateUser);
 
-module.exports = {
-    routes: router
-}
+// Export the router correctly
+module.exports = router;

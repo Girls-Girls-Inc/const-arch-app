@@ -1,20 +1,35 @@
-import { useState, useEffect } from "react";
+"use client";
 import { useUser } from "../context/userContext";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import InputField from "../components/InputField";
-import PasswordInputField from "../components/PasswordInputField";
-import Toast from "../components/Toast";
+import { handleLogout } from "../Firebase/authorisation";
 import "../index.css";
+import IconButton from "../components/IconButton";
+import InputImage from "../components/InputImage";
 
-export default function SettingsPage() {
-    const { user } = useUser();
+const SettingsPage = () => {
+    const { user, loading, setUser } = useUser();
     const navigate = useNavigate();
+    const [menuOpen, setMenuOpen] = useState(false);
 
     const [username, setUsername] = useState(user?.displayName || "");
     const [email, setEmail] = useState(user?.email || "");
-    const [password, setPassword] = useState(""); // Current password
-    const [newPassword, setNewPassword] = useState(""); // New password
+    const [password, setPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
     const [toast, setToast] = useState(null);
+
+    useEffect(() => {
+        if (!loading && !user) {
+            navigate("/signIn");
+        }
+    }, [user, loading, navigate]);
+
+    useEffect(() => {
+        document.body.classList.add("settings-page");
+        return () => {
+            document.body.classList.remove("settings-page");
+        };
+    }, []);
 
     const showToast = (message, type = "success") => {
         setToast({ message, type });
@@ -33,14 +48,8 @@ export default function SettingsPage() {
             const token = await user.getIdToken();
             const updates = { uid: user.uid };
 
-            if (username && username !== user.displayName) {
-                updates.displayName = username;
-            }
-
-            if (email && email !== user.email) {
-                updates.email = email;
-            }
-
+            if (username && username !== user.displayName) updates.displayName = username;
+            if (email && email !== user.email) updates.email = email;
             if (password && newPassword) {
                 updates.password = password;
                 updates.newPassword = newPassword;
@@ -70,62 +79,79 @@ export default function SettingsPage() {
         }
     };
 
-    useEffect(() => {
-        document.body.classList.add("settings-page");
-        return () => {
-            document.body.classList.remove("settings-page");
-        };
-    }, []);
+    if (loading) return <p className="loading-message">Loading...</p>;
+    if (!user) return null;
 
     return (
-        <>
-            <main>
-                <div className="log-signup-container">
-                    <h2 className="form-title">Account Settings</h2>
-                    <form onSubmit={handleSave} className="s-form">
-                        <h3>Change your username</h3>
-                        <InputField
-                            id="settings-username"
-                            type="text"
-                            placeholder="Username"
-                            icon="person"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                        <h3>Change your email</h3>
-                        <InputField
-                            id="settings-email"
-                            type="email"
-                            placeholder="Email Address"
-                            icon="mail"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <h3>Change your password</h3>
-                        <PasswordInputField
-                            id="settings-old-password"
-                            placeholder="Current Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <PasswordInputField
-                            id="settings-new-password"
-                            placeholder="New Password"
-                            value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
-                        />
-                        <button className="login-button">Save Changes</button>
-                    </form>
-                </div>
-            </main>
+        <main>
+            <button className="hamburger-btn" onClick={() => setMenuOpen((prev) => !prev)}>
+                ☰
+            </button>
 
-            {toast && (
-                <Toast
-                    message={toast.message}
-                    type={toast.type}
-                    onClose={() => setToast(null)}
-                />
-            )}
-        </>
+            <section className={`dashboard-container`}>
+                <section className={`dashboard-container-lefty ${menuOpen ? "open" : ""}`}>
+                    <section className="nav-top">
+                        <IconButton icon={"account_circle"} label="My Profile" route="/dashboard" />
+                        <IconButton icon={"bookmark"} label="Bookmarks" route="/bookmarks" />
+                        <IconButton icon={"folder"} label="Directory" route="/directory" />
+                    </section>
+
+                    <section className="nav-bottom">
+                        <IconButton onClick={() => handleLogout(setUser)} label="Log Out" />
+                        <IconButton icon={"settings"} label="Settings" route="/settings" />
+                    </section>
+                </section>
+
+                <section className="dashboard-container-righty">
+                    <main className="dashboard-details">
+                        <InputImage />
+                        <form className="dashboard-details-grid" onSubmit={handleSave}>
+                            <label>
+                                Username
+                                <input
+                                    type="text"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    placeholder="Enter username"
+                                />
+                            </label>
+                            <label>
+                                Email
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="Enter email"
+                                />
+                            </label>
+                            <label>
+                                Current Password
+                                <input
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    placeholder="Current password"
+                                />
+                            </label>
+                            <label>
+                                New Password
+                                <input
+                                    type="password"
+                                    value={newPassword}
+                                    onChange={(e) => setNewPassword(e.target.value)}
+                                    placeholder="New password"
+                                />
+                            </label>
+                            <button type="submit" className="save-btn">
+                                Save Changes
+                            </button>
+                            {toast && <p className={`toast ${toast.type}`}>{toast.message}</p>}
+                        </form>
+                    </main>
+                </section>
+            </section>
+        </main>
     );
-}
+};
+
+export default SettingsPage;
