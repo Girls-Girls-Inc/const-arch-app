@@ -10,6 +10,7 @@ import Directory from "./pages/directory";
 import Dashboard from "./pages/dashboard";
 import SettingsPage from "./pages/settings";
 import Bookmarks from "./pages/bookmarks"
+import ManageUsers from "./pages/manageUsers"; // adjust path if needed
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/settings" element={<SettingsPage />} />
       <Route path="/bookmarks" element={<Bookmarks />} />
+      <Route path="/manageUsers" element={<ManageUsers />} />
       {/* Add other routes here */}
     </Routes>
   );

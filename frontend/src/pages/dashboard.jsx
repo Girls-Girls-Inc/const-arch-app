@@ -47,6 +47,7 @@ const Dashboard = () => {
               route="/bookmarks"
             />
             <IconButton icon={"folder"} label="Directory" route="/directory" />
+            <IconButton icon={"group"} label="Manage Users" route="/manageUsers" />
           </section>
 
           <section className="nav-bottom">
