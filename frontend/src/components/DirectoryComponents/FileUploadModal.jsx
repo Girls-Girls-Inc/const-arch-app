@@ -43,7 +43,8 @@ const FileUploadModal = ({
         )}
         {modalStep === 2 && (
           <div className="text-center">
-            <p>Step Two: Testing Screen</p>
+            <p>Step Two: Girl's Girls Inc ft. Diversity hires</p>
+            <img src="/assets/logo.png" alt="Logo" className="mask-x-to-10%" />
           </div>
         )}
         {modalStep === 3 && (
