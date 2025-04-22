@@ -1,10 +1,17 @@
 // app.js
 const express = require("express");
 const path = require("path");
-const config = require("./backend/config"); // Import the config
-const userRoutes = require("./backend/routes/user-routes"); // Import the user routes
+const config = require("./config"); // Import the config
+const userRoutes = require("./routes/user-routes"); // Import the user routes
+const cors = require("cors");
 
 const app = express();
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
 
 // Middleware to parse incoming JSON requests
 app.use(express.json());
@@ -17,12 +24,14 @@ app.use("/api", userRoutes); // Pass the router directly
 
 // Define a route for the root path
 app.get("/", (req, res) => {
-    res.send("Welcome to the backend!");
+  res.send("Welcome to the backend!");
 });
 
 // Define a route to handle any other paths and serve the index.html
 app.get(/.*/, (req, res) => {
-    res.sendFile("index.html", { root: path.join(__dirname, "frontend", "dist") });
+  res.sendFile("index.html", {
+    root: path.join(__dirname, "frontend", "dist"),
+  });
 });
 
 // Start the server with the specified port from the config, fallback to 4000
@@ -31,5 +40,5 @@ const HOST = config.getHost() || "localhost";
 
 // Start the backend server
 app.listen(PORT, HOST, () => {
-    console.log(`Backend running at http://${HOST}:${PORT}`);
+  console.log(`Backend running at http://${HOST}:${PORT}`);
 });

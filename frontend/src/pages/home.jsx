@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import "../index.css";
-import ThemeSwitch from "../components/ThemeSwitch";
-import NavigationComponent from "../components/NavigationComponent";
 
 export default function Home() {
   useEffect(() => {
