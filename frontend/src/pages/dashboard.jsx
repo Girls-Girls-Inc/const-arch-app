@@ -50,7 +50,11 @@ const Dashboard = () => {
           </section>
 
           <section className="nav-bottom">
-            <IconButton onClick={() => handleLogout(setUser)} label="Log Out" />
+            <IconButton
+              onClick={() => handleLogout(setUser)}
+              icon={"logout"}
+              label="Log Out"
+            />
             <IconButton icon={"settings"} label="Settings" route="/settings" />
           </section>
         </section>
