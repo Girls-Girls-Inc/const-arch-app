@@ -5,12 +5,6 @@ import {
   signOut,
   updateProfile,
   getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
-  updateProfile,
-  getAuth,
 } from "firebase/auth";
 import { auth } from "./firebase";
 import axios from "axios";
@@ -29,7 +23,7 @@ export async function signUpWithEmail(email, password, name) {
     await updateProfile(user, { displayName: name });
   }
 
-  await axios.post('http://localhost:4000/api/user', user);
+  await axios.post("http://localhost:4000/api/user", user);
 
   return user;
 }
@@ -51,8 +45,8 @@ export async function signInWithEmail(email, password) {
 
 export async function withProvider(provider) {
   const result = await signInWithPopup(auth, provider);
-  await axios.post('http://localhost:4000/api/user', result.user);
-  return result.user
+  await axios.post("http://localhost:4000/api/user", result.user);
+  return result.user;
 }
 
 export const handleLogout = async (setUser) => {
