@@ -22,7 +22,6 @@ export default function SignUp() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    setErrorMsg("");
 
     const passwordErrors = validatePassword(password);
     if (passwordErrors.length > 0) {
@@ -105,6 +104,7 @@ export default function SignUp() {
         duration: Infinity,
       });
     });
+    return errors;
   };
 
   const handlePasswordChange = (e) => {
