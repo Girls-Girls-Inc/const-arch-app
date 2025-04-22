@@ -19,15 +19,11 @@ const settingsRoutes = require('./routes/settings-routes');
 //const directoryRoutes = require('./routes/directory-routes');
 //const bookmarkRoutes = require('./routes/bookmark-routes');
 
-app.use('/api/user', userRoutes.routes);
+app.use('/api', userRoutes.routes);
 app.use('/api', settingsRoutes.routes);
 //app.use('/api/upload', uploadRoutes.routes);
 //app.use('/api/directory', directoryRoutes.routes);
 //app.use('/api/bookmark', bookmarkRoutes.routes);
-
-app.get(/.*/, (req, res) => {
-  res.sendFile("index.html", { root: path.join(__dirname, "frontend", "dist") });
-});
 
 const PORT = process.env.PORT || 4000;
 

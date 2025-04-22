@@ -1,6 +1,7 @@
 'use strict';
 
-const db = require('../db');
+const { db } = require('../db'); // destructure the db property
+
 
 const addUser = async (req, res) => {
     try {
