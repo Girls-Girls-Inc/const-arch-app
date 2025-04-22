@@ -4,13 +4,13 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "prebuild": "npm install --prefix frontend && npm install --prefix backend",
+    "install-all": "npm install && npm install --prefix frontend && npm install --prefix backend",
+    "prebuild": "npm run install-all",
     "build": "npm run frontend:build && npm run backend:build",
     "frontend:build": "npm run build --prefix frontend",
-    "backend:build": "echo 'Backend build step (customize if needed)'",
-    "start": "node app.js",
-    "serve": "npm run build && npm start",
-    "install-all": "npm install && npm install --prefix frontend && npm install --prefix backend",
+    "backend:build": "npm start --prefix backend",
+    "start": "node backend/app.js",
+    "serve": "npm run build && npm run start-backend",
     "test": "jest"
   },
   "author": "",

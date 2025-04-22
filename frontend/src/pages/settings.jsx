@@ -44,6 +44,7 @@ const SettingsPage = () => {
         "Please enter your current password to set a new one.",
         "error"
       );
+      showToast("Password change attempted without current password.");
       return;
     }
 
@@ -63,7 +64,9 @@ const SettingsPage = () => {
         return;
       }
 
-      const res = await fetch("http://localhost:4000/api/user/update-profile", {
+      console.log("Sending update request with payload:", updates);
+
+      const res = await fetch("http://localhost:4000/api/settings/updateUser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -73,11 +76,12 @@ const SettingsPage = () => {
       });
 
       const data = await res.json();
+      console.log("Server response:", data);
+
       if (!res.ok) throw new Error(data.error);
 
       showToast("Profile updated successfully!", "success");
     } catch (error) {
-      console.error("Update failed:", error);
       showToast(`Failed: ${error.message}`, "error");
     }
   };
