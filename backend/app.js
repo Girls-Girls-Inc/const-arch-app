@@ -25,6 +25,10 @@ app.use('/api', settingsRoutes.routes);
 //app.use('/api/directory', directoryRoutes.routes);
 //app.use('/api/bookmark', bookmarkRoutes.routes);
 
+app.get(/.*/, (req, res) => {
+  res.sendFile("index.html", { root: path.join(__dirname,"..", "frontend", "dist") });
+});
+
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
