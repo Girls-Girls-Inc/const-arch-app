@@ -52,7 +52,8 @@ const SettingsPage = () => {
       const token = await user.getIdToken();
       const updates = { uid: user.uid };
 
-      if (username && username !== user.displayName) updates.displayName = username;
+      if (username && username !== user.displayName)
+        updates.displayName = username;
       if (email && email !== user.email) updates.email = email;
       if (password && newPassword) {
         updates.password = password;
@@ -91,15 +92,28 @@ const SettingsPage = () => {
 
   return (
     <main>
-      <button className="hamburger-btn" onClick={() => setMenuOpen((prev) => !prev)}>
+      <button
+        className="hamburger-btn"
+        onClick={() => setMenuOpen((prev) => !prev)}
+      >
         ☰
       </button>
 
       <section className={`dashboard-container`}>
-        <section className={`dashboard-container-lefty ${menuOpen ? "open" : ""}`}>
+        <section
+          className={`dashboard-container-lefty ${menuOpen ? "open" : ""}`}
+        >
           <section className="nav-top">
-            <IconButton icon={"account_circle"} label="My Profile" route="/dashboard" />
-            <IconButton icon={"bookmark"} label="Bookmarks" route="/bookmarks" />
+            <IconButton
+              icon={"account_circle"}
+              label="My Profile"
+              route="/dashboard"
+            />
+            <IconButton
+              icon={"bookmark"}
+              label="Bookmarks"
+              route="/bookmarks"
+            />
             <IconButton icon={"folder"} label="Directory" route="/directory" />
           </section>
 
@@ -152,7 +166,9 @@ const SettingsPage = () => {
               <button type="submit" className="save-btn">
                 Save Changes
               </button>
-              {toast && <p className={`toast ${toast.type}`}>{toast.message}</p>}
+              {toast && (
+                <p className={`toast ${toast.type}`}>{toast.message}</p>
+              )}
             </form>
           </main>
         </section>

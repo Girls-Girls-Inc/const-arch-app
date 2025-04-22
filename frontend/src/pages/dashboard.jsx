@@ -25,16 +25,34 @@ const Dashboard = () => {
   return (
     <main>
       <button
-        className="hamburger-btn_ca"
+        className="hamburger-btn_ca d-md-none"
         onClick={() => setMenuOpen((prev) => !prev)}
       >
         ☰
       </button>
 
-      <section className={`dashboard-container`}>
-        <section
-          className={`dashboard-container-lefty ${menuOpen ? "open" : ""}`}
-        >
+      {/* Mobile Dropdown Menu */}
+      {menuOpen && (
+        <div className="mobile-dropdown-nav d-md-none">
+          <IconButton
+            icon={"account_circle"}
+            label="My Profile"
+            route="/dashboard"
+          />
+          <IconButton icon={"bookmark"} label="Bookmarks" route="/bookmarks" />
+          <IconButton icon={"folder"} label="Directory" route="/directory" />
+          <IconButton
+            onClick={() => handleLogout(setUser)}
+            icon={"logout"}
+            label="Log Out"
+          />
+          <IconButton icon={"settings"} label="Settings" route="/settings" />
+        </div>
+      )}
+
+      <section className="dashboard-container">
+        {/* Sidebar only visible on md and up */}
+        <section className="dashboard-container-lefty d-none d-md-flex">
           <section className="nav-top">
             <IconButton
               icon={"account_circle"}
@@ -51,7 +69,11 @@ const Dashboard = () => {
           </section>
 
           <section className="nav-bottom">
-            <IconButton onClick={() => handleLogout(setUser)} label="Log Out" />
+            <IconButton
+              onClick={() => handleLogout(setUser)}
+              icon={"logout"}
+              label="Log Out"
+            />
             <IconButton icon={"settings"} label="Settings" route="/settings" />
           </section>
         </section>
@@ -87,8 +109,6 @@ const Dashboard = () => {
                 <p className="detail-muted">No address</p>
               </article>
             </section>
-
-            <footer></footer>
           </main>
         </section>
       </section>

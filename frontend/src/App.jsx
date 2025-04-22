@@ -4,7 +4,6 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
 import SigninPage from "./pages/signIn";
 import SignupPage from "./pages/signUp";
-import ErrorPage from "./pages/error";
 import UploadPage from "./pages/uploadPage";
 import Directory from "./pages/directory";
 import Dashboard from "./pages/dashboard";
@@ -18,7 +17,6 @@ const App = () => {
       <Route path="/" element={<Home />} />
       <Route path="/signin" element={<SigninPage />} />
       <Route path="/signup" element={<SignupPage />} />
-      <Route path="/error" element={<ErrorPage />} />
       <Route path="/upload" element={<UploadPage />} />
       <Route path="/directory" element={<Directory />} />
       <Route path="/dashboard" element={<Dashboard />} />
