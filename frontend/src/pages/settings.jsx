@@ -6,6 +6,9 @@ import { handleLogout } from "../Firebase/authorisation";
 import "../index.css";
 import IconButton from "../components/IconButton";
 import InputImage from "../components/InputImage";
+import toast, { Toaster } from "react-hot-toast";
+import InputField from "../components/InputField";
+import PasswordInputField from "../components/PasswordInputField";
 
 const SettingsPage = () => {
   const { user, loading, setUser } = useUser();
@@ -16,7 +19,6 @@ const SettingsPage = () => {
   const [email, setEmail] = useState(user?.email || "");
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [toast, setToast] = useState(null);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -31,20 +33,11 @@ const SettingsPage = () => {
     };
   }, []);
 
-  const showToast = (message, type = "success") => {
-    setToast({ message, type });
-    setTimeout(() => setToast(null), 4000);
-  };
-
   const handleSave = async (e) => {
     e.preventDefault();
 
     if (newPassword && !password) {
-      showToast(
-        "Please enter your current password to set a new one.",
-        "error"
-      );
-      showToast("Password change attempted without current password.");
+      toast.error("Please enter your current password to set a new one.");
       return;
     }
 
@@ -60,7 +53,7 @@ const SettingsPage = () => {
       }
 
       if (Object.keys(updates).length === 1) {
-        showToast("No changes to save.", "info");
+        toast.error("No changes to save.");
         return;
       }
 
@@ -80,9 +73,9 @@ const SettingsPage = () => {
 
       if (!res.ok) throw new Error(data.error);
 
-      showToast("Profile updated successfully!", "success");
+      toast.success("Profile updated successfully!");
     } catch (error) {
-      showToast(`Failed: ${error.message}`, "error");
+      toast.error(`Failed: ${error.message}`);
     }
   };
 
@@ -95,64 +88,84 @@ const SettingsPage = () => {
         ☰
       </button>
 
-      <section className={`dashboard-container`}>
+      <section className="dashboard-container">
         <section className={`dashboard-container-lefty ${menuOpen ? "open" : ""}`}>
           <section className="nav-top">
-            <IconButton icon={"account_circle"} label="My Profile" route="/dashboard" />
-            <IconButton icon={"bookmark"} label="Bookmarks" route="/bookmarks" />
-            <IconButton icon={"folder"} label="Directory" route="/directory" />
+            <IconButton icon="account_circle" label="My Profile" route="/dashboard" />
+            <IconButton icon="bookmark" label="Bookmarks" route="/bookmarks" />
+            <IconButton icon="folder" label="Directory" route="/directory" />
           </section>
 
           <section className="nav-bottom">
             <IconButton onClick={() => handleLogout(setUser)} label="Log Out" />
-            <IconButton icon={"settings"} label="Settings" route="/settings" />
+            <IconButton icon="settings" label="Settings" route="/settings" />
           </section>
         </section>
 
         <section className="dashboard-container-righty">
           <main className="dashboard-details">
+            <h2 className="dashboard-title">Settings</h2>
             <InputImage />
-            <form className="dashboard-details-grid" onSubmit={handleSave}>
-              <label>
-                Username
-                <input
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Enter username"
-                />
-              </label>
-              <label>
-                Email
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter email"
-                />
-              </label>
-              <label>
-                Current Password
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Current password"
-                />
-              </label>
-              <label>
-                New Password
-                <input
-                  type="password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  placeholder="New password"
-                />
-              </label>
-              <button type="submit" className="save-btn">
-                Save Changes
-              </button>
-              {toast && <p className={`toast ${toast.type}`}>{toast.message}</p>}
+            <form onSubmit={handleSave}>
+              <section className="dashboard-details-grid">
+                <article>
+                  <h3 className="detail-label">
+                    <i className="material-symbols-outlined">badge</i> Name
+                  </h3>
+                  <InputField
+                    type="text"
+                    placeholder="Enter Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    icon="person"
+                  />
+                </article>
+
+                <article>
+                  <h3 className="detail-label">
+                    <i className="material-symbols-outlined">mail</i> Email
+                  </h3>
+                  <InputField
+                    type="text"
+                    placeholder="Enter email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    icon="mail"
+                  />
+                </article>
+
+                <article>
+                  <h3 className="detail-label">
+                    <i className="material-symbols-outlined">lock</i> Current Password
+                  </h3>
+                  <input
+                    type="password"
+                    placeholder="Enter current password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    icon="lock"
+                  />
+                </article>
+
+                <article>
+                  <h3 className="detail-label">
+                    <i className="material-symbols-outlined">lock_reset</i> New Password
+                  </h3>
+                  <input
+                    type="password"
+                    placeholder="Enter new password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                  />
+                </article>
+              </section>
+
+              <footer>
+                <button type="submit" className="save-btn">
+                  Save Changes
+                </button>
+                <Toaster position="top-right" />
+              </footer>
             </form>
           </main>
         </section>

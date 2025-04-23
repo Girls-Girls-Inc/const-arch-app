@@ -18,8 +18,7 @@ input::-ms-clear {
   --light-bg: #f5f5f5;
 }
 
-@media (prefers-color-scheme: dark) {
-}
+@media (prefers-color-scheme: dark) {}
 
 * {
   font-family: "Poppins", sans-serif;
@@ -193,7 +192,7 @@ body {
   border-color: #555;
 }
 
-.input-wrapper .input-field:focus ~ i {
+.input-wrapper .input-field:focus~i {
   color: #555;
 }
 
@@ -325,11 +324,11 @@ a {
   border-color: #555;
 }
 
-.input-wrapper .input-field:focus ~ .lock-icon {
+.input-wrapper .input-field:focus~.lock-icon {
   color: #555;
 }
 
-.input-wrapper .input-field:focus ~ .eye-icon {
+.input-wrapper .input-field:focus~.eye-icon {
   color: #555;
 }
 
@@ -636,6 +635,7 @@ a {
   transition: transform 0.3s ease;
   border-radius: 1rem;
 }
+
 .bookmark-grid {
   display: flex;
   flex-direction: column;
@@ -752,38 +752,4 @@ a {
   .dashboard-details {
     padding: 1rem;
   }
-}
-
-.toast {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  padding: 12px 16px;
-  margin-top: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  color: white;
-  font-weight: bold;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-width: 250px;
-}
-
-.toast.success {
-  background-color: #4caf50;
-}
-
-.toast.error {
-  background-color: #f44336;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 18px;
-  margin-left: 10px;
-  cursor: pointer;
 }

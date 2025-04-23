@@ -1,5 +1,5 @@
 const request = require("supertest");
-const { expect } = require("chai");
+const { expect } = require("@jest/globals");
 const app = require("../server"); // Your Express app
 
 describe("POST /api/user/update-profile", () => {
