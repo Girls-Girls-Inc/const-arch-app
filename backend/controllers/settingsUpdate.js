@@ -7,12 +7,12 @@ const verifyToken = require("./verifyToken");
 
 router.post("/updateUser", verifyToken, async (req, res) => {
     const { uid } = req.user;
-    const { email, displayName, password } = req.body;
+    const { email, displayName, newPassword } = req.body;
 
     try {
         const updateData = {};
         if (email) updateData.email = email;
-        if (password) updateData.password = password;
+        if (newPassword) updateData.password = newPassword;
         if (displayName) updateData.displayName = displayName;
 
         await admin.auth().updateUser(uid, updateData); // ✅ should now work

@@ -18,8 +18,7 @@ input::-ms-clear {
   --light-bg: #f8f9fa;
 }
 
-@media (prefers-color-scheme: dark) {
-}
+@media (prefers-color-scheme: dark) {}
 
 * {
   font-family: "Poppins", sans-serif;
@@ -193,7 +192,7 @@ body {
   border-color: #555;
 }
 
-.input-wrapper .input-field:focus ~ i {
+.input-wrapper .input-field:focus~i {
   color: #555;
 }
 
@@ -326,11 +325,11 @@ a {
   border-color: #555;
 }
 
-.input-wrapper .input-field:focus ~ .lock-icon {
+.input-wrapper .input-field:focus~.lock-icon {
   color: #555;
 }
 
-.input-wrapper .input-field:focus ~ .eye-icon {
+.input-wrapper .input-field:focus~.eye-icon {
   color: #555;
 }
 
@@ -654,6 +653,7 @@ a {
   transition: transform 0.3s ease;
   border-radius: 1rem;
 }
+
 .bookmark-grid {
   display: flex;
   flex-direction: column;
@@ -774,7 +774,6 @@ a {
   .dashboard-details {
     padding: 1rem;
   }
-}
 
 .close-btn {
   background: none;

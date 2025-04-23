@@ -26,8 +26,10 @@ app.use('/api', settingsRoutes.routes);
 //app.use('/api/bookmark', bookmarkRoutes.routes);
 
 app.get(/.*/, (req, res) => {
-  res.sendFile("index.html", { root: path.join(__dirname,"..", "frontend", "dist") });
+  res.sendFile("index.html", { root: path.join(__dirname, "..", "frontend", "dist") });
 });
+
+module.exports = app;
 
 const PORT = process.env.PORT || 4000;
 
