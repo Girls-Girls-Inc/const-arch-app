@@ -2,7 +2,6 @@
 
 const { db } = require('../db');
 
-
 const addUser = async (req, res) => {
     try {
         const user = req.body;
@@ -33,6 +32,5 @@ const addUser = async (req, res) => {
 };
 
 module.exports = {
-    addUser,
-    updateUser
+    addUser
 };

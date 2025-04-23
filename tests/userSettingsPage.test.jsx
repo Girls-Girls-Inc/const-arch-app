@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import SettingsPage from "./frontend/pages/SettingsPage";
-import { UserProvider } from "./frontend/context/userContext";
-import { BrowserRouter } from "./frontend/react-router-dom";
+import SettingsPage from "../frontend/src/pages/settings";
+import { UserProvider } from "../frontend/src/context/userContext";
+import { BrowserRouter } from "../frontend/react-router-dom";
 
 // Mock fetch
 global.fetch = jest.fn(() =>
