@@ -15,11 +15,11 @@ import {
 import { db } from "../Firebase/firebase";
 import { getAuth } from "firebase/auth";
 import NavigationComponent from "../components/NavigationComponent";
+import { Toaster, toast } from "react-hot-toast";
 
 const ManageUsers = () => {
   const { user, loading, setUser } = useUser();
   const navigate = useNavigate();
-  const [menuOpen, setMenuOpen] = useState(false);
   const [users, setUsers] = useState([]);
   const [isAdmin, setIsAdmin] = useState(null);
   const auth = getAuth();
@@ -50,12 +50,19 @@ const ManageUsers = () => {
 
           if (userData.isAdmin) {
             const colRef = collection(db, "users");
-            const snapshot = await getDocs(colRef);
-            const usersList = snapshot.docs.map((docSnap) => ({
-              ...docSnap.data(),
-              id: docSnap.id,
-            }));
-            setUsers(usersList);
+            const promise = getDocs(colRef).then((snapshot) => {
+              const usersList = snapshot.docs.map((docSnap) => ({
+                ...docSnap.data(),
+                id: docSnap.id,
+              }));
+              setUsers(usersList);
+            });
+
+            await toast.promise(promise, {
+              loading: "Fetching users...",
+              success: "Users loaded successfully!",
+              error: "Failed to load users",
+            });
           }
         } else {
           console.log("User document not found");
@@ -80,8 +87,13 @@ const ManageUsers = () => {
           user.id === userId ? { ...user, isAdmin: !currentValue } : user
         )
       );
+
+      toast.success(
+        `User is now ${!currentValue ? "an admin" : "not an admin"}`
+      );
     } catch (error) {
       console.error("Error updating isAdmin field:", error);
+      toast.error("Failed to update admin status");
     }
   };
 
@@ -91,6 +103,7 @@ const ManageUsers = () => {
 
   return (
     <main>
+      <Toaster position="top-center" reverseOrder={false} />
       <NavigationComponent />
 
       <section className="dashboard-container">
@@ -109,7 +122,6 @@ const ManageUsers = () => {
               route="/manageUsers"
             />
           </section>
-
           <section className="nav-bottom">
             <IconButton
               onClick={() => handleLogout(setUser)}
@@ -123,38 +135,46 @@ const ManageUsers = () => {
         <section className="dashboard-container-righty">
           <main className="dashboard-details">
             <h2 className="title-admin">All Users:</h2>
-            {users.length > 0 ? (
-              <table className="user-table">
-                <thead>
-                  <tr>
-                    <th>Email</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Admin</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map((user) => (
-                    <tr key={user.id}>
-                      <td>{user.email}</td>
-                      <td>{user.firstName}</td>
-                      <td>{user.lastName}</td>
-                      <td>
-                        <input
-                          type="checkbox"
-                          checked={user.isAdmin}
-                          onChange={() =>
-                            handleAdminToggle(user.id, user.isAdmin)
-                          }
-                        />
-                      </td>
+            <div
+              className="user-table-container"
+              style={{ overflow: "auto", maxHeight: "65vh", width: "100%" }}
+            >
+              {users.length > 0 ? (
+                <table
+                  className="user-table"
+                  style={{ width: "100%", tableLayout: "fixed" }}
+                >
+                  <thead>
+                    <tr>
+                      <th>Email</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Admin</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <p>Loading users...</p>
-            )}
+                  </thead>
+                  <tbody>
+                    {users.map((user) => (
+                      <tr key={user.id}>
+                        <td>{user.email}</td>
+                        <td>{user.firstName}</td>
+                        <td>{user.lastName}</td>
+                        <td>
+                          <input
+                            type="checkbox"
+                            checked={user.isAdmin}
+                            onChange={() =>
+                              handleAdminToggle(user.id, user.isAdmin)
+                            }
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <p>Loading users...</p>
+              )}
+            </div>
           </main>
         </section>
       </section>

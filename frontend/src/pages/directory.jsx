@@ -64,6 +64,7 @@ const Directory = () => {
 
         <section className="dashboard-container-righty">
           <main className="dashboard-details">
+            <h2>Directory</h2>
             <div className="directory-page">
               <div className="upload-buttons">
                 <IconButton

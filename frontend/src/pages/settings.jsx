@@ -6,6 +6,9 @@ import { handleLogout } from "../Firebase/authorisation";
 import "../index.css";
 import IconButton from "../components/IconButton";
 import InputImage from "../components/InputImage";
+import InputField from "../components/InputField";
+import { Toaster, toast } from "react-hot-toast";
+import NavigationComponent from "../components/NavigationComponent";
 
 const SettingsPage = () => {
   const { user, loading, setUser } = useUser();
@@ -16,7 +19,6 @@ const SettingsPage = () => {
   const [email, setEmail] = useState(user?.email || "");
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [toast, setToast] = useState(null);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -31,20 +33,11 @@ const SettingsPage = () => {
     };
   }, []);
 
-  const showToast = (message, type = "success") => {
-    setToast({ message, type });
-    setTimeout(() => setToast(null), 4000);
-  };
-
   const handleSave = async (e) => {
     e.preventDefault();
 
     if (newPassword && !password) {
-      showToast(
-        "Please enter your current password to set a new one.",
-        "error"
-      );
-      showToast("Password change attempted without current password.");
+      toast.error("Please enter your current password to set a new one.");
       return;
     }
 
@@ -61,11 +54,9 @@ const SettingsPage = () => {
       }
 
       if (Object.keys(updates).length === 1) {
-        showToast("No changes to save.", "info");
+        toast("No changes to save.", { icon: "ℹ️" });
         return;
       }
-
-      console.log("Sending update request with payload:", updates);
 
       const res = await fetch("http://localhost:4000/api/settings/updateUser", {
         method: "POST",
@@ -77,13 +68,11 @@ const SettingsPage = () => {
       });
 
       const data = await res.json();
-      console.log("Server response:", data);
-
       if (!res.ok) throw new Error(data.error);
 
-      showToast("Profile updated successfully!", "success");
+      toast.success("Profile updated successfully!");
     } catch (error) {
-      showToast(`Failed: ${error.message}`, "error");
+      toast.error(`Failed: ${error.message}`);
     }
   };
 
@@ -92,34 +81,32 @@ const SettingsPage = () => {
 
   return (
     <main>
-      <button
-        className="hamburger-btn"
-        onClick={() => setMenuOpen((prev) => !prev)}
-      >
-        ☰
-      </button>
+      <Toaster position="top-center" reverseOrder={false} />
+      <NavigationComponent />
 
-      <section className={`dashboard-container`}>
-        <section
-          className={`dashboard-container-lefty ${menuOpen ? "open" : ""}`}
-        >
+      <section className="dashboard-container">
+        <section className="dashboard-container-lefty d-none d-md-flex">
           <section className="nav-top">
             <IconButton
-              icon={"account_circle"}
+              icon="account_circle"
               label="My Profile"
               route="/dashboard"
             />
+            <IconButton icon="bookmark" label="Bookmarks" route="/bookmarks" />
+            <IconButton icon="folder" label="Directory" route="/directory" />
             <IconButton
-              icon={"bookmark"}
-              label="Bookmarks"
-              route="/bookmarks"
+              icon="group"
+              label="Manage Users"
+              route="/manageUsers"
             />
-            <IconButton icon={"folder"} label="Directory" route="/directory" />
           </section>
-
           <section className="nav-bottom">
-            <IconButton onClick={() => handleLogout(setUser)} label="Log Out" />
-            <IconButton icon={"settings"} label="Settings" route="/settings" />
+            <IconButton
+              onClick={() => handleLogout(setUser)}
+              icon="logout"
+              label="Log Out"
+            />
+            <IconButton icon="settings" label="Settings" route="/settings" />
           </section>
         </section>
 
@@ -127,48 +114,42 @@ const SettingsPage = () => {
           <main className="dashboard-details">
             <InputImage />
             <form className="dashboard-details-grid" onSubmit={handleSave}>
-              <label>
-                Username
-                <input
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Enter username"
-                />
-              </label>
-              <label>
-                Email
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter email"
-                />
-              </label>
-              <label>
-                Current Password
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Current password"
-                />
-              </label>
-              <label>
-                New Password
-                <input
-                  type="password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  placeholder="New password"
-                />
-              </label>
-              <button type="submit" className="save-btn">
-                Save Changes
-              </button>
-              {toast && (
-                <p className={`toast ${toast.type}`}>{toast.message}</p>
-              )}
+              <InputField
+                type="text"
+                placeholder="Enter username"
+                icon="badge"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required={false}
+              />
+              <InputField
+                type="email"
+                placeholder="Enter email"
+                icon="mail"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required={false}
+              />
+              <InputField
+                type="password"
+                placeholder="Current password"
+                icon="lock"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required={false}
+              />
+              <InputField
+                type="password"
+                placeholder="New password"
+                icon="lock_reset"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                required={false}
+              />
+
+              <div className="d-flex justify-content-center w-100 mt-4">
+                <IconButton icon="check" label="Save Changes" type="submit" />
+              </div>
             </form>
           </main>
         </section>
