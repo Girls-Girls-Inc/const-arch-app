@@ -5,15 +5,27 @@ import {
   signOut,
   updateProfile,
   getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  updateProfile,
+  getAuth,
 } from "firebase/auth";
 import { auth } from "./firebase";
-import axios from 'axios';
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export async function signUpWithEmail(email, password, name) {
-  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  const userCredential = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
   const user = userCredential.user;
 
   if (name) {
+    await updateProfile(user, { displayName: name });
     await updateProfile(user, { displayName: name });
   }
 
@@ -29,7 +41,11 @@ export async function signInWithEmail(email, password) {
   if (!password) {
     throw new Error("Password cannot be empty");
   }
-  const userCredentials = await signInWithEmailAndPassword(auth, email, password);
+  const userCredentials = await signInWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
   return userCredentials.user;
 }
 
@@ -45,6 +61,10 @@ export const handleLogout = async (setUser) => {
     await signOut(userAuth);
     setUser(null);
     console.log("User signed out.");
+    toast.success("Successfully signed out", {
+      duration: 4000,
+      position: "top-right",
+    });
   } catch (error) {
     console.error("Error signing out:", error);
   }

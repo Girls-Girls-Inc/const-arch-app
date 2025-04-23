@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import "../index.css";
-import ThemeSwitch from "../components/ThemeSwitch";
-import NavigationComponent from "../components/NavigationComponent";
 
 export default function Home() {
   useEffect(() => {
@@ -35,12 +33,6 @@ export default function Home() {
           <Link className="btn_ca" to="/directory">
             Directory
           </Link>
-          <Link className="btn_ca" to="/dashboard">
-            Dashboard
-          </Link>
-        <Link className="btn" to="/bookmarks">
-          Bookmarks
-        </Link>
         </div>
       </div>
     </main>
