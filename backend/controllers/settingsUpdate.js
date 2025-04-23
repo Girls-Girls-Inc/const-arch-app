@@ -14,7 +14,9 @@ router.post("/updateUser", verifyToken, async (req, res) => {
         if (newPassword) updateData.password = newPassword;
         if (displayName) updateData.displayName = displayName;
 
-        await admin.auth().updateUser(uid, updateData);
+        if (Object.keys(updateData).length === 0) {
+            return res.status(400).json({ error: "Missing data" });  // 400 Bad Request is more appropriate
+        }
 
         res.status(200).json({ message: "Profile updated successfully!" });
     } catch (error) {
