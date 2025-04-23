@@ -27,24 +27,6 @@ const addUser = async (req, res) => {
     }
 };
 
-const updateUser = async (req, res) => {
-    const { uid } = req.user; // from verifyToken
-    const { email, displayName, password } = req.body;
-
-    try {
-        const updateData = {};
-        if (email) updateData.email = email;
-        if (password) updateData.password = password;
-        if (displayName) updateData.displayName = displayName;
-
-        await db.auth().updateUser(uid, updateData);
-        res.status(200).json({ message: "Profile updated successfully!" });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-
 module.exports = {
-    addUser,
-    updateUser
+    addUser
 };
