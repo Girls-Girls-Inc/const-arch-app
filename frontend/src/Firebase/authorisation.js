@@ -5,12 +5,6 @@ import {
   signOut,
   updateProfile,
   getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
-  updateProfile,
-  getAuth,
 } from "firebase/auth";
 import { auth } from "./firebase";
 import axios from "axios";
