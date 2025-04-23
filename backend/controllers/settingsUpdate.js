@@ -1,21 +1,20 @@
-// backend/controllers/settingsUpdate.js
 const express = require("express");
 const router = express.Router();
 
-const { admin } = require("../db");           // ✅ Destructure here
+const { admin } = require("../db");
 const verifyToken = require("./verifyToken");
 
 router.post("/updateUser", verifyToken, async (req, res) => {
     const { uid } = req.user;
-    const { email, displayName, password } = req.body;
+    const { email, displayName, newPassword } = req.body;
 
     try {
         const updateData = {};
         if (email) updateData.email = email;
-        if (password) updateData.password = password;
+        if (newPassword) updateData.password = newPassword;
         if (displayName) updateData.displayName = displayName;
 
-        await admin.auth().updateUser(uid, updateData); // ✅ should now work
+        await admin.auth().updateUser(uid, updateData);
 
         res.status(200).json({ message: "Profile updated successfully!" });
     } catch (error) {

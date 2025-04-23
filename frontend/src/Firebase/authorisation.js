@@ -5,18 +5,18 @@ import {
   signOut,
   updateProfile,
   getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
-  updateProfile,
-  getAuth,
 } from "firebase/auth";
 import { auth } from "./firebase";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
 export async function signUpWithEmail(email, password, name) {
+  if(!email){
+    throw new Error("Email cannot be empty");
+  }else if(!password){
+    throw new Error("Password cannot be empty");
+  }
+  
   const userCredential = await createUserWithEmailAndPassword(
     auth,
     email,
@@ -25,7 +25,6 @@ export async function signUpWithEmail(email, password, name) {
   const user = userCredential.user;
 
   if (name) {
-    await updateProfile(user, { displayName: name });
     await updateProfile(user, { displayName: name });
   }
 

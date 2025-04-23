@@ -1,5 +1,5 @@
 // backend/controllers/verifyToken.js
-const { admin } = require("../db");  // ✅ Destructure correctly
+const { admin } = require("../db");
 
 const verifyToken = async (req, res, next) => {
     const authHeader = req.headers.authorization;
@@ -11,7 +11,7 @@ const verifyToken = async (req, res, next) => {
     const token = authHeader.split("Bearer ")[1];
 
     try {
-        const decodedToken = await admin.auth().verifyIdToken(token);  // ✅ Should work now
+        const decodedToken = await admin.auth().verifyIdToken(token); 
         req.user = decodedToken;
         next();
     } catch (error) {
