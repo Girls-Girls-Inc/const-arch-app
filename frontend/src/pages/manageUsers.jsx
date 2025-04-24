@@ -135,21 +135,20 @@ const ManageUsers = () => {
         <section className="dashboard-container-righty">
           <main className="dashboard-details">
             <h2 className="title-admin">All Users:</h2>
+
+            {/* Bootstrap scrollable, styled table */}
             <div
-              className="user-table-container"
-              style={{ overflow: "auto", maxHeight: "65vh", width: "100%" }}
+              className="table-responsive"
+              style={{ maxHeight: "65vh", overflowY: "auto" }}
             >
               {users.length > 0 ? (
-                <table
-                  className="user-table"
-                  style={{ width: "100%", tableLayout: "fixed" }}
-                >
-                  <thead>
+                <table className="table table-bordered table-striped table-hover rounded">
+                  <thead className="thead-dark bg-dark text-white">
                     <tr>
-                      <th>Email</th>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th>Admin</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">First Name</th>
+                      <th scope="col">Last Name</th>
+                      <th scope="col">Admin</th>
                     </tr>
                   </thead>
                   <tbody>

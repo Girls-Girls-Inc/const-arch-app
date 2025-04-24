@@ -8,10 +8,8 @@ import IconButton from "../components/IconButton";
 import InputImage from "../components/InputImage";
 import { Toaster, toast } from "react-hot-toast";
 import NavigationComponent from "../components/NavigationComponent";
-import toast, { Toaster } from "react-hot-toast";
 import InputField from "../components/InputField";
 import PasswordInputField from "../components/PasswordInputField";
-
 
 const SettingsPage = () => {
   const { user, loading, setUser } = useUser();
@@ -57,7 +55,6 @@ const SettingsPage = () => {
       }
 
       if (Object.keys(updates).length === 1) {
-
         toast("No changes to save.", { icon: "ℹ️" });
         return;
       }
@@ -67,7 +64,6 @@ const SettingsPage = () => {
       const HOST_URL = import.meta.env.VITE_API_HOST_URL;
 
       const res = await fetch(`${HOST_URL}/api/settings/updateUser`, {
-
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -90,7 +86,6 @@ const SettingsPage = () => {
 
   return (
     <main>
-
       <Toaster position="top-center" reverseOrder={false} />
       <NavigationComponent />
 
@@ -109,10 +104,8 @@ const SettingsPage = () => {
               label="Manage Users"
               route="/manageUsers"
             />
-
           </section>
           <section className="nav-bottom">
-
             <IconButton
               onClick={() => handleLogout(setUser)}
               icon="logout"
@@ -165,8 +158,6 @@ const SettingsPage = () => {
               <div className="d-flex justify-content-center w-100 mt-4">
                 <IconButton icon="check" label="Save Changes" type="submit" />
               </div>
-
-         
             </form>
           </main>
         </section>
