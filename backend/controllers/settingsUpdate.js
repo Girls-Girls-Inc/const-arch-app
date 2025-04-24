@@ -18,6 +18,8 @@ router.post("/updateUser", verifyToken, async (req, res) => {
             return res.status(400).json({ error: "Missing data" });  // 400 Bad Request is more appropriate
         }
 
+        await admin.auth().updateUser(uid, updateData);
+
         res.status(200).json({ message: "Profile updated successfully!" });
     } catch (error) {
         console.error("Update failed:", error);

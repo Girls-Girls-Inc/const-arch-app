@@ -60,7 +60,9 @@ const SettingsPage = () => {
 
       console.log("Sending update request with payload:", updates);
 
-      const res = await fetch("http://localhost:4000/api/settings/updateUser", {
+      const HOST_URL = import.meta.env.VITE_API_HOST_URL;
+
+      const res = await fetch(`${HOST_URL}/api/settings/updateUser`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
