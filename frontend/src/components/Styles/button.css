@@ -1,0 +1,25 @@
+.icon-button {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: #555;
+  border: 1px solid #555;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  margin: 5px;
+}
+
+.icon-button:hover {
+  background-color: var(--south-africa-green);
+  color: white;
+  cursor: pointer;
+}
+
+.icon-button i {
+  font-size: 1.5rem;
+}

@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import "../index.css";
-import ThemeSwitch from "../components/ThemeSwitch";
 
 export default function Home() {
   useEffect(() => {
@@ -13,9 +12,9 @@ export default function Home() {
   }, []);
   return (
     <main>
-      <ThemeSwitch />
       <div className="home-container">
-        <h2>Constitutional Archive App</h2>
+        <h2 className="form-title">Constitutional Archive App</h2>
+
         <div className="welcome-image-container">
           <img src="/assets/logo.png" alt="Logo" className="welcome-image" />
         </div>
@@ -25,11 +24,14 @@ export default function Home() {
             Links to current Pages:
           </p>
           <br></br>
-          <Link className="btn" to="/signIn">
+          <Link className="btn_ca" to="/signIn">
             Sign In
           </Link>
-          <Link className="btn" to="/signUp">
+          <Link className="btn_ca" to="/signUp">
             Sign Up
+          </Link>
+          <Link className="btn_ca" to="/directory">
+            Directory
           </Link>
         </div>
       </div>

@@ -1,43 +1,55 @@
 import { useState, useEffect } from "react";
-import {
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-  updateProfile,
-} from "firebase/auth";
-import { auth, googleProvider, facebookProvider } from "../firebase";
+import { googleProvider, facebookProvider } from "../Firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/userContext";
 import ThemeSwitch from "../components/ThemeSwitch";
 import InputField from "../components/InputField";
 import PasswordInputField from "../components/PasswordInputField";
 import { Link } from "react-router-dom";
+import { signUpWithEmail, withProvider } from "../Firebase/authorisation";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function SignUp() {
   const { setUser } = useUser();
-  const [name, setName] = useState(""); // NEW name state
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [passwordErrors, setPasswordErrors] = useState([]);
+  const [showIgnoreToasts, setShowIgnoreToasts] = useState(false);
+
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
+
+    const passwordErrors = validatePassword(password);
+    if (passwordErrors.length > 0) {
+      setErrorMsg(`Password must ${passwordErrors.join(", ")}.`);
+      return;
+    }
+
     setLoading(true);
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
-
-      await updateProfile(user, {
-        displayName: name,
-      });
-
-      setUser({ ...user, displayName: name }); // also update context with the name
-      navigate("/welcome");
+      const user = await signUpWithEmail(email, password, name);
+      setUser({ ...user, displayName: name });
+      navigate("/dashboard");
     } catch (error) {
+      let message = "Signup failed. Please try again.";
+      switch (error.code) {
+        case "auth/invalid-email":
+          message = "Please enter a valid email address!";
+          break;
+        case "auth/email-already-in-use":
+          message = "This email is already in use!";
+          break;
+        case "auth/weak-password":
+          message = "Password should be at least 6 characters!";
+          break;
+        default:
+          message = "Signup failed. " + error.message;
+      }
+      toast.error(message);
       console.error("Email signup error:", error.message);
     }
     setLoading(false);
@@ -45,24 +57,60 @@ export default function SignUp() {
 
   const handleGoogleSignUp = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
-      console.log("Google User:", result.user);
-      setUser(result.user);
-      navigate("/welcome");
+      const user = await withProvider(googleProvider);
+      setUser(user);
+      navigate("/dashboard");
     } catch (error) {
+      toast.error("Google Sign-up failed. Please try again.");
       console.error("Google Sign-up error:", error.message);
     }
   };
 
   const handleFacebookSignUp = async () => {
     try {
-      const result = await signInWithPopup(auth, facebookProvider);
-      console.log("Facebook User:", result.user);
-      setUser(result.user);
-      navigate("/welcome");
+      const user = await withProvider(facebookProvider);
+      setUser(user);
+      navigate("/dashboard");
     } catch (error) {
+      toast.error("Facebook Sign-up failed. Please try again.");
       console.error("Facebook Sign-up error:", error.message);
     }
+  };
+
+  // Function to validate password and show toasts
+  const validatePassword = (password) => {
+    const errors = [];
+    if (password.length < 6) {
+      errors.push("Password should be at least 6 characters.");
+    }
+    if (!/[A-Za-z]/.test(password)) {
+      errors.push("Password should contain at least one letter.");
+    }
+    if (!/[0-9]/.test(password)) {
+      errors.push("Password should contain at least one number.");
+    }
+    if (!/[!@#$%^&*(),.?\":{}|<>_]/.test(password)) {
+      errors.push("Password should contain at least one special character.");
+    }
+
+    setPasswordErrors(errors);
+
+    toast.dismiss(); // Dismiss previous
+
+    // Show each error toast with a unique ID and infinite duration
+    errors.forEach((error, index) => {
+      toast.error(error, {
+        id: `password-error-${index}`,
+        duration: Infinity,
+      });
+    });
+    return errors;
+  };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    validatePassword(newPassword); // Validate password as the user types
   };
 
   useEffect(() => {
@@ -83,10 +131,8 @@ export default function SignUp() {
 
   return (
     <main>
-      <ThemeSwitch />
-
       <div className="log-signup-container">
-        <button className="btn">
+        <button className="btn_ca">
           <Link to="/">
             <i className="material-symbols-outlined">arrow_back</i>
           </Link>
@@ -115,7 +161,6 @@ export default function SignUp() {
         </p>
 
         <form onSubmit={handleSignup}>
-          {/* NEW Name input field */}
           <InputField
             type="text"
             placeholder="Name"
@@ -137,7 +182,7 @@ export default function SignUp() {
           <PasswordInputField
             placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange} // Use the new handler
             required
           />
 
@@ -150,6 +195,10 @@ export default function SignUp() {
           </p>
         </form>
       </div>
+
+      {/* Display toasts */}
+
+      <Toaster position="top-right" />
     </main>
   );
 }

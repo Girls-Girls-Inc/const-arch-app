@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./Styles/switch.css";
 
 const ThemeSwitch = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -19,8 +20,8 @@ const ThemeSwitch = () => {
     <label className="switch">
       <input type="checkbox" checked={isDarkMode} onChange={switchTheme} />
       <span className="slider round">
-        <i className="material-symbols-outlined">wb_sunny</i>
         <i className="material-symbols-outlined">nights_stay</i>
+        <i className="material-symbols-outlined">wb_sunny</i>
       </span>
     </label>
   );
