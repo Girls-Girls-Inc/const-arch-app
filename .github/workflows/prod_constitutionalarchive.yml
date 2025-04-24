@@ -1,6 +1,5 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
-##
 
 name: Build and deploy Node.js app to Azure Web App - constitutionalarchive
 
@@ -24,17 +23,14 @@ jobs:
         with:
           node-version: '22.x'
 
-      - name: Clean install, build, and test
+      - name: npm install, build, and test
         run: |
-          rm -rf frontend/node_modules frontend/package-lock.json
-          npm install --prefix frontend
-          npm run build --prefix frontend
-          rm -rf backend/node_modules backend/package-lock.json
-          npm install --prefix backend
-
+          npm install
+          npm run build --if-present
+          npm run test --if-present
 
       - name: Zip artifact for deployment
-        run: zip -r release.zip . -x "node_modules/*" "frontend/node_modules/*" "backend/node_modules/*"
+        run: zip release.zip ./* -r
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -65,8 +61,4 @@ jobs:
           app-name: 'constitutionalarchive'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_429539F0072F4417A6D6B10476F9AA18 }}
-
-# i gave you money now work pls
-
-# debug
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_105C603E61A04298B5FB6CCA12D22923 }}
