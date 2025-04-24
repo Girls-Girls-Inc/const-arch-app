@@ -6,6 +6,7 @@ import {
   FacebookAuthProvider,
 } from "firebase/auth";
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyC0S4dqBkJWRhRY1FQTxCOFeEtz2F74LSU",
   authDomain: "girls-girls-inc.firebaseapp.com",

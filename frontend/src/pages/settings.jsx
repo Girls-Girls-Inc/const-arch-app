@@ -6,9 +6,12 @@ import { handleLogout } from "../Firebase/authorisation";
 import "../index.css";
 import IconButton from "../components/IconButton";
 import InputImage from "../components/InputImage";
-import InputField from "../components/InputField";
 import { Toaster, toast } from "react-hot-toast";
 import NavigationComponent from "../components/NavigationComponent";
+import toast, { Toaster } from "react-hot-toast";
+import InputField from "../components/InputField";
+import PasswordInputField from "../components/PasswordInputField";
+
 
 const SettingsPage = () => {
   const { user, loading, setUser } = useUser();
@@ -54,11 +57,17 @@ const SettingsPage = () => {
       }
 
       if (Object.keys(updates).length === 1) {
+
         toast("No changes to save.", { icon: "ℹ️" });
         return;
       }
 
-      const res = await fetch("http://localhost:4000/api/settings/updateUser", {
+      console.log("Sending update request with payload:", updates);
+
+      const HOST_URL = import.meta.env.VITE_API_HOST_URL;
+
+      const res = await fetch(`${HOST_URL}/api/settings/updateUser`, {
+
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -81,6 +90,7 @@ const SettingsPage = () => {
 
   return (
     <main>
+
       <Toaster position="top-center" reverseOrder={false} />
       <NavigationComponent />
 
@@ -99,20 +109,25 @@ const SettingsPage = () => {
               label="Manage Users"
               route="/manageUsers"
             />
+
           </section>
           <section className="nav-bottom">
+
             <IconButton
               onClick={() => handleLogout(setUser)}
               icon="logout"
               label="Log Out"
             />
+
             <IconButton icon="settings" label="Settings" route="/settings" />
           </section>
         </section>
 
         <section className="dashboard-container-righty">
           <main className="dashboard-details">
+            <h2 className="dashboard-title">Settings</h2>
             <InputImage />
+
             <form className="dashboard-details-grid" onSubmit={handleSave}>
               <InputField
                 type="text"
@@ -150,6 +165,8 @@ const SettingsPage = () => {
               <div className="d-flex justify-content-center w-100 mt-4">
                 <IconButton icon="check" label="Save Changes" type="submit" />
               </div>
+
+         
             </form>
           </main>
         </section>
