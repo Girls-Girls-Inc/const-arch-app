@@ -33,7 +33,7 @@ jobs:
 
 
       - name: Zip artifact for deployment
-        run: zip -r release.zip . -x "*/node_modules/*" -x "*/.*" -x "*frontend/node_modules/*" -x "*backend/node_modules/*"
+        run: zip -r release.zip . -x "*/node_modules/*"
 
 
       - name: Upload artifact for deployment job
