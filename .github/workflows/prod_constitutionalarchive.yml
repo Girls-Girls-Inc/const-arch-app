@@ -27,13 +27,14 @@ jobs:
       - name: Clean install, build, and test
         run: |
           rm -rf frontend/node_modules frontend/package-lock.json
-          npm install --prefix frontend --force
+          npm install --prefix frontend
           npm run build --prefix frontend
-          npm install --prefix backend --force
+          rm -rf backend/node_modules backend/package-lock.json
+          npm install --prefix backend
 
 
       - name: Zip artifact for deployment
-        run: zip -r release.zip .
+        run: -x "node_modules/*" "frontend/node_modules/*" "backend/node_modules/*"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
