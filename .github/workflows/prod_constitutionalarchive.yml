@@ -34,7 +34,7 @@ jobs:
 
 
       - name: Zip artifact for deployment
-        run: -x "node_modules/*" "frontend/node_modules/*" "backend/node_modules/*"
+        run: zip -r release.zip . -x "node_modules/*" "frontend/node_modules/*" "backend/node_modules/*"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
