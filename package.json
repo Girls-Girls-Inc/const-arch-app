@@ -6,12 +6,10 @@
   "scripts": {
     "install-all": "npm install --prefix frontend && npm install --prefix backend",
     "prebuild": "npm run install-all",
-    "build": "npm run frontend:build && npm run backend:build",
+    "build": "npm run frontend:build",
     "frontend:build": "npm run build --prefix frontend",
-    "backend:build": "echo 'Backend build skipped (no build step)'",
-    "start": "node backend/app.js",
+    "start": "node app.js",
     "serve": "npm run build && npm start",
-    "start-dev": "nodemon backend/app.js",
     "test": "jest",
     "test:coverage": "jest --coverage"
   },
@@ -20,6 +18,7 @@
   "dependencies": {
     "@redux-devtools/extension": "^3.3.0",
     "@reduxjs/toolkit": "^2.7.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "react-hot-toast": "^2.5.2",
