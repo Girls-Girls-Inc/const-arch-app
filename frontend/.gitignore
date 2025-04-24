@@ -24,3 +24,4 @@ dist-ssr
 *.sw?
 
 /key/serviceAccountKey.json
+pacakage-lock.json
