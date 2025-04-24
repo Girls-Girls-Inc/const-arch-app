@@ -61,3 +61,5 @@ jobs:
           slot-name: 'Production'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_105C603E61A04298B5FB6CCA12D22923 }}
+
+###### trigger
