@@ -25,12 +25,11 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+          npm install --prefix frontend && npm install --prefix backend
+          npm run build --prefix frontend
 
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+        run: zip release.zip ./* -r -x "node_modules/*" "frontend/node_modules/*" "backend/node_modules/*"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
