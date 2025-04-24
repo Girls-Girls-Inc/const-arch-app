@@ -24,9 +24,13 @@ jobs:
         with:
           node-version: '22.x'
 
-      - name: npm install, build, and test
+      - name: Clean install, build, and test
         run: |
-          npm run serve
+          rm -rf frontend/node_modules frontend/package-lock.json
+          npm install --prefix frontend --force
+          npm run build --prefix frontend
+          npm install --prefix backend --force
+
 
       - name: Zip artifact for deployment
         run: zip -r release.zip . -x "node_modules/**" -x "frontend/node_modules/**" -x "backend/node_modules/**" 
