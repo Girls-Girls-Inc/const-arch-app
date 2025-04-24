@@ -7,8 +7,11 @@ import {
   getAuth,
 } from "firebase/auth";
 import { auth } from "./firebase";
+import { getDoc, doc } from "firebase/firestore"; // import Firestore functions
+import { db } from "./firebase";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+const HOST_URL = import.meta.env.VITE_API_HOST_URL || "http://localhost:4000";
 
 export async function signUpWithEmail(email, password, name) {
   if(!email){
@@ -28,7 +31,7 @@ export async function signUpWithEmail(email, password, name) {
     await updateProfile(user, { displayName: name });
   }
 
-  await axios.post('http://localhost:4000/api/user', user);
+  await axios.post(`${HOST_URL}/api/user`, user);
 
   return user;
 }
@@ -50,8 +53,16 @@ export async function signInWithEmail(email, password) {
 
 export async function withProvider(provider) {
   const result = await signInWithPopup(auth, provider);
-  await axios.post('http://localhost:4000/api/user', result.user);
-  return result.user
+  const user = result.user;
+
+  const userDocRef = doc(db, "users", user.uid);
+  const userDocSnap = await getDoc(userDocRef);
+
+  if (!userDocSnap.exists()) {
+  await axios.post(`${HOST_URL}/api/user`, user);
+  }
+
+  return user;
 }
 
 export const handleLogout = async (setUser) => {

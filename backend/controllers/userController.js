@@ -14,7 +14,7 @@ const addUser = async (req, res) => {
             createdAt: new Date().toISOString(),
             profileComplete: false,
         };
-
+        
         const requiredFields = [data.uid, data.email];
         if (!requiredFields.every(Boolean)) {
             return res.status(400).send('Missing required fields: uid and email are required.');

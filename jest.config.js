@@ -1,17 +1,20 @@
 module.exports = {
-    // Transform files using babel-jest
-    transform: {
-      '^.+\\.[jt]sx?$': 'babel-jest', // Handles JS, JSX, TS, and TSX files
-    },
-    
-    // Jest should not ignore `firebase/` directory in node_modules (it uses ES modules)
-    transformIgnorePatterns: [
-      'node_modules/(?!firebase/)', // Make sure Firebase is transpiled by babel
-    ],
-  
-    // Set test environment (Node or jsdom)
-    testEnvironment: 'jsdom', // if you're testing React apps, use jsdom
-  
-    // If you want to configure module paths
-    moduleDirectories: ['node_modules', 'frontend/src'],
-  };
+  transform: {
+    '^.+\\.[jt]sx?$': 'babel-jest',
+  },
+  transformIgnorePatterns: [
+    'node_modules/(?!firebase/)', // Keep this to avoid issues with Firebase
+    '\\.css$', // Ignore CSS files during transformation
+  ],
+  testEnvironment: 'jsdom', 
+  moduleDirectories: ['node_modules', 'frontend/src'],
+  setupFiles: ['<rootDir>/jest.setup.js'],
+  presets: [
+    '@babel/preset-env',
+    '@babel/preset-react',
+  ],
+  moduleNameMapper: {
+    '\\.css$': 'identity-obj-proxy',  // Mock CSS imports
+  },
+  verbose: true,
+};

@@ -13,9 +13,6 @@ jest.mock('firebase-admin', () => {
   };
 });
 
-global.TextEncoder = require('util').TextEncoder;
-global.TextDecoder = require('util').TextDecoder;
-
 const request = require('supertest');
 const express = require('express');
 const admin = require('firebase-admin');
