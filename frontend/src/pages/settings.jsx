@@ -6,9 +6,12 @@ import { handleLogout } from "../Firebase/authorisation";
 import "../index.css";
 import IconButton from "../components/IconButton";
 import InputImage from "../components/InputImage";
+import { Toaster, toast } from "react-hot-toast";
+import NavigationComponent from "../components/NavigationComponent";
 import toast, { Toaster } from "react-hot-toast";
 import InputField from "../components/InputField";
 import PasswordInputField from "../components/PasswordInputField";
+
 
 const SettingsPage = () => {
   const { user, loading, setUser } = useUser();
@@ -54,7 +57,8 @@ const SettingsPage = () => {
       }
 
       if (Object.keys(updates).length === 1) {
-        toast.error("No changes to save.");
+
+        toast("No changes to save.", { icon: "ℹ️" });
         return;
       }
 
@@ -63,6 +67,7 @@ const SettingsPage = () => {
       const HOST_URL = import.meta.env.VITE_API_HOST_URL;
 
       const res = await fetch(`${HOST_URL}/api/settings/updateUser`, {
+
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,8 +77,6 @@ const SettingsPage = () => {
       });
 
       const data = await res.json();
-      console.log("Server response:", data);
-
       if (!res.ok) throw new Error(data.error);
 
       toast.success("Profile updated successfully!");
@@ -87,24 +90,35 @@ const SettingsPage = () => {
 
   return (
     <main>
-      <button
-        className="hamburger-btn"
-        onClick={() => setMenuOpen((prev) => !prev)}
-      >
-        ☰
-      </button>
+
+      <Toaster position="top-center" reverseOrder={false} />
+      <NavigationComponent />
 
       <section className="dashboard-container">
-        <section className={`dashboard-container-lefty ${menuOpen ? "open" : ""}`}>
+        <section className="dashboard-container-lefty d-none d-md-flex">
           <section className="nav-top">
-            <IconButton icon="account_circle" label="My Profile" route="/dashboard" />
+            <IconButton
+              icon="account_circle"
+              label="My Profile"
+              route="/dashboard"
+            />
             <IconButton icon="bookmark" label="Bookmarks" route="/bookmarks" />
             <IconButton icon="folder" label="Directory" route="/directory" />
+            <IconButton
+              icon="group"
+              label="Manage Users"
+              route="/manageUsers"
+            />
 
           </section>
-
           <section className="nav-bottom">
-            <IconButton onClick={() => handleLogout(setUser)} label="Log Out" />
+
+            <IconButton
+              onClick={() => handleLogout(setUser)}
+              icon="logout"
+              label="Log Out"
+            />
+
             <IconButton icon="settings" label="Settings" route="/settings" />
           </section>
         </section>
@@ -113,66 +127,46 @@ const SettingsPage = () => {
           <main className="dashboard-details">
             <h2 className="dashboard-title">Settings</h2>
             <InputImage />
-            <form onSubmit={handleSave}>
-              <section className="dashboard-details-grid">
-                <article>
-                  <h3 className="detail-label">
-                    <i className="material-symbols-outlined">badge</i> Name
-                  </h3>
-                  <InputField
-                    type="text"
-                    placeholder="Enter Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    icon="person"
-                  />
-                </article>
 
-                <article>
-                  <h3 className="detail-label">
-                    <i className="material-symbols-outlined">mail</i> Email
-                  </h3>
-                  <InputField
-                    type="text"
-                    placeholder="Enter email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    icon="mail"
-                  />
-                </article>
+            <form className="dashboard-details-grid" onSubmit={handleSave}>
+              <InputField
+                type="text"
+                placeholder="Enter username"
+                icon="badge"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required={false}
+              />
+              <InputField
+                type="email"
+                placeholder="Enter email"
+                icon="mail"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required={false}
+              />
+              <InputField
+                type="password"
+                placeholder="Current password"
+                icon="lock"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required={false}
+              />
+              <InputField
+                type="password"
+                placeholder="New password"
+                icon="lock_reset"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                required={false}
+              />
 
-                <article>
-                  <h3 className="detail-label">
-                    <i className="material-symbols-outlined">lock</i> Current Password
-                  </h3>
-                  <input
-                    type="password"
-                    placeholder="Enter current password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    icon="lock"
-                  />
-                </article>
+              <div className="d-flex justify-content-center w-100 mt-4">
+                <IconButton icon="check" label="Save Changes" type="submit" />
+              </div>
 
-                <article>
-                  <h3 className="detail-label">
-                    <i className="material-symbols-outlined">lock_reset</i> New Password
-                  </h3>
-                  <input
-                    type="password"
-                    placeholder="Enter new password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                  />
-                </article>
-              </section>
-
-              <footer>
-                <button type="submit" className="save-btn">
-                  Save Changes
-                </button>
-                <Toaster position="top-right" />
-              </footer>
+         
             </form>
           </main>
         </section>

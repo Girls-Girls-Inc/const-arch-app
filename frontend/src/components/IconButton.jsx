@@ -1,8 +1,9 @@
+// IconButton.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Styles/button.css";
 
-const IconButton = ({ route, icon, label, onClick }) => {
+const IconButton = ({ route, icon, label, onClick, type = "button" }) => {
   const buttonContent = (
     <>
       {icon && <i className="material-symbols-outlined">{icon}</i>}
@@ -10,9 +11,10 @@ const IconButton = ({ route, icon, label, onClick }) => {
     </>
   );
 
-  if (onClick) {
+  // Render as <button> if onClick exists or if the type is "submit"
+  if (onClick || type === "submit") {
     return (
-      <button className="icon-button" onClick={onClick}>
+      <button className="icon-button" onClick={onClick} type={type}>
         {buttonContent}
       </button>
     );

@@ -31,7 +31,9 @@ export async function signUpWithEmail(email, password, name) {
     await updateProfile(user, { displayName: name });
   }
 
+
   await axios.post(`${HOST_URL}/api/user`, user);
+
 
   return user;
 }
@@ -53,6 +55,7 @@ export async function signInWithEmail(email, password) {
 
 export async function withProvider(provider) {
   const result = await signInWithPopup(auth, provider);
+
   const user = result.user;
 
   const userDocRef = doc(db, "users", user.uid);
@@ -63,6 +66,7 @@ export async function withProvider(provider) {
   }
 
   return user;
+
 }
 
 export const handleLogout = async (setUser) => {
