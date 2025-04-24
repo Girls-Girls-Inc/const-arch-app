@@ -13,9 +13,6 @@ jest.mock('firebase-admin', () => {
   };
 });
 
-global.TextEncoder = require('util').TextEncoder;
-global.TextDecoder = require('util').TextDecoder;
-
 const request = require('supertest');
 const express = require('express');
 const admin = require('firebase-admin');
@@ -27,7 +24,7 @@ describe('POST /addUser', () => {
   beforeAll(() => {
     app = express();
     app.use(express.json());
-    app.post('/api/user', addUser); 
+    app.post('/api/user', addUser);
   });
 
   it('should create a new user and send a success response', async () => {

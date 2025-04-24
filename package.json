@@ -9,8 +9,9 @@
     "build": "npm run frontend:build && npm run backend:build",
     "frontend:build": "npm run build --prefix frontend",
     "backend:build": "npm start --prefix backend",
-    "start": "node backend/app.js",
+    "start-backend": "node backend/app.js",
     "serve": "npm run build && npm run start-backend",
+    "start": "npm run serve",
     "test": "jest",
     "test:coverage": "jest --coverage"
   },

@@ -6,6 +6,7 @@ import { handleLogout } from "../Firebase/authorisation";
 import "../index.css";
 import IconButton from "../components/IconButton";
 import FileUploadModal from "../components/DirectoryComponents/FileUploadModal";
+import NavigationComponent from "../components/NavigationComponent";
 
 const Directory = () => {
   const { user, loading, setUser } = useUser();
@@ -33,30 +34,7 @@ const Directory = () => {
 
   return (
     <main>
-      <button
-        className="hamburger-btn_ca d-md-none"
-        onClick={() => setMenuOpen((prev) => !prev)}
-      >
-        ☰
-      </button>
-
-      {menuOpen && (
-        <div className="mobile-dropdown-nav d-md-none">
-          <IconButton
-            icon="account_circle"
-            label="My Profile"
-            route="/dashboard"
-          />
-          <IconButton icon="bookmark" label="Bookmarks" route="/bookmarks" />
-          <IconButton icon="folder" label="Directory" route="/directory" />
-          <IconButton
-            onClick={() => handleLogout(setUser)}
-            icon="logout"
-            label="Log Out"
-          />
-          <IconButton icon="settings" label="Settings" route="/settings" />
-        </div>
-      )}
+      <NavigationComponent />
 
       <section className="dashboard-container">
         <section className="dashboard-container-lefty d-none d-md-flex">
@@ -68,6 +46,11 @@ const Directory = () => {
             />
             <IconButton icon="bookmark" label="Bookmarks" route="/bookmarks" />
             <IconButton icon="folder" label="Directory" route="/directory" />
+            <IconButton
+              icon="group"
+              label="Manage Users"
+              route="/manageUsers"
+            />
           </section>
           <section className="nav-bottom">
             <IconButton
@@ -81,6 +64,7 @@ const Directory = () => {
 
         <section className="dashboard-container-righty">
           <main className="dashboard-details">
+            <h2>Directory</h2>
             <div className="directory-page">
               <div className="upload-buttons">
                 <IconButton

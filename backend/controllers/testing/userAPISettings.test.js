@@ -1,46 +1,43 @@
-global.TextEncoder = require('util').TextEncoder;
-global.TextDecoder = require('util').TextDecoder;
-
 const request = require("supertest");
 const app = require("../../app");
 
 // Mock firebase-admin
 jest.mock("firebase-admin", () => {
-    const mockVerifyIdToken = jest.fn((token) => {
-      if (token === "mocked_token") return Promise.resolve({ uid: "12345" });
-      return Promise.reject(new Error("Invalid token"));
-    });
-  
-    const mockUpdateUser = jest.fn((uid, data) => {
-      if (uid && data) return Promise.resolve({ uid, ...data });
-      return Promise.reject(new Error("Missing data"));
-    });
-  
-    const mockCert = jest.fn(() => ({
-      projectId: "mocked-project-id",
-      privateKey: "mocked-private-key",
-      clientEmail: "mocked-email@example.com",
-    }));
-  
-    // Mocking firestore
-    const mockFirestore = jest.fn(() => ({
-      collection: jest.fn(() => ({
-        doc: jest.fn(() => ({
-          set: jest.fn(() => Promise.resolve()),
-          get: jest.fn(() => Promise.resolve({ data: () => ({ mock: "data" }) })),
-        })),
+  const mockVerifyIdToken = jest.fn((token) => {
+    if (token === "mocked_token") return Promise.resolve({ uid: "12345" });
+    return Promise.reject(new Error("Invalid token"));
+  });
+
+  const mockUpdateUser = jest.fn((uid, data) => {
+    if (uid && data) return Promise.resolve({ uid, ...data });
+    return Promise.reject(new Error("Missing data"));
+  });
+
+  const mockCert = jest.fn(() => ({
+    projectId: "mocked-project-id",
+    privateKey: "mocked-private-key",
+    clientEmail: "mocked-email@example.com",
+  }));
+
+  // Mocking firestore
+  const mockFirestore = jest.fn(() => ({
+    collection: jest.fn(() => ({
+      doc: jest.fn(() => ({
+        set: jest.fn(() => Promise.resolve()),
+        get: jest.fn(() => Promise.resolve({ data: () => ({ mock: "data" }) })),
       })),
-    }));
-  
-    return {
-      auth: () => ({
-        verifyIdToken: mockVerifyIdToken,
-        updateUser: mockUpdateUser,
-      }),
-      initializeApp: jest.fn(),  // No-op for tests
-      credential: { cert: mockCert },
-      firestore: mockFirestore,  // Ensure firestore is mocked correctly
-    };
+    })),
+  }));
+
+  return {
+    auth: () => ({
+      verifyIdToken: mockVerifyIdToken,
+      updateUser: mockUpdateUser,
+    }),
+    initializeApp: jest.fn(),  // No-op for tests
+    credential: { cert: mockCert },
+    firestore: mockFirestore,  // Ensure firestore is mocked correctly
+  };
 });
 
 describe("POST /api/settings/updateUser", () => {
