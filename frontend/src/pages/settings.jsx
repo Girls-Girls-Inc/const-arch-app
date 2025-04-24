@@ -8,10 +8,7 @@ import IconButton from "../components/IconButton";
 import InputImage from "../components/InputImage";
 import { Toaster, toast } from "react-hot-toast";
 import NavigationComponent from "../components/NavigationComponent";
-import toast, { Toaster } from "react-hot-toast";
 import InputField from "../components/InputField";
-import PasswordInputField from "../components/PasswordInputField";
-
 
 const SettingsPage = () => {
   const { user, loading, setUser } = useUser();
@@ -166,7 +163,7 @@ const SettingsPage = () => {
                 <IconButton icon="check" label="Save Changes" type="submit" />
               </div>
 
-         
+
             </form>
           </main>
         </section>

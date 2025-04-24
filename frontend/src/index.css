@@ -777,65 +777,65 @@ a {
   .dashboard-details {
     padding: 1rem;
   }
+}
 
-  .close-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 18px;
-    margin-left: 10px;
-    cursor: pointer;
-  }
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  margin-left: 10px;
+  cursor: pointer;
+}
 
-  .title-admin {
-    text-transform: uppercase;
-    padding: 1rem;
-  }
+.title-admin {
+  text-transform: uppercase;
+  padding: 1rem;
+}
 
-  .user-table-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 1.5rem;
-    overflow-x: auto;
-    max-width: 100%;
-  }
+.user-table-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  overflow-x: auto;
+  max-width: 100%;
+}
 
-  .user-table {
-    width: 100%;
-    color: #333;
-    border-collapse: collapse;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  }
+.user-table {
+  width: 100%;
+  color: #333;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
 
-  .user-table thead {
-    background-color: #f4f6f8;
-  }
+.user-table thead {
+  background-color: #f4f6f8;
+}
 
-  .user-table th,
-  .user-table td {
-    text-align: left;
-    padding: 0.75rem 1rem;
-    font-size: 0.95rem;
-  }
+.user-table th,
+.user-table td {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+}
 
-  .user-table tbody tr {
-    transition: all 0.2s ease-in-out;
-  }
+.user-table tbody tr {
+  transition: all 0.2s ease-in-out;
+}
 
-  .user-table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
+.user-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
 
-  .user-table tbody tr:hover {
-    background-color: #eef1f5;
-  }
+.user-table tbody tr:hover {
+  background-color: #eef1f5;
+}
 
-  .user-table input[type="checkbox"] {
-    transform: scale(1.2);
-    cursor: pointer;
-  }
+.user-table input[type="checkbox"] {
+  transform: scale(1.2);
+  cursor: pointer;
 }
