@@ -10,6 +10,7 @@ import { Toaster, toast } from "react-hot-toast";
 import NavigationComponent from "../components/NavigationComponent";
 import InputField from "../components/InputField";
 import PasswordInputField from "../components/PasswordInputField";
+import NavigationDashLeft from "../components/NavigationDashLeft";
 
 const SettingsPage = () => {
   const { user, loading, setUser } = useUser();
@@ -90,31 +91,7 @@ const SettingsPage = () => {
       <NavigationComponent />
 
       <section className="dashboard-container">
-        <section className="dashboard-container-lefty d-none d-md-flex">
-          <section className="nav-top">
-            <IconButton
-              icon="account_circle"
-              label="My Profile"
-              route="/dashboard"
-            />
-            <IconButton icon="bookmark" label="Bookmarks" route="/bookmarks" />
-            <IconButton icon="folder" label="Directory" route="/directory" />
-            <IconButton
-              icon="group"
-              label="Manage Users"
-              route="/manageUsers"
-            />
-          </section>
-          <section className="nav-bottom">
-            <IconButton
-              onClick={() => handleLogout(setUser)}
-              icon="logout"
-              label="Log Out"
-            />
-
-            <IconButton icon="settings" label="Settings" route="/settings" />
-          </section>
-        </section>
+        <NavigationDashLeft />
 
         <section className="dashboard-container-righty">
           <main className="dashboard-details">

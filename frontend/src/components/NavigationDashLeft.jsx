@@ -6,6 +6,7 @@ import "../index.css";
 import IconButton from "../components/IconButton";
 
 const NavigationDashLeft = () => {
+  const { setUser } = useUser();
   return (
     <section className="dashboard-container-lefty d-none d-md-flex">
       <section className="nav-top">

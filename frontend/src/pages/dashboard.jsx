@@ -11,7 +11,7 @@ import { Toaster, toast } from "react-hot-toast";
 import NavigationDashLeft from "../components/NavigationDashLeft";
 
 const Dashboard = () => {
-  const { user, loading, setUser } = useUser();
+  const { user, loading } = useUser();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
