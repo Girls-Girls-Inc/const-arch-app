@@ -5,6 +5,12 @@ jest.mock('firebase/auth', () => ({
     FacebookAuthProvider: jest.fn().mockImplementation(() => ({})),
   }));
 
+jest.mock('firebase/firestore', () => ({
+    getDoc: jest.fn(() => Promise.resolve({ exists: () => false })),
+    doc: jest.fn(),
+    getFirestore: jest.fn(() => ({})), // Add this to mock getFirestore
+  }));
+
 
 jest.mock('react-hot-toast', () => ({
     toast: {
@@ -12,7 +18,10 @@ jest.mock('react-hot-toast', () => ({
     },
 }));
 
-import { handleLogout } from "../authorisation";
+global.TextEncoder = require("util").TextEncoder;
+global.TextDecoder = require("util").TextDecoder;
+
+import { handleLogout } from "../authorisation.js";
 import { signOut } from "firebase/auth";
 import { toast } from 'react-hot-toast';
 

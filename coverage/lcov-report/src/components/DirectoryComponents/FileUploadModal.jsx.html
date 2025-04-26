@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/components/DirectoryComponents/Dropzone.jsx</title>
+    <title>Code coverage report for src/components/DirectoryComponents/FileUploadModal.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/DirectoryComponents</a> Dropzone.jsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/DirectoryComponents</a> FileUploadModal.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -143,36 +143,7 @@
 <a name='L78'></a><a href='#L78'>78</a>
 <a name='L79'></a><a href='#L79'>79</a>
 <a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a>
-<a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L81'></a><a href='#L81'>81</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -186,8 +157,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -237,93 +221,88 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback, useState, useEffect } from "react";
-import { useDropzone } from "react-dropzone";
-import "../Styles/dropzone.css";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// FileUploadModal.jsx
+import React from "react";
+import { Modal, Button } from "react-bootstrap";
+import IconButton from "../IconButton";
+import DropzoneComponent from "./Dropzone";
 &nbsp;
-const Dropzone = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-  const [file, setFile] = <span class="cstat-no" title="statement not covered" >useState(null);</span>
+const FileUploadModal = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span></span>
+  showModal,
+  handleClose,
+  modalStep,
+  setModalStep,
+  uploadedFile,
+  setUploadedFile,
+}) =&gt; {
+  const handleNext = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (modalStep &lt; 3) <span class="cstat-no" title="statement not covered" >setModalStep(modalStep + 1);</span></span>
+  };
 &nbsp;
-  // Cleanup object URL
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    return <span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      if (file?.preview) <span class="cstat-no" title="statement not covered" >URL.revokeObjectURL(file.preview);</span></span>
-    };
-  }, [file]);
-&nbsp;
-  const onDrop = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >(a</span>cceptedFiles) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (acceptedFiles.length &gt; 0) {</span>
-      const newFile = <span class="cstat-no" title="statement not covered" >acceptedFiles[0];</span>
-      // Create a proper file object with needed properties
-<span class="cstat-no" title="statement not covered" >      setFile({</span>
-        file: newFile, // Store the actual File object
-        name: newFile.name,
-        type: newFile.type,
-        size: newFile.size,
-        isImage: newFile.type.startsWith("image/"),
-      });
-    }
-  }, []);
-&nbsp;
-  const { getRootProps, getInputProps, isDragActive } = <span class="cstat-no" title="statement not covered" >useDropzone({</span>
-    onDrop,
-    maxFiles: 1,
-    accept: {
-      "image/*": [".jpeg", ".png", ".jpg"],
-      "application/*": [".pdf", ".doc", ".docx", ".txt"],
-    },
-  });
-&nbsp;
-  const removeFile = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setFile(null);</span></span>
+  const handleBack = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (modalStep &gt; 1) <span class="cstat-no" title="statement not covered" >setModalStep(modalStep - 1);</span></span>
+  };
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;div className="dropzone-form container mt-4"&gt;
-      &lt;div
-        {...getRootProps()}
-        className={`dropzone-container ${isDragActive ? "active" : ""}`}
-      &gt;
-        &lt;input {...getInputProps()} /&gt;
-        {isDragActive ? (
-          &lt;div className="dropzone-content"&gt;
-            &lt;i className="material-symbols-outlined fs-1"&gt;drag_pan&lt;/i&gt;
-            &lt;p className="mt-2"&gt;Drop your file here...&lt;/p&gt;
-          &lt;/div&gt;
-        ) : (
-          &lt;div className="dropzone-content"&gt;
-            &lt;i className="material-symbols-outlined fs-1"&gt;upload&lt;/i&gt;
-            &lt;p className="mt-2"&gt;Drag &amp; drop a file here, or click to select&lt;/p&gt;
-            &lt;small className="text-muted"&gt;(Single file only)&lt;/small&gt;
+    &lt;Modal show={showModal} onHide={handleClose} centered&gt;
+      &lt;Modal.Header closeButton&gt;
+        &lt;Modal.Title&gt;Upload Process&lt;/Modal.Title&gt;
+      &lt;/Modal.Header&gt;
+      &lt;Modal.Body&gt;
+        &lt;div className="d-flex justify-content-center mb-3"&gt;
+          {[1, 2, 3].map(<span class="fstat-no" title="function not covered" >(s</span>tep) =&gt; (
+<span class="cstat-no" title="statement not covered" >            &lt;span</span>
+              key={step}
+              className={`mx-1 rounded-circle ${
+                modalStep === step ? "bg-primary" : "bg-secondary"
+              }`}
+              style={{ width: 15, height: 15 }}
+            &gt;&lt;/span&gt;
+          ))}
+        &lt;/div&gt;
+&nbsp;
+        {modalStep === 1 &amp;&amp; (
+          &lt;DropzoneComponent setUploadedFile={setUploadedFile} /&gt;
+        )}
+        {modalStep === 2 &amp;&amp; (
+          &lt;div className="text-center"&gt;
+            &lt;p&gt;Step Two: Girl's Girls Inc ft. Diversity hires&lt;/p&gt;
+            &lt;img src="/assets/logo.png" alt="Logo" className="mask-x-to-10%" /&gt;
           &lt;/div&gt;
         )}
-      &lt;/div&gt;
-&nbsp;
-      {file &amp;&amp; (
-        &lt;div className="shadow-sm mt-3 d-flex align-items-center justify-content-between p-3 bg-light rounded"&gt;
-          &lt;div className="d-flex align-items-center"&gt;
-            &lt;i
-              className={`material-symbols-outlined me-3 fs-2 ${
-                file.isImage ? "text-primary" : "text-secondary"
-              }`}
-            &gt;
-              {file.isImage ? "image" : "description"}
-            &lt;/i&gt;
-            &lt;div&gt;
-              &lt;div className="text-dark fw-medium"&gt;{file.name}&lt;/div&gt;
+        {modalStep === 3 &amp;&amp; (
+          &lt;div className="text-center"&gt;
+            &lt;p&gt;
+              Ready to upload:{" "}
+              &lt;strong&gt;{uploadedFile?.name || "No file selected"}&lt;/strong&gt;
+            &lt;/p&gt;
+            &lt;div className="d-flex justify-content-center"&gt;
+              &lt;IconButton
+                icon="check"
+                label="Confirm"
+                onClick={handleNext}
+                className="me-2"
+              /&gt;
+              &lt;IconButton icon="close" label="Cancel" onClick={handleClose} /&gt;
             &lt;/div&gt;
           &lt;/div&gt;
-          &lt;button
-            onClick={removeFile}
-            className="btn btn-sm btn-outline-danger"
-          &gt;
-            &lt;i className="material-symbols-outlined"&gt;delete&lt;/i&gt;
-          &lt;/button&gt;
-        &lt;/div&gt;
-      )}
-    &lt;/div&gt;
+        )}
+      &lt;/Modal.Body&gt;
+      &lt;Modal.Footer&gt;
+        {modalStep &gt; 1 &amp;&amp; (
+          &lt;IconButton icon="arrow_back" label="Back" onClick={handleBack} /&gt;
+        )}
+        {modalStep &lt; 3 &amp;&amp; (
+          &lt;IconButton icon="arrow_forward" label="Next" onClick={handleNext} /&gt;
+        )}
+      &lt;/Modal.Footer&gt;
+    &lt;/Modal&gt;
   );
 };
 &nbsp;
-export default Dropzone;
+export default FileUploadModal;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
