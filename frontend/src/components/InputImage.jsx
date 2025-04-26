@@ -32,7 +32,7 @@ export default function InputImage() {
       />
 
       {/* Welcome text */}
-      <h1 className="text-3xl font-bold mb-1">
+      <h1 className="text-3xl font-bold mb-1 text-center">
         Welcome, {user.displayName || "User"}
       </h1>
       <p className="text-gray-500">Member since April '25</p>

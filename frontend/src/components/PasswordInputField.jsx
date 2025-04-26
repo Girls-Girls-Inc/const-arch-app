@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 
-const PasswordInputField = ({ id, placeholder, onChange, value }) => {
+const PasswordInputField = ({
+  id,
+  placeholder,
+  onChange,
+  value,
+  required = true,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePassword = () => {
@@ -14,7 +20,7 @@ const PasswordInputField = ({ id, placeholder, onChange, value }) => {
         type={showPassword ? "text" : "password"}
         placeholder={placeholder}
         className="input-field"
-        required
+        required={required}
         onChange={onChange}
         value={value}
       />

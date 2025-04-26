@@ -12,6 +12,7 @@ const NavigationComponent = () => {
   return (
     <>
       {/* Mobile Menu Button */}
+
       <button
         className="hamburger-btn_ca d-md-none"
         onClick={() => setMenuOpen((prev) => !prev)}

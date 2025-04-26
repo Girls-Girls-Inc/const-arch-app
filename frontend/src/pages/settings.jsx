@@ -121,41 +121,42 @@ const SettingsPage = () => {
             <h2 className="dashboard-title">Settings</h2>
             <InputImage />
 
-            <form className="dashboard-details-grid" onSubmit={handleSave}>
-              <InputField
-                type="text"
-                placeholder="Enter username"
-                icon="badge"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required={false}
-              />
-              <InputField
-                type="email"
-                placeholder="Enter email"
-                icon="mail"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required={false}
-              />
-              <InputField
-                type="password"
-                placeholder="Current password"
-                icon="lock"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required={false}
-              />
-              <InputField
-                type="password"
-                placeholder="New password"
-                icon="lock_reset"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                required={false}
-              />
-
-              <div className="d-flex justify-content-center w-100 mt-4">
+            <form className="dashboard-details-grid-form" onSubmit={handleSave}>
+              <div className="dashboard-details-grid">
+                <InputField
+                  type="text"
+                  placeholder="Enter username"
+                  icon="badge"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required={false}
+                />
+                <InputField
+                  type="email"
+                  placeholder="Enter email"
+                  icon="mail"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required={false}
+                />
+                <PasswordInputField
+                  type="password"
+                  placeholder="Current password"
+                  icon="lock"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required={false}
+                />
+                <PasswordInputField
+                  type="password"
+                  placeholder="New password"
+                  icon="lock_reset"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  required={false}
+                />
+              </div>
+              <div className="d-flex justify-content-center w-100">
                 <IconButton icon="check" label="Save Changes" type="submit" />
               </div>
             </form>

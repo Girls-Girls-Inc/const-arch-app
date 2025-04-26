@@ -142,12 +142,10 @@ const ManageUsers = () => {
               style={{ maxHeight: "65vh", overflowY: "auto" }}
             >
               {users.length > 0 ? (
-                <table className="table table-bordered table-striped table-hover rounded">
+                <table className="table table-striped table-hover table-borderless w-100 rounded-4 overflow-hidden shadow">
                   <thead className="thead-dark bg-dark text-white">
                     <tr>
                       <th scope="col">Email</th>
-                      <th scope="col">First Name</th>
-                      <th scope="col">Last Name</th>
                       <th scope="col">Admin</th>
                     </tr>
                   </thead>
@@ -155,11 +153,11 @@ const ManageUsers = () => {
                     {users.map((user) => (
                       <tr key={user.id}>
                         <td>{user.email}</td>
-                        <td>{user.firstName}</td>
-                        <td>{user.lastName}</td>
+
                         <td>
                           <input
                             type="checkbox"
+                            className="custom-checkbox"
                             checked={user.isAdmin}
                             onChange={() =>
                               handleAdminToggle(user.id, user.isAdmin)
