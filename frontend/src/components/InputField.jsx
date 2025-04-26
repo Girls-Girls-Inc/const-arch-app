@@ -1,6 +1,14 @@
 import React from "react";
 
-const InputField = ({ id, type, placeholder, icon, onChange, value }) => {
+const InputField = ({
+  id,
+  type,
+  placeholder,
+  icon,
+  onChange,
+  value,
+  required = true, // default to true
+}) => {
   return (
     <div className="input-wrapper">
       <input
@@ -10,7 +18,7 @@ const InputField = ({ id, type, placeholder, icon, onChange, value }) => {
         className="input-field"
         onChange={onChange}
         value={value}
-        required
+        required={required}
       />
       <i className="material-symbols-outlined">{icon}</i>
     </div>
