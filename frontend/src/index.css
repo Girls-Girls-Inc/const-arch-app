@@ -18,6 +18,18 @@ input::-ms-clear {
   --light-bg: #f8f9fa;
 }
 
+.bg-custom-primary {
+  background-color: var(--south-africa-green) !important;
+}
+
+.bg-custom-secondary {
+  background-color: var(--south-africa-blue) !important;
+}
+
+.bg-custom-blank {
+  background-color: #555 !important;
+}
+
 @media (prefers-color-scheme: dark) {
 }
 
@@ -106,6 +118,14 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
+  background-image: url("/assets/blobBg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* background-color: var(--south-africa-blue) !important; */
+}
+
+body {
   background-color: var(--south-africa-blue) !important;
 }
 
@@ -219,22 +239,6 @@ body {
 
 .input-wrapper .input-field::placeholder {
   color: #555;
-}
-
-body.home-page,
-body.signin-page,
-body.signup-page {
-  display: flex; /* Needed to make align-items work */
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; /* optional */
-  padding: 10px;
-  background-image: url("/assets/blobBg.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  min-height: 100vh;
 }
 
 .login-button {
@@ -368,26 +372,6 @@ a {
   margin: 0 auto;
 }
 
-/* Loader styles */
-/* .loader-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 10vh;
-  width: 10vh;
-  background-color: var(--light-bg);
-  border-radius: 5%;
-}
-
-.loader {
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid var(--south-africa-blue);
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite, fadeColors 4s ease-in-out infinite;
-} */
-
 .mobile-dropdown-nav {
   position: fixed;
   top: 3.5rem;
@@ -483,7 +467,6 @@ a {
   height: 100%;
   gap: 2rem;
   padding: 1rem 2rem 1rem 1rem;
-  background-color: #f3f3f3;
 }
 
 .dashboard-container-righty {

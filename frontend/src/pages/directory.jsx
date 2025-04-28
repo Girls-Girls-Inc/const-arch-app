@@ -8,6 +8,7 @@ import IconButton from "../components/IconButton";
 import FileUploadModal from "../components/DirectoryComponents/FileUploadModal";
 import NavigationComponent from "../components/NavigationComponent";
 import NavigationDashLeft from "../components/NavigationDashLeft";
+import { Toaster } from "react-hot-toast";
 
 const Directory = () => {
   const { user, loading, setUser } = useUser();
@@ -69,6 +70,8 @@ const Directory = () => {
         uploadedFile={uploadedFile}
         setUploadedFile={setUploadedFile}
       />
+
+      <Toaster position="top-center" reverseOrder={false} />
     </main>
   );
 };
