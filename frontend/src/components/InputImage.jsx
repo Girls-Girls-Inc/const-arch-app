@@ -5,12 +5,15 @@ import "../index.css";
 export default function InputImage() {
   const { user } = useUser();
 
+  // Set default image path
+  const defaultImage = "/assets/logo.png";
+
   return (
     <section className="profile-picture-wrapper">
       {/* Label wraps image and triggers file input */}
       <label htmlFor="profile-upload" className="cursor-pointer">
         <img
-          src={user.photoURL || "https://via.placeholder.com/180?text=👤"}
+          src={user.photoURL ? user.photoURL : defaultImage}
           alt="Profile"
           className="profile-img"
         />

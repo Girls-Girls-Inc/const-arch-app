@@ -111,7 +111,7 @@ const ManageUsers = () => {
 
         <section className="dashboard-container-righty">
           <main className="dashboard-details">
-            <h2 className="title-admin">All Users:</h2>
+            <h2 className="right-title">Manage users:</h2>
 
             {/* Bootstrap scrollable, styled table */}
             <div
@@ -132,14 +132,24 @@ const ManageUsers = () => {
                         <td>{user.email}</td>
 
                         <td>
-                          <input
-                            type="checkbox"
-                            className="custom-checkbox"
-                            checked={user.isAdmin}
-                            onChange={() =>
-                              handleAdminToggle(user.id, user.isAdmin)
-                            }
-                          />
+                          <div className="form-check form-switch">
+                            <input
+                              className="form-check-input bg-success border-success"
+                              type="checkbox"
+                              role="switch"
+                              id={`adminSwitch-${user.id}`}
+                              checked={user.isAdmin}
+                              onChange={() =>
+                                handleAdminToggle(user.id, user.isAdmin)
+                              }
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor={`adminSwitch-${user.id}`}
+                            >
+                              Admin
+                            </label>
+                          </div>
                         </td>
                       </tr>
                     ))}

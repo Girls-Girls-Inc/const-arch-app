@@ -42,8 +42,8 @@ const Directory = () => {
         <NavigationDashLeft />
         <section className="dashboard-container-righty">
           <main className="dashboard-details">
-            <h2>Directory</h2>
-            <div className="directory-page">
+            <h2 className="right-title">Directory</h2>
+            <div>
               <div className="upload-buttons">
                 <IconButton
                   onClick={handleOpenModal}

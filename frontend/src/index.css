@@ -42,8 +42,7 @@ input::-ms-clear {
 
 h2 {
   text-transform: uppercase;
-  font-weight: 00;
-  color: #555;
+  font-weight: 800;
 }
 
 .btn_ca {
@@ -457,7 +456,6 @@ a {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  padding: 0 2rem;
 }
 
 .dashboard-container {
@@ -775,11 +773,6 @@ a {
   cursor: pointer;
 }
 
-.title-admin {
-  text-transform: uppercase;
-  padding: 1rem;
-}
-
 .table-responsive {
   padding: 1rem;
 
@@ -825,4 +818,19 @@ a {
   padding-top: 1rem !important;
   padding-left: 1rem !important;
   vertical-align: middle !important;
+}
+
+.right-title {
+  text-transform: uppercase;
+  font-weight: 800;
+  padding: 1rem;
+}
+
+.folder-item:hover {
+  background-color: var(--south-africa-blue);
+  color: white;
+}
+.path-tracker {
+  font-size: 0.9rem;
+  color: #6c757d;
 }

@@ -29,7 +29,7 @@ const BookmarksContent = () => {
   return (
     <>
       <main className="dashboard-details">
-        <h2>Bookmarks</h2>
+        <h2 className="right-title">Bookmarks</h2>
 
         <section className="bookmark-grid">
           {bookmarks.map((bookmark) => (
