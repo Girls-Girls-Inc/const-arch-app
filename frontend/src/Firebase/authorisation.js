@@ -14,12 +14,12 @@ import { toast } from "react-hot-toast";
 const HOST_URL = import.meta.env.VITE_API_HOST_URL || "http://localhost:4000";
 
 export async function signUpWithEmail(email, password, name) {
-  if(!email){
+  if (!email) {
     throw new Error("Email cannot be empty");
-  }else if(!password){
+  } else if (!password) {
     throw new Error("Password cannot be empty");
   }
-  
+
   const userCredential = await createUserWithEmailAndPassword(
     auth,
     email,
@@ -31,9 +31,7 @@ export async function signUpWithEmail(email, password, name) {
     await updateProfile(user, { displayName: name });
   }
 
-
   await axios.post(`${HOST_URL}/api/user`, user);
-
 
   return user;
 }
@@ -62,11 +60,10 @@ export async function withProvider(provider) {
   const userDocSnap = await getDoc(userDocRef);
 
   if (!userDocSnap.exists()) {
-  await axios.post(`${HOST_URL}/api/user`, user);
+    await axios.post(`${HOST_URL}/api/user`, user);
   }
 
   return user;
-
 }
 
 export const handleLogout = async (setUser) => {
