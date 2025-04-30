@@ -9,14 +9,14 @@ const path = require('path');
 
 const app = express();
 
-app.use(express.static("../frontend/dist"));
+app.use(express.static("./frontend/dist"));
 app.use(express.json());
 
-const userRoutes = require('./routes/user-routes');
-const settingsRoutes = require('./routes/settings-routes');
-const uploadRoutes = require('./routes/upload-routes');
-const directoryRoutes = require('./routes/directory-routes');
-const bookmarkRoutes = require('./routes/bookmark-routes');
+const userRoutes = require('./backend/routes/user-routes');
+const settingsRoutes = require('./backend/routes/settings-routes');
+const uploadRoutes = require('./backend/routes/upload-routes');
+const directoryRoutes = require('./backend/routes/directory-routes');
+const bookmarkRoutes = require('./backend/routes/bookmark-routes');
 
 app.use('/api', userRoutes.routes);
 app.use('/api', settingsRoutes.routes);
