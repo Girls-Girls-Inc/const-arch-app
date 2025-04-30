@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "install-all": "npm install --prefix frontend && npm install --prefix backend",
+    "install-all": "npm install && npm install --prefix frontend && npm install --prefix backend",
     "prebuild": "npm run install-all",
     "build": "npm run frontend:build",
     "frontend:build": "npm run build --prefix frontend",
