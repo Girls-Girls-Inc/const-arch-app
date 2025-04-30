@@ -6,6 +6,12 @@ jest.mock('firebase/auth', () => ({
   FacebookAuthProvider: jest.fn().mockImplementation(() => ({})),
 }));
 
+jest.mock('firebase/firestore', () => ({
+  getDoc: jest.fn(() => Promise.resolve({ exists: () => false })),
+  doc: jest.fn(),
+  getFirestore: jest.fn(() => ({})), // Add this to mock getFirestore
+}));
+
 // Mock Axios
 jest.mock('axios', () => ({
   post: jest.fn(() => Promise.resolve({ status: 200 })),
@@ -24,7 +30,7 @@ describe('signUpWithEmailAndPassword', () => {
     const email = 'test@example.com';
     const password = 'password123';
     const name = 'Test User';
-    
+
     createUserWithEmailAndPassword.mockResolvedValueOnce({
       user: { uid: 'test-user-id', email },
     });
@@ -33,7 +39,7 @@ describe('signUpWithEmailAndPassword', () => {
 
     expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(expect.anything(), email, password);
     expect(updateProfile).toHaveBeenCalledWith({ uid: 'test-user-id', email }, { displayName: name });
-    expect(axios.post).toHaveBeenCalledWith('http://localhost:4000/api/user', {
+    expect(axios.post).toHaveBeenCalledWith(expect.stringContaining("/api/user"), {
       uid: 'test-user-id',
       email,
     });
@@ -43,14 +49,14 @@ describe('signUpWithEmailAndPassword', () => {
   it('should not call updateProfile if name is not provided', async () => {
     const email = 'test@example.com';
     const password = 'password123';
-  
+
     createUserWithEmailAndPassword.mockResolvedValueOnce({
       user: { uid: 'test-user-id', email },
     });
-  
+
     await signUpWithEmail(email, password);
-  
-    expect(updateProfile).not.toHaveBeenCalled(); 
+
+    expect(updateProfile).not.toHaveBeenCalled();
   });
 
   it('should throw an error if email is missing', async () => {

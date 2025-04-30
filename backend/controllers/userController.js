@@ -6,8 +6,8 @@ const addUser = async (req, res) => {
     try {
         const user = req.body;
         const data = {
-            uid: user.uid,
-            name: user.displayName || "",
+            uid: user.id,
+            name: user.name || "",
             email: user.email,
             isAdmin: false,
             photoURL: user.photoURL || "",
@@ -23,7 +23,7 @@ const addUser = async (req, res) => {
         const allFields = [data.uid, data.isAdmin, data.email, data.name, data.photoURL, data.createdAt];
         data.profileComplete = allFields.every(Boolean);
 
-        await db.collection('users').doc(user.uid).set(data);
+        await db.collection('users').doc(data.uid).set(data);
         res.status(200).send('User added successfully!');
     } catch (error) {
         console.error('Error saving user:', error.message);

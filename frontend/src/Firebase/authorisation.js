@@ -11,7 +11,7 @@ import { getDoc, doc } from "firebase/firestore"; // import Firestore functions
 import { db } from "./firebase";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-const HOST_URL = import.meta.env.VITE_API_HOST_URL || "http://localhost:4000";
+const HOST_URL = process.env.VITE_API_HOST_URL;
 
 export async function signUpWithEmail(email, password, name) {
   if (!email) {

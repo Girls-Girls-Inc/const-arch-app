@@ -14,15 +14,15 @@ app.use(express.json());
 
 const userRoutes = require('./backend/routes/user-routes');
 const settingsRoutes = require('./backend/routes/settings-routes');
-//const uploadRoutes = require('./routes/upload-routes');
-//const directoryRoutes = require('./routes/directory-routes');
-//const bookmarkRoutes = require('./routes/bookmark-routes');
+const uploadRoutes = require('./backend/routes/upload-routes');
+const directoryRoutes = require('./backend/routes/directory-routes');
+const bookmarkRoutes = require('./backend/routes/bookmark-routes');
 
 app.use('/api', userRoutes.routes);
 app.use('/api', settingsRoutes.routes);
-//app.use('/api/upload', uploadRoutes.routes);
-//app.use('/api/directory', directoryRoutes.routes);
-//app.use('/api/bookmark', bookmarkRoutes.routes);
+app.use('/api', uploadRoutes.routes);
+app.use('/api', directoryRoutes.routes);
+app.use('/api', bookmarkRoutes.routes);
 
 app.get(/.*/, (req, res) => {
   res.sendFile("index.html", { root: path.join(__dirname, ".", "frontend", "dist") });
