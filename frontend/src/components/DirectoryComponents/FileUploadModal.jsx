@@ -3,6 +3,10 @@ import { Modal } from "react-bootstrap";
 import IconButton from "../IconButton";
 import DropzoneComponent from "./Dropzone";
 import { toast } from "react-hot-toast";
+import { storage, auth, db } from "../../Firebase/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import Upload from "../../../../backend/models/upload";
 
 const FileUploadModal = ({
   showModal,
@@ -67,6 +71,60 @@ const FileUploadModal = ({
       newTab.focus();
     } else {
       toast.error("Unable to open the file in a new tab.");
+    }
+  };
+
+  const handleUpload = async () => {
+    if (!uploadedFile?.file) {
+      toast.error("No file selected for upload.");
+      return;
+    }
+
+    const file = uploadedFile.file;
+    const customName = uploadedFile.customName || file.name;
+    const fileType = file.type; // Get the file type (MIME type)
+    const storageRef = ref(storage, `files/${customName}`);
+
+    try {
+      // Upload the file to Firebase storage
+      const snapshot = await uploadBytes(storageRef, file);
+      const fileURL = await getDownloadURL(snapshot.ref());
+
+      // Create an instance of the Upload class with the required fields
+      const newUpload = new Upload(
+        snapshot.ref.name, // id (use snapshot name or generate your own ID)
+        customName, // fileName
+        fileURL, // filePath (link to the uploaded file)
+        "default_directory", // directoryId (you can customize this or pass as a prop)
+        auth.currentUser?.email || "anonymous", // uploadedBy
+        fileType, // fileType
+        uploadedFile.tags || [], // tags
+        new Date(), // uploadDate
+        "public", // visibility (you can set this based on your use case)
+        0, // bookmarkCount
+        serverTimestamp() // updatedAt
+      );
+
+      // Save the upload data to Firestore
+      const docRef = await addDoc(collection(db, "uploads"), {
+        id: newUpload.id,
+        fileName: newUpload.fileName,
+        filePath: newUpload.filePath,
+        directoryId: newUpload.directoryId,
+        uploadedBy: newUpload.uploadedBy,
+        fileType: newUpload.fileType,
+        tags: newUpload.tags,
+        uploadDate: newUpload.uploadDate,
+        visibility: newUpload.visibility,
+        bookmarkCount: newUpload.bookmarkCount,
+        updatedAt: newUpload.updatedAt,
+      });
+
+      toast.success("File uploaded and saved!");
+      handleClose();
+    } catch (error) {
+      console.error("Upload error:", error);
+      toast.error("Upload failed. Try again.");
     }
   };
 
@@ -237,7 +295,7 @@ const FileUploadModal = ({
                 <IconButton
                   icon="check"
                   label="Confirm"
-                  onClick={handleNext}
+                  onClick={handleUpload}
                   className="me-2"
                 />
                 <IconButton

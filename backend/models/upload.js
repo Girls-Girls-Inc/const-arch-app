@@ -5,7 +5,6 @@ class Upload {
     filePath,
     directoryId,
     uploadedBy,
-    metadataId,
     fileType,
     tags,
     uploadDate,
@@ -18,7 +17,6 @@ class Upload {
     this.filePath = filePath;
     this.directoryId = directoryId;
     this.uploadedBy = uploadedBy;
-    this.metadataId = metadataId;
     this.fileType = fileType;
     this.tags = tags;
     this.uploadDate = uploadDate;
@@ -28,4 +26,4 @@ class Upload {
   }
 }
 
-module.exports = Upload;
+export default Upload;

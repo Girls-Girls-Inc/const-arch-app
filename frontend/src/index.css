@@ -17,6 +17,17 @@ input::-ms-clear {
   --dark-bg: #272525;
   --light-bg: #f8f9fa;
 }
+html,
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-image: url("/assets/blobBg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
 .bg-custom-primary {
   background-color: var(--south-africa-green) !important;
@@ -109,19 +120,6 @@ h2 {
 .dark-theme .home-container .btn_ca {
   background: var(--dark-bg);
   background-color: var(--south-africa-blue);
-}
-
-html,
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  background-image: url("/assets/blobBg.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  /* background-color: var(--south-africa-blue) !important; */
 }
 
 body {
@@ -452,10 +450,22 @@ a {
   margin-bottom: 0.5rem;
 }
 
+.directory-subhead {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.directory-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.5rem 0rem;
+}
+
 .upload-buttons {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
 }
 
 .dashboard-container {
@@ -630,7 +640,7 @@ a {
   padding: 0.5rem 1rem;
   z-index: 1100;
   cursor: pointer;
-  border-radius: 0.25rem;
+  border-radius: 50%;
 }
 
 /* Desktop default */
@@ -821,20 +831,54 @@ a {
 }
 
 .right-title {
+  text-align: center;
   text-transform: uppercase;
   font-weight: 800;
   padding: 1rem;
 }
 
-.folder-item:hover {
-  background-color: var(--south-africa-blue);
-  color: white;
-}
-.path-tracker {
-  font-size: 0.9rem;
-  color: #6c757d;
-}
-
 .form-switch {
   cursor: pointer;
+}
+
+.directory-dash {
+  display: flex;
+  align-items: stretch;
+}
+
+.directory-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 1rem;
+}
+
+.directory-item {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 45%;
+  max-width: 45%;
+  box-sizing: border-box;
+  min-height: 40px;
+}
+
+.directory-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
+  transition: all 0.3s ease;
+}
+
+.directory-item i {
+  font-size: 3rem;
+  margin-right: 0.5rem;
+  color: #555;
+}
+
+@media (min-width: 768px) {
+  .directory-item {
+    flex: 1 1 16%; /* ~6 items per row on desktop */
+    max-width: 16%;
+  }
 }

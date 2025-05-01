@@ -9,6 +9,7 @@ import FileUploadModal from "../components/DirectoryComponents/FileUploadModal";
 import NavigationComponent from "../components/NavigationComponent";
 import NavigationDashLeft from "../components/NavigationDashLeft";
 import { Toaster } from "react-hot-toast";
+import DirectoryBlock from "../components/DirectoryComponents/DirectoryBlock";
 
 const Directory = () => {
   const { user, loading, setUser } = useUser();
@@ -41,20 +42,32 @@ const Directory = () => {
       <section className="dashboard-container">
         <NavigationDashLeft />
         <section className="dashboard-container-righty">
-          <main className="dashboard-details">
+          <main className="dashboard-details directory-dash">
             <h2 className="right-title">Directory</h2>
             <div>
-              <div className="upload-buttons">
-                <IconButton
-                  onClick={handleOpenModal}
-                  icon="upload_file"
-                  label="Upload File"
-                />
-                <IconButton
-                  route="/directory"
-                  icon="create_new_folder"
-                  label="Create Folder"
-                />
+              <div className="directory-subhead">
+                <IconButton icon="arrow_back" label="Back" />
+                <div className="upload-buttons">
+                  <IconButton
+                    onClick={handleOpenModal}
+                    icon="upload_file"
+                    label="Upload File"
+                  />
+                  <IconButton
+                    route="/directory"
+                    icon="create_new_folder"
+                    label="Create Folder"
+                  />
+                </div>
+              </div>
+
+              <div className="directory-nav">
+                <p className="root-text">Root/ backup/</p>
+              </div>
+
+              {/* folders*/}
+              <div className="folder-container">
+                <DirectoryBlock />
               </div>
             </div>
           </main>

@@ -22,6 +22,7 @@ const ManageUsers = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [isAdmin, setIsAdmin] = useState(null);
+  const [usersLoading, setUsersLoading] = useState(true);
   const auth = getAuth();
 
   useEffect(() => {
@@ -35,7 +36,6 @@ const ManageUsers = () => {
       const currentUser = auth.currentUser;
 
       if (!currentUser) {
-        console.log("No user signed in");
         setIsAdmin(false);
         return;
       }
@@ -49,28 +49,26 @@ const ManageUsers = () => {
           setIsAdmin(userData.isAdmin);
 
           if (userData.isAdmin) {
+            toast.loading("Fetching user data...");
             const colRef = collection(db, "users");
-            const promise = getDocs(colRef).then((snapshot) => {
-              const usersList = snapshot.docs.map((docSnap) => ({
-                ...docSnap.data(),
-                id: docSnap.id,
-              }));
-              setUsers(usersList);
-            });
-
-            await toast.promise(promise, {
-              loading: "Fetching users...",
-              success: "Users loaded successfully!",
-              error: "Failed to load users",
-            });
+            const snapshot = await getDocs(colRef);
+            const usersList = snapshot.docs.map((docSnap) => ({
+              ...docSnap.data(),
+              id: docSnap.id,
+            }));
+            setUsers(usersList);
+            toast.dismiss();
+            toast.success("Users loaded successfully!");
           }
         } else {
-          console.log("User document not found");
           setIsAdmin(false);
         }
       } catch (error) {
         console.error("Error checking admin status:", error);
+        toast.error("Failed to fetch user data");
         setIsAdmin(false);
+      } finally {
+        setUsersLoading(false);
       }
     };
 
@@ -97,10 +95,6 @@ const ManageUsers = () => {
     }
   };
 
-  if (loading || isAdmin === null)
-    return <p className="loading-message">Loading...</p>;
-  if (!isAdmin) return <p>You do not have permission to view this page.</p>;
-
   return (
     <main>
       <Toaster position="top-center" reverseOrder={false} />
@@ -113,12 +107,17 @@ const ManageUsers = () => {
           <main className="dashboard-details">
             <h2 className="right-title">Manage users:</h2>
 
-            {/* Bootstrap scrollable, styled table */}
             <div
               className="table-responsive"
               style={{ maxHeight: "65vh", overflowY: "auto" }}
             >
-              {users.length > 0 ? (
+              {!loading && isAdmin === false && (
+                <p>You do not have permission to view this page.</p>
+              )}
+
+              {!loading && isAdmin && usersLoading && <p>Loading users...</p>}
+
+              {!loading && isAdmin && !usersLoading && users.length > 0 && (
                 <table className="table table-striped table-hover table-borderless w-100 rounded-4 overflow-hidden shadow">
                   <thead className="thead-dark bg-dark text-white">
                     <tr>
@@ -130,7 +129,6 @@ const ManageUsers = () => {
                     {users.map((user) => (
                       <tr key={user.id}>
                         <td>{user.email}</td>
-
                         <td>
                           <div className="form-check form-switch">
                             <input
@@ -155,8 +153,6 @@ const ManageUsers = () => {
                     ))}
                   </tbody>
                 </table>
-              ) : (
-                <p>Loading users...</p>
               )}
             </div>
           </main>
