@@ -8,11 +8,7 @@ export default {
   ],
   testEnvironment: 'jsdom',
   moduleDirectories: ['node_modules', 'frontend/src'],
-  setupFiles: ['<rootDir>/jest.setup.js'],
-  presets: [
-    '@babel/preset-env',
-    '@babel/preset-react',
-  ],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleNameMapper: {
     '\\.css$': 'identity-obj-proxy',
   },

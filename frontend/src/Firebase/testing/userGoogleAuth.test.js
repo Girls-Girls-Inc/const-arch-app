@@ -42,8 +42,10 @@ describe('withProvider', () => {
     
     // Ensure the axios POST request is sent with the correct user data
     expect(axios.post).toHaveBeenCalledWith(expect.stringContaining("/api/user"), {
-      uid: 'test-user-id',
+      id: 'test-user-id',
       email: 'test@example.com',
+      name: expect.any(String),
+      photoURL: ""
     });
 
     // Ensure the returned user matches the expected result

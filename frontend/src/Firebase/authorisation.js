@@ -12,7 +12,7 @@ import { db } from "./firebase";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-const HOST_URL = import.meta.env.VITE_API_HOST_URL;
+const HOST_URL = process.env.VITE_API_HOST_URL || 'https://fallback-url.com';
 
 // Helper to format the Firebase user to match backend expectations
 const formatUserForBackend = (user) => ({

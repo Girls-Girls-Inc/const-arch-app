@@ -27,6 +27,13 @@ const SettingsPage = () => {
   }, [user, loading, navigate]);
 
   useEffect(() => {
+    if (user) {
+      setUsername(user.displayName || "");
+      setEmail(user.email || "");
+    }
+  }, [user]);
+
+  useEffect(() => {
     document.body.classList.add("settings-page");
     return () => {
       document.body.classList.remove("settings-page");
@@ -83,7 +90,6 @@ const SettingsPage = () => {
   };
 
   if (loading) return <p className="loading-message">Loading...</p>;
-  if (!user) return null;
 
   return (
     <main>
