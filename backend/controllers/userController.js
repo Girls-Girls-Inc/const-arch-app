@@ -31,6 +31,25 @@ const addUser = async (req, res) => {
     }
 };
 
+const deleteUser = async (req, res) => {
+    try {
+        const userId = req.params.id;
+
+        if (!userId) {
+            return res.status(400).send('User ID is required.');
+        }
+
+        await db.collection('users').doc(userId).delete();
+        res.status(200).send(`User with ID ${userId} deleted successfully.`);
+    } catch (error) {
+        console.error('Error deleting user:', error.message);
+        res.status(500).send('Error deleting user: ' + error.message);
+    }
+};
+
+
+
 module.exports = {
-    addUser
+    addUser, 
+    deleteUser
 };

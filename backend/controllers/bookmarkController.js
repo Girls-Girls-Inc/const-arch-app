@@ -19,6 +19,21 @@ const addBookmark = async (req, res, next) => {
     }
 };
 
+const removeBookmark = async (req, res, next) => {
+    try {
+        const bookmarkId = req.params.id;
+        if (!bookmarkId) {
+            return res.status(400).send('Bookmark ID is required.');
+        }
+        await db.collection('bookmark').doc(bookmarkId).delete();
+        res.send(`Bookmark with ID ${bookmarkId} deleted successfully.`);
+    } catch (error) {
+        console.error('Error deleting bookmark:', error.message);
+        res.status(400).send(error.message);
+    }
+};
+
 module.exports = {
-    addBookmark
+    addBookmark, 
+    removeBookmark
 };

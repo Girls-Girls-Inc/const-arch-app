@@ -5,7 +5,7 @@ class Upload {
         this.filePath = filePath;
         this.directoryId = directoryId;
         this.uploadedBy = uploadedBy;
-        this.metadataId = metadataId;
+        //this.metadataId = metadataId;
         this.fileType = fileType;
         this.tags = tags; // Array of strings
         this.uploadDate = uploadDate;
