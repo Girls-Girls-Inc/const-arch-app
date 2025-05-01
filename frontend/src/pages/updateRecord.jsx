@@ -7,6 +7,7 @@ import IconButton from "../components/IconButton";
 import { Toaster, toast } from "react-hot-toast";
 import NavigationComponent from "../components/NavigationComponent";
 import InputField from "../components/InputField";
+import FileUploadModal from "../components/DirectoryComponents/FileUploadModal";
 
 const UpdateRecordPage = () => {
     const [user, setUser] = useState(null);
@@ -16,6 +17,13 @@ const UpdateRecordPage = () => {
         e.preventDefault();
         toast.success("Document info saved (placeholder)");
     };
+
+    const [showModal, setShowModal] = useState(false);
+    const [modalStep, setModalStep] = useState(1);
+    const [uploadedFile, setUploadedFile] = useState(null);
+
+    const handleOpen = () => setShowModal(true);
+    const handleClose = () => setShowModal(false);
 
     return (
         <main>
@@ -65,29 +73,13 @@ const UpdateRecordPage = () => {
                                 icon="folder"
                                 required={false}
                             />
-                            <InputField
-                                type="text"
-                                placeholder="File Type (e.g., pdf)"
-                                icon="description"
-                                required={false}
-                            />
-                            <InputField
-                                type="text"
-                                placeholder="Upload ID"
-                                icon="fingerprint"
-                                required={false}
-                            />
-                            <InputField
-                                type="text"
-                                placeholder="Metadata ID"
-                                icon="info"
-                                required={false}
-                            />
-                            <InputField
-                                type="text"
-                                placeholder="Tags (comma separated)"
-                                icon="label"
-                                required={false}
+                            <FileUploadModal
+                                showModal={showModal}
+                                handleClose={handleClose}
+                                modalStep={modalStep}
+                                setModalStep={setModalStep}
+                                uploadedFile={uploadedFile}
+                                setUploadedFile={setUploadedFile}
                             />
                             <InputField
                                 type="text"
