@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { handleLogout } from "../Firebase/authorisation";
 import "../index.css";
-import IconButton from "../components/IconButton";
+import NavigationDashLeft from "../components/NavigationDashLeft";
 import {
   collection,
   getDocs,
@@ -107,65 +107,49 @@ const ManageUsers = () => {
       <NavigationComponent />
 
       <section className="dashboard-container">
-        <section className="dashboard-container-lefty d-none d-md-flex">
-          <section className="nav-top">
-            <IconButton
-              icon="account_circle"
-              label="My Profile"
-              route="/dashboard"
-            />
-            <IconButton icon="bookmark" label="Bookmarks" route="/bookmarks" />
-            <IconButton icon="folder" label="Directory" route="/directory" />
-            <IconButton
-              icon="group"
-              label="Manage Users"
-              route="/manageUsers"
-            />
-          </section>
-          <section className="nav-bottom">
-            <IconButton
-              onClick={() => handleLogout(setUser)}
-              icon="logout"
-              label="Log Out"
-            />
-            <IconButton icon="settings" label="Settings" route="/settings" />
-          </section>
-        </section>
+        <NavigationDashLeft />
 
         <section className="dashboard-container-righty">
           <main className="dashboard-details">
-            <h2 className="title-admin">All Users:</h2>
+            <h2 className="right-title">Manage users:</h2>
+
+            {/* Bootstrap scrollable, styled table */}
             <div
-              className="user-table-container"
-              style={{ overflow: "auto", maxHeight: "65vh", width: "100%" }}
+              className="table-responsive"
+              style={{ maxHeight: "65vh", overflowY: "auto" }}
             >
               {users.length > 0 ? (
-                <table
-                  className="user-table"
-                  style={{ width: "100%", tableLayout: "fixed" }}
-                >
-                  <thead>
+                <table className="table table-striped table-hover table-borderless w-100 rounded-4 overflow-hidden shadow">
+                  <thead className="thead-dark bg-dark text-white">
                     <tr>
-                      <th>Email</th>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th>Admin</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Admin</th>
                     </tr>
                   </thead>
                   <tbody>
                     {users.map((user) => (
                       <tr key={user.id}>
                         <td>{user.email}</td>
-                        <td>{user.firstName}</td>
-                        <td>{user.lastName}</td>
+
                         <td>
-                          <input
-                            type="checkbox"
-                            checked={user.isAdmin}
-                            onChange={() =>
-                              handleAdminToggle(user.id, user.isAdmin)
-                            }
-                          />
+                          <div className="form-check form-switch">
+                            <input
+                              className="form-check-input bg-success border-success"
+                              type="checkbox"
+                              role="switch"
+                              id={`adminSwitch-${user.id}`}
+                              checked={user.isAdmin}
+                              onChange={() =>
+                                handleAdminToggle(user.id, user.isAdmin)
+                              }
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor={`adminSwitch-${user.id}`}
+                            >
+                              Admin
+                            </label>
+                          </div>
                         </td>
                       </tr>
                     ))}

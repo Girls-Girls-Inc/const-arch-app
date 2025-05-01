@@ -7,6 +7,8 @@ import "../index.css";
 import IconButton from "../components/IconButton";
 import FileUploadModal from "../components/DirectoryComponents/FileUploadModal";
 import NavigationComponent from "../components/NavigationComponent";
+import NavigationDashLeft from "../components/NavigationDashLeft";
+import { Toaster } from "react-hot-toast";
 
 const Directory = () => {
   const { user, loading, setUser } = useUser();
@@ -37,35 +39,11 @@ const Directory = () => {
       <NavigationComponent />
 
       <section className="dashboard-container">
-        <section className="dashboard-container-lefty d-none d-md-flex">
-          <section className="nav-top">
-            <IconButton
-              icon="account_circle"
-              label="My Profile"
-              route="/dashboard"
-            />
-            <IconButton icon="bookmark" label="Bookmarks" route="/bookmarks" />
-            <IconButton icon="folder" label="Directory" route="/directory" />
-            <IconButton
-              icon="group"
-              label="Manage Users"
-              route="/manageUsers"
-            />
-          </section>
-          <section className="nav-bottom">
-            <IconButton
-              onClick={() => handleLogout(setUser)}
-              icon="logout"
-              label="Log Out"
-            />
-            <IconButton icon="settings" label="Settings" route="/settings" />
-          </section>
-        </section>
-
+        <NavigationDashLeft />
         <section className="dashboard-container-righty">
           <main className="dashboard-details">
-            <h2>Directory</h2>
-            <div className="directory-page">
+            <h2 className="right-title">Directory</h2>
+            <div>
               <div className="upload-buttons">
                 <IconButton
                   onClick={handleOpenModal}
@@ -92,6 +70,8 @@ const Directory = () => {
         uploadedFile={uploadedFile}
         setUploadedFile={setUploadedFile}
       />
+
+      <Toaster position="top-center" reverseOrder={false} />
     </main>
   );
 };

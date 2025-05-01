@@ -23,3 +23,8 @@
 .icon-button i {
   font-size: 1.5rem;
 }
+
+.upload-buttons .icon-button:hover {
+  background: var(--south-africa-blue);
+  color: white;
+}

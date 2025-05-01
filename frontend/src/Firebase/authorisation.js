@@ -23,10 +23,17 @@ const formatUserForBackend = (user) => ({
 });
 
 export async function signUpWithEmail(email, password, name) {
-  if (!email) throw new Error("Email cannot be empty");
-  if (!password) throw new Error("Password cannot be empty");
+  if (!email) {
+    throw new Error("Email cannot be empty");
+  } else if (!password) {
+    throw new Error("Password cannot be empty");
+  }
 
-  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  const userCredential = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
   const user = userCredential.user;
 
   if (name) {
@@ -34,8 +41,7 @@ export async function signUpWithEmail(email, password, name) {
     user.displayName = name; // Reflect the updated name for formatting
   }
 
-  const formattedUser = formatUserForBackend(user);
-  await axios.post(`${HOST_URL}/api/user`, formattedUser);
+  await axios.post(`${HOST_URL}/api/user`, user);
 
   return user;
 }
@@ -56,8 +62,7 @@ export async function withProvider(provider) {
   const userDocSnap = await getDoc(userDocRef);
 
   if (!userDocSnap.exists()) {
-    const formattedUser = formatUserForBackend(user);
-    await axios.post(`${HOST_URL}/api/user`, formattedUser);
+    await axios.post(`${HOST_URL}/api/user`, user);
   }
 
   return user;
