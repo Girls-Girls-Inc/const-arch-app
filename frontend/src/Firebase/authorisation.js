@@ -7,66 +7,60 @@ import {
   getAuth,
 } from "firebase/auth";
 import { auth } from "./firebase";
-import { getDoc, doc } from "firebase/firestore"; // import Firestore functions
+import { getDoc, doc } from "firebase/firestore";
 import { db } from "./firebase";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-const HOST_URL = process.env.VITE_API_HOST_URL;
+
+const HOST_URL = import.meta.env.VITE_API_HOST_URL;
+
+// Helper to format the Firebase user to match backend expectations
+const formatUserForBackend = (user) => ({
+  id: user.uid,
+  name: user.displayName || "",
+  email: user.email,
+  photoURL: user.photoURL || "",
+});
 
 export async function signUpWithEmail(email, password, name) {
-  if(!email){
-    throw new Error("Email cannot be empty");
-  }else if(!password){
-    throw new Error("Password cannot be empty");
-  }
-  
-  const userCredential = await createUserWithEmailAndPassword(
-    auth,
-    email,
-    password
-  );
+  if (!email) throw new Error("Email cannot be empty");
+  if (!password) throw new Error("Password cannot be empty");
+
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
   const user = userCredential.user;
 
   if (name) {
     await updateProfile(user, { displayName: name });
+    user.displayName = name; // Reflect the updated name for formatting
   }
 
-
-  await axios.post(`${HOST_URL}/api/user`, user);
-
+  const formattedUser = formatUserForBackend(user);
+  await axios.post(`${HOST_URL}/api/user`, formattedUser);
 
   return user;
 }
 
 export async function signInWithEmail(email, password) {
-  if (!email) {
-    throw new Error("Email cannot be empty");
-  }
-  if (!password) {
-    throw new Error("Password cannot be empty");
-  }
-  const userCredentials = await signInWithEmailAndPassword(
-    auth,
-    email,
-    password
-  );
+  if (!email) throw new Error("Email cannot be empty");
+  if (!password) throw new Error("Password cannot be empty");
+
+  const userCredentials = await signInWithEmailAndPassword(auth, email, password);
   return userCredentials.user;
 }
 
 export async function withProvider(provider) {
   const result = await signInWithPopup(auth, provider);
-
   const user = result.user;
 
   const userDocRef = doc(db, "users", user.uid);
   const userDocSnap = await getDoc(userDocRef);
 
   if (!userDocSnap.exists()) {
-  await axios.post(`${HOST_URL}/api/user`, user);
+    const formattedUser = formatUserForBackend(user);
+    await axios.post(`${HOST_URL}/api/user`, formattedUser);
   }
 
   return user;
-
 }
 
 export const handleLogout = async (setUser) => {
