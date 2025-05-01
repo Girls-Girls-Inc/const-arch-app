@@ -77,6 +77,14 @@ const SettingsPage = () => {
       if (!res.ok) throw new Error(data.error);
 
       toast.success("Profile updated successfully!");
+      
+      setUser((prevUser) => ({
+        ...prevUser,
+        displayName: username || prevUser.displayName,
+        email: email || prevUser.email,
+      }));
+      //setUsername(username || prevUser.displayName);
+
     } catch (error) {
       toast.error(`Failed: ${error.message}`);
     }
