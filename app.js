@@ -25,7 +25,7 @@ app.use('/api', directoryRoutes.routes);
 app.use('/api', bookmarkRoutes.routes);
 
 app.get(/.*/, (req, res) => {
-  res.sendFile("index.html", { root: path.join(__dirname, "..", "frontend", "dist") });
+  res.sendFile("index.html", { root: path.join(__dirname, ".", "frontend", "dist") });
 });
 
 module.exports = app;

@@ -9,12 +9,13 @@ import Directory from "./pages/directory";
 import Dashboard from "./pages/dashboard";
 import SettingsPage from "./pages/settings";
 import Bookmarks from "./pages/bookmarks"
-import ManageUsers from "./pages/manageUsers"; // adjust path if needed
+import ManageUsers from "./pages/manageUsers";
+import UpdateRecordPage from "./pages/updateRecord";
 
 const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<UpdateRecordPage />} />
       <Route path="/signin" element={<SigninPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/upload" element={<UploadPage />} />
