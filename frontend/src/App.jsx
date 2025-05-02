@@ -15,7 +15,7 @@ import UpdateRecordPage from "./pages/updateRecord";
 const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<UpdateRecordPage />} />
+      <Route path="/" element={<Home />} />
       <Route path="/signin" element={<SigninPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/upload" element={<UploadPage />} />
@@ -24,6 +24,7 @@ const App = () => {
       <Route path="/settings" element={<SettingsPage />} />
       <Route path="/bookmarks" element={<Bookmarks />} />
       <Route path="/manageUsers" element={<ManageUsers />} />
+      <Route path="/updateRecord/:id" element={<UpdateRecordPage />} />
       {/* Add other routes here */}
     </Routes>
   );

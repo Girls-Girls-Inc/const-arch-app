@@ -20,12 +20,14 @@ const settingsRoutes = require('./backend/routes/settings-routes');
 const uploadRoutes = require('./backend/routes/upload-routes');
 const directoryRoutes = require('./backend/routes/directory-routes');
 const bookmarkRoutes = require('./backend/routes/bookmark-routes');
+const uploadDetailsRoutes = require('./backend/routes/upload-details-routes');
 
 app.use('/api', userRoutes.routes);
 app.use('/api', settingsRoutes.routes);
 app.use('/api', uploadRoutes.routes);
 app.use('/api', directoryRoutes.routes);
 app.use('/api', bookmarkRoutes.routes);
+app.use('/api', uploadDetailsRoutes.routes);
 
 app.get(/.*/, (req, res) => {
   res.sendFile("index.html", { root: path.join(__dirname, ".", "frontend", "dist") });
