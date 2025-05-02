@@ -11,6 +11,7 @@ const app = express();
 
 app.use(express.static("../frontend/dist"));
 app.use(express.json());
+app.use(cors());
 
 const userRoutes = require("./routes/user-routes");
 const settingsRoutes = require("./routes/settings-routes");

@@ -6,7 +6,37 @@ import { toast } from "react-hot-toast";
 import { storage, auth, db } from "../../Firebase/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import Upload from "../../../../backend/models/upload";
+// import Upload from "../../../../backend/models/upload";
+import axios from "axios";
+const HOST_URL = import.meta.env.VITE_API_HOST_URL || "http://localhost:4000";
+
+class Upload {
+  constructor(
+    id,
+    fileName,
+    filePath,
+    directoryId,
+    uploadedBy,
+    fileType,
+    tags,
+    uploadDate,
+    visibility,
+    bookmarkCount,
+    updatedAt
+  ) {
+    this.id = id;
+    this.fileName = fileName;
+    this.filePath = filePath;
+    this.directoryId = directoryId;
+    this.uploadedBy = uploadedBy;
+    this.fileType = fileType;
+    this.tags = tags;
+    this.uploadDate = uploadDate;
+    this.visibility = visibility;
+    this.bookmarkCount = bookmarkCount;
+    this.updatedAt = updatedAt;
+  }
+}
 
 const FileUploadModal = ({
   showModal,
@@ -82,31 +112,42 @@ const FileUploadModal = ({
 
     const file = uploadedFile.file;
     const customName = uploadedFile.customName || file.name;
-    const fileType = file.type; // Get the file type (MIME type)
-    const storageRef = ref(storage, `files/${customName}`);
+    const fileType = file.type;
+
+    // Add a unique identifier to prevent overwrites
+    const uniqueFileName = `${Date.now()}_${customName.replace(/\s+/g, "_")}`;
+    const storageRef = ref(storage, `files/${uniqueFileName}`);
+
+    console.log(uniqueFileName);
+    console.log(storageRef);
 
     try {
-      // Upload the file to Firebase storage
-      const snapshot = await uploadBytes(storageRef, file);
-      const fileURL = await getDownloadURL(snapshot.ref());
+      // Show loading indicator
+      const uploadToast = toast.loading("Uploading file...");
 
-      // Create an instance of the Upload class with the required fields
+      // Upload the file
+      const snapshot = await uploadBytes(storageRef, file);
+      const fileURL = await getDownloadURL(snapshot.ref);
+
+      console.log(fileURL);
+
+      // Create upload record
       const newUpload = new Upload(
-        snapshot.ref.name, // id (use snapshot name or generate your own ID)
-        customName, // fileName
-        fileURL, // filePath (link to the uploaded file)
-        "default_directory", // directoryId (you can customize this or pass as a prop)
-        auth.currentUser?.email || "anonymous", // uploadedBy
-        fileType, // fileType
-        uploadedFile.tags || [], // tags
-        new Date(), // uploadDate
-        "public", // visibility (you can set this based on your use case)
-        0, // bookmarkCount
-        serverTimestamp() // updatedAt
+        uniqueFileName,
+        customName,
+        fileURL,
+        "default_directory",
+        auth.currentUser?.email || "anonymous",
+        fileType,
+        tags,
+        new Date(),
+        "public",
+        0,
+        serverTimestamp()
       );
 
-      // Save the upload data to Firestore
-      const docRef = await addDoc(collection(db, "uploads"), {
+      // Save to Firestore
+      const response = await axios.post(`${HOST_URL}/api/upload`, {
         id: newUpload.id,
         fileName: newUpload.fileName,
         filePath: newUpload.filePath,
@@ -120,11 +161,16 @@ const FileUploadModal = ({
         updatedAt: newUpload.updatedAt,
       });
 
-      toast.success("File uploaded and saved!");
+      console.log(response.status);
+      console.log(response.data);
+
+      toast.dismiss();
+      toast.success("File uploaded successfully!", { duration: 2000 });
       handleClose();
     } catch (error) {
       console.error("Upload error:", error);
-      toast.error("Upload failed. Try again.");
+      toast.dismiss();
+      toast.error(`Upload failed: ${error.message}`, { duration: 3000 });
     }
   };
 
