@@ -31,9 +31,10 @@ export default function SignUp() {
 
     setLoading(true);
     try {
-      const user = await signUpWithEmail(email, password, name);
-      setUser({ ...user, displayName: name });
-      navigate("/dashboard");
+      await signUpWithEmail(email, password, name);
+      // Do not setUser or navigate — wait for email verification
+      toast.success("Check your email to complete sign-up.");
+
     } catch (error) {
       let message = "Signup failed. Please try again.";
       switch (error.code) {

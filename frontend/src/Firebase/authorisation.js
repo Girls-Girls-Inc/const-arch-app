@@ -5,6 +5,7 @@ import {
   signOut,
   updateProfile,
   getAuth,
+  sendSignInLinkToEmail,
 } from "firebase/auth";
 import { auth } from "./firebase";
 import { getDoc, doc } from "firebase/firestore";
@@ -23,22 +24,45 @@ const formatUserForBackend = (user) => ({
 });
 
 export async function signUpWithEmail(email, password, name) {
-  if (!email) throw new Error("Email cannot be empty");
-  if (!password) throw new Error("Password cannot be empty");
 
-  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  const actionCodeSettings = {
+    url: 'http://localhost:4001/verify-link',
+    handleCodeInApp: true,
+  };
+
+  if(!email){
+    throw new Error("Email cannot be empty");
+  }else if(!password){
+    throw new Error("Password cannot be empty");
+  }
+  
+  const userCredential = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
+
   const user = userCredential.user;
 
   if (name) {
     await updateProfile(user, { displayName: name });
-    user.displayName = name; // Reflect the updated name for formatting
   }
 
-  const formattedUser = formatUserForBackend(user);
-  await axios.post(`${HOST_URL}/api/user`, formattedUser);
+  try {
+    await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+    window.localStorage.setItem("emailForSignIn", email);
+    toast.success("Verification email sent. Please check your inbox.");
+  } catch (err) {
+    console.error("Error sending verification email:", err.message);
+    toast.error("Failed to send verification email.");
+  }
+
+  await axios.post(`${HOST_URL}/api/user`,  formatUserForBackend(user));
+
 
   return user;
 }
+
 
 export async function signInWithEmail(email, password) {
   if (!email) throw new Error("Email cannot be empty");
