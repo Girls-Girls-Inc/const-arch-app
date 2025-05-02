@@ -18,6 +18,8 @@ jest.mock('react-hot-toast', () => ({
     },
 }));
 
+process.env.VITE_API_HOST_URL = 'https://mocked-api-url.com';
+
 global.TextEncoder = require("util").TextEncoder;
 global.TextDecoder = require("util").TextDecoder;
 

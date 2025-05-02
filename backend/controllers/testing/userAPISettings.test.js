@@ -1,5 +1,7 @@
 const request = require("supertest");
-const app = require("../../app");
+const app = require("../../../app");
+
+process.env.NODE_ENV = 'test';
 
 // Mock firebase-admin
 jest.mock("firebase-admin", () => {

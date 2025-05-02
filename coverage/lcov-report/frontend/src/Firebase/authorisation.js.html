@@ -25,21 +25,21 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>32/32</span>
+                <span class='fraction'>37/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.66% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/12</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
@@ -142,9 +142,8 @@
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
 <a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L80'></a><a href='#L80'>80</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -160,40 +159,36 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -204,6 +199,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -234,47 +230,44 @@
   getAuth,
 } from "firebase/auth";
 import { auth } from "./firebase";
-import { getDoc, doc } from "firebase/firestore"; // import Firestore functions
+import { getDoc, doc } from "firebase/firestore";
 import { db } from "./firebase";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-const HOST_URL = process.env.VITE_API_HOST_URL;
+&nbsp;
+const HOST_URL = process.env.VITE_API_HOST_URL || 'https://fallback-url.com';
+&nbsp;
+// Helper to format the Firebase user to match backend expectations
+const formatUserForBackend = (user) =&gt; ({
+  id: user.uid,
+  name: user.displayName || "",
+  email: user.email,
+  photoURL: user.photoURL || "",
+});
 &nbsp;
 export async function signUpWithEmail(email, password, name) {
-  if(!email){
-    throw new Error("Email cannot be empty");
-  }else if(!password){
-    throw new Error("Password cannot be empty");
-  }
-  
-  const userCredential = await createUserWithEmailAndPassword(
-    auth,
-    email,
-    password
-  );
+  if (!email) throw new Error("Email cannot be empty");
+  if (!password) throw new Error("Password cannot be empty");
+&nbsp;
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
   const user = userCredential.user;
 &nbsp;
   if (name) {
     await updateProfile(user, { displayName: name });
+    user.displayName = name; // Reflect the updated name for formatting
   }
 &nbsp;
-  await axios.post(`${HOST_URL}/api/user`, user);
+  const formattedUser = formatUserForBackend(user);
+  await axios.post(`${HOST_URL}/api/user`, formattedUser);
 &nbsp;
   return user;
 }
 &nbsp;
 export async function signInWithEmail(email, password) {
-  if (!email) {
-    throw new Error("Email cannot be empty");
-  }
-  if (!password) {
-    throw new Error("Password cannot be empty");
-  }
-  const userCredentials = await signInWithEmailAndPassword(
-    auth,
-    email,
-    password
-  );
+  if (!email) throw new Error("Email cannot be empty");
+  if (!password) throw new Error("Password cannot be empty");
+&nbsp;
+  const userCredentials = await signInWithEmailAndPassword(auth, email, password);
   return userCredentials.user;
 }
 &nbsp;
@@ -286,7 +279,8 @@ export async function withProvider(provider) {
   const userDocSnap = await getDoc(userDocRef);
 &nbsp;
   <span class="missing-if-branch" title="else path not taken" >E</span>if (!userDocSnap.exists()) {
-  await axios.post(`${HOST_URL}/api/user`, user);
+    const formattedUser = formatUserForBackend(user);
+    await axios.post(`${HOST_URL}/api/user`, formattedUser);
   }
 &nbsp;
   return user;
@@ -313,7 +307,7 @@ export const handleLogout = async (setUser) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-24T12:06:01.483Z
+                at 2025-05-01T20:06:56.101Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
