@@ -31,7 +31,8 @@ export default function SignUp() {
 
     setLoading(true);
     try {
-      await signUpWithEmail(email, password, name);
+      await signUpWithEmail(email, password, name, );
+      navigate("/signIn");
       // Do not setUser or navigate — wait for email verification
       toast.success("Check your email to complete sign-up.");
 

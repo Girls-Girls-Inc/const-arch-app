@@ -2,14 +2,15 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
+  sendEmailVerification,
   signOut,
   updateProfile,
   getAuth,
-  sendSignInLinkToEmail,
 } from "firebase/auth";
 import { auth } from "./firebase";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "./firebase";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
@@ -23,45 +24,30 @@ const formatUserForBackend = (user) => ({
   photoURL: user.photoURL || "",
 });
 
-export async function signUpWithEmail(email, password, name) {
+export async function signUpWithEmail(email, password, name,) {
+  if (!email) throw new Error("Email cannot be empty");
+  if (!password) throw new Error("Password cannot be empty");
 
-  const actionCodeSettings = {
-    url: 'http://localhost:4001/verify-link',
-    handleCodeInApp: true,
-  };
-
-  if(!email){
-    throw new Error("Email cannot be empty");
-  }else if(!password){
-    throw new Error("Password cannot be empty");
-  }
-  
-  const userCredential = await createUserWithEmailAndPassword(
-    auth,
-    email,
-    password
-  );
-
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
   const user = userCredential.user;
 
   if (name) {
     await updateProfile(user, { displayName: name });
   }
 
+ 
   try {
-    await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-    window.localStorage.setItem("emailForSignIn", email);
+    await sendEmailVerification(user);
     toast.success("Verification email sent. Please check your inbox.");
+    
   } catch (err) {
     console.error("Error sending verification email:", err.message);
     toast.error("Failed to send verification email.");
   }
 
-  await axios.post(`${HOST_URL}/api/user`,  formatUserForBackend(user));
-
-
   return user;
 }
+
 
 
 export async function signInWithEmail(email, password) {
@@ -76,12 +62,16 @@ export async function withProvider(provider) {
   const result = await signInWithPopup(auth, provider);
   const user = result.user;
 
+  if (!user || !user.uid) {
+    throw new Error("No user returned from provider.");
+  }
+
   const userDocRef = doc(db, "users", user.uid);
   const userDocSnap = await getDoc(userDocRef);
 
   if (!userDocSnap.exists()) {
     const formattedUser = formatUserForBackend(user);
-    await axios.post(`${HOST_URL}/api/user`, formattedUser);
+    // await axios.post(`${HOST_URL}/api/user`, formattedUser);
   }
 
   return user;
