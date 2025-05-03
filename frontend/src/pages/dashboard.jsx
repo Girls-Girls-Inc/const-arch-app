@@ -45,6 +45,7 @@ const Dashboard = () => {
               label="Manage Users"
               route="/manageUsers"
             />
+            <IconButton icon={"upload"} label="Manage Uploads" route="/manageUploads" />
           </section>
 
           <section className="nav-bottom">
