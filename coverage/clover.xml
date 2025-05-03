@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1746130016239" clover="3.2.0">
-  <project timestamp="1746130016239" name="All files">
-    <metrics statements="416" coveredstatements="128" conditionals="151" coveredconditionals="33" methods="76" coveredmethods="11" elements="643" coveredelements="172" complexity="0" loc="416" ncloc="416" packages="7" files="25" classes="25"/>
+<coverage generated="1746269421651" clover="3.2.0">
+  <project timestamp="1746269421652" name="All files">
+    <metrics statements="417" coveredstatements="142" conditionals="155" coveredconditionals="34" methods="77" coveredmethods="14" elements="649" coveredelements="190" complexity="0" loc="417" ncloc="417" packages="7" files="25" classes="25"/>
     <package name="backend">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="db.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\backend\db.js">
@@ -166,8 +166,8 @@
       <metrics statements="38" coveredstatements="38" conditionals="18" coveredconditionals="17" methods="5" coveredmethods="5"/>
       <file name="authorisation.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\Firebase\authorisation.js">
         <metrics statements="32" coveredstatements="32" conditionals="18" coveredconditionals="17" methods="5" coveredmethods="5"/>
-        <line num="15" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="18" count="4" type="stmt"/>
+        <line num="15" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="18" count="5" type="stmt"/>
         <line num="26" count="4" type="cond" truecount="2" falsecount="0"/>
         <line num="27" count="3" type="cond" truecount="2" falsecount="0"/>
         <line num="29" count="2" type="stmt"/>
@@ -190,7 +190,7 @@
         <line num="59" count="1" type="stmt"/>
         <line num="60" count="1" type="stmt"/>
         <line num="63" count="1" type="stmt"/>
-        <line num="66" count="4" type="stmt"/>
+        <line num="66" count="5" type="stmt"/>
         <line num="67" count="2" type="stmt"/>
         <line num="68" count="2" type="stmt"/>
         <line num="69" count="2" type="stmt"/>
@@ -201,16 +201,16 @@
       </file>
       <file name="firebase.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\Firebase\firebase.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="10" count="4" type="stmt"/>
-        <line num="20" count="4" type="stmt"/>
-        <line num="22" count="4" type="stmt"/>
-        <line num="23" count="4" type="stmt"/>
-        <line num="24" count="4" type="stmt"/>
-        <line num="25" count="4" type="stmt"/>
+        <line num="10" count="5" type="stmt"/>
+        <line num="20" count="5" type="stmt"/>
+        <line num="22" count="5" type="stmt"/>
+        <line num="23" count="5" type="stmt"/>
+        <line num="24" count="5" type="stmt"/>
+        <line num="25" count="5" type="stmt"/>
       </file>
     </package>
     <package name="frontend.src.pages">
-      <metrics statements="258" coveredstatements="5" conditionals="106" coveredconditionals="0" methods="64" coveredmethods="3"/>
+      <metrics statements="259" coveredstatements="19" conditionals="110" coveredconditionals="1" methods="65" coveredmethods="6"/>
       <file name="bookmarks.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\pages\bookmarks.jsx">
         <metrics statements="13" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="6" coveredmethods="0"/>
         <line num="110" count="0" type="stmt"/>
@@ -325,7 +325,7 @@
         <line num="166" count="0" type="stmt"/>
       </file>
       <file name="settings.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\pages\settings.jsx">
-        <metrics statements="50" coveredstatements="0" conditionals="36" coveredconditionals="0" methods="11" coveredmethods="0"/>
+        <metrics statements="51" coveredstatements="0" conditionals="40" coveredconditionals="0" methods="12" coveredmethods="0"/>
         <line num="13" count="0" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
         <line num="15" count="0" type="stmt"/>
@@ -369,51 +369,52 @@
         <line num="84" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="86" count="0" type="stmt"/>
         <line num="88" count="0" type="stmt"/>
-        <line num="92" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="94" count="0" type="stmt"/>
-        <line num="120" count="0" type="stmt"/>
-        <line num="140" count="0" type="stmt"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="100" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="102" count="0" type="stmt"/>
+        <line num="128" count="0" type="stmt"/>
         <line num="148" count="0" type="stmt"/>
         <line num="156" count="0" type="stmt"/>
         <line num="164" count="0" type="stmt"/>
+        <line num="172" count="0" type="stmt"/>
       </file>
       <file name="signIn.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\pages\signIn.jsx">
-        <metrics statements="35" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="12" coveredmethods="0"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
+        <metrics statements="35" coveredstatements="14" conditionals="4" coveredconditionals="1" methods="12" coveredmethods="3"/>
+        <line num="13" count="10" type="stmt"/>
+        <line num="14" count="10" type="stmt"/>
+        <line num="15" count="10" type="stmt"/>
+        <line num="16" count="10" type="stmt"/>
+        <line num="17" count="10" type="stmt"/>
+        <line num="19" count="10" type="stmt"/>
         <line num="20" count="0" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="25" count="10" type="stmt"/>
         <line num="26" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="33" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="35" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="34" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="36" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="40" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
         <line num="41" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="49" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="47" count="10" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
         <line num="50" count="0" type="stmt"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="61" count="0" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="61" count="10" type="stmt"/>
+        <line num="62" count="0" type="stmt"/>
         <line num="64" count="0" type="stmt"/>
-        <line num="74" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="76" count="0" type="stmt"/>
-        <line num="77" count="0" type="stmt"/>
-        <line num="81" count="0" type="stmt"/>
-        <line num="119" count="0" type="stmt"/>
-        <line num="125" count="0" type="stmt"/>
+        <line num="65" count="0" type="stmt"/>
+        <line num="75" count="10" type="stmt"/>
+        <line num="76" count="5" type="stmt"/>
+        <line num="77" count="5" type="stmt"/>
+        <line num="78" count="5" type="stmt"/>
+        <line num="82" count="10" type="stmt"/>
+        <line num="120" count="0" type="stmt"/>
+        <line num="126" count="0" type="stmt"/>
       </file>
       <file name="signUp.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\pages\signUp.jsx">
         <metrics statements="73" coveredstatements="0" conditionals="16" coveredconditionals="0" methods="11" coveredmethods="0"/>
