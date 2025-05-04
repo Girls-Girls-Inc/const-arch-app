@@ -20,6 +20,7 @@ const NavigationDashLeft = () => {
           label="My Profile"
           route="/dashboard"
         />
+        <IconButton icon={"search"} label="Search" route="/search" />
         <IconButton icon={"bookmark"} label="Bookmarks" route="/bookmarks" />
         <IconButton icon={"folder"} label="Directory" route="/directory" />
         <IconButton icon={"group"} label="Manage Users" route="/manageUsers" />

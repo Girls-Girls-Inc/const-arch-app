@@ -247,64 +247,96 @@ const FileUploadModal = ({
 
           {modalStep === 2 && (
             <>
-              <h4 className="text-uppercase mb-4">Add Metadata</h4>{" "}
-              {/* Tags input field */}
-              <div className="d-flex flex-column align-items-start mt-3 w-100">
+              <h4 className="text-uppercase mb-4">Add Metadata</h4>
+
+              {/* File name input */}
+              <div className="w-100 mb-3">
+                <label className="form-label">File Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={
+                    uploadedFile?.customName || uploadedFile?.file?.name || ""
+                  }
+                  onChange={handleFileChange}
+                  placeholder="Enter file name"
+                />
+              </div>
+
+              {/* Custom tag input */}
+              <div className="w-100 mb-3">
+                <label className="form-label">Add Custom Tag</label>
                 <input
                   type="text"
                   value={tagInput}
-                  onChange={handleTagChange}
-                  placeholder="Add tags (Press Enter to add)"
-                  className="form-control mb-2"
-                  onKeyUp={(e) => {
-                    if (e.key === "Enter" && tagInput) {
-                      addTag(tagInput);
+                  onChange={(e) => setTagInput(e.target.value)}
+                  placeholder="Type and press Enter"
+                  className="form-control"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && tagInput.trim()) {
+                      e.preventDefault();
+                      addTag(tagInput.trim().toLowerCase());
                     }
                   }}
                 />
+              </div>
 
-                {/* Suggestions */}
-                {filteredTags.length > 0 && (
-                  <div className="mt-2">
-                    <ul className="list-group">
-                      {filteredTags.map((tag, index) => (
-                        <li
-                          key={index}
-                          className="list-group-item list-group-item-action"
-                          onClick={() => addTag(tag)}
-                          style={{ cursor: "pointer" }}
-                        >
-                          {tag}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {/* Selected tags */}
-                <div className="d-flex flex-wrap mt-2">
-                  {tags.map((tag, index) => (
-                    <div
-                      key={index}
-                      className="badge bg-secondary m-1 d-flex"
-                      style={{
-                        padding: "0.4rem 0.8rem",
-                        borderRadius: "20px",
-                        cursor: "pointer",
-                      }}
-                      onClick={() => removeTag(tag)}
-                    >
-                      {tag}
+              {/* Suggested tags as clickable bubbles */}
+              <div className="w-100">
+                <label className="form-label">Suggested Tags</label>
+                <div className="d-flex flex-wrap">
+                  {availableTags.map((tag, index) => {
+                    const isSelected = tags.includes(tag);
+                    return (
                       <span
-                        className="ms-2"
-                        style={{ fontSize: "12px", cursor: "pointer" }}
+                        key={index}
+                        onClick={() =>
+                          isSelected ? removeTag(tag) : addTag(tag)
+                        }
+                        className={`badge m-1 ${
+                          isSelected
+                            ? "bg-primary text-white"
+                            : "bg-light text-dark"
+                        }`}
+                        style={{
+                          padding: "0.5rem 0.9rem",
+                          borderRadius: "20px",
+                          cursor: "pointer",
+                          border: isSelected ? "none" : "1px solid #ccc",
+                        }}
                       >
-                        &times;
+                        {tag}
                       </span>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
+
+              {/* Selected tags */}
+              {tags.length > 0 && (
+                <div className="mt-3">
+                  <p className="mb-1">Selected Tags:</p>
+                  <div className="d-flex flex-wrap">
+                    {tags.map((tag, index) => (
+                      <span
+                        key={index}
+                        onClick={() => removeTag(tag)}
+                        className="badge bg-secondary m-1"
+                        style={{
+                          padding: "0.4rem 0.8rem",
+                          borderRadius: "20px",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {tag}{" "}
+                        <span className="ms-2" style={{ fontSize: "12px" }}>
+                          &times;
+                        </span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </>
           )}
 

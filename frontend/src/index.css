@@ -882,3 +882,58 @@ a {
     max-width: 16%;
   }
 }
+
+.document-list {
+  width: 90%;
+}
+
+.document-card {
+  background-color: #fff;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.document-card:hover {
+  background-color: var(--south-africa-blue);
+}
+.search-filter-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.search-input-container {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem 2rem 0.5rem 2.5rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.tag-filter-dropdown {
+  width: 100%;
+}
+
+.tag-filter-dropdown select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
