@@ -2,11 +2,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/userContext";
-import { handleLogout } from "../Firebase/authorisation";
 import "../index.css";
 import IconButton from "../components/IconButton";
 import FileUploadModal from "../components/DirectoryComponents/FileUploadModal";
 import NavigationComponent from "../components/NavigationComponent";
+import NavigationDashLeft from "../components/NavigationDashLeft";
+import { Toaster } from "react-hot-toast";
+import DirectoryBlock from "../components/DirectoryComponents/DirectoryBlock";
 
 const Directory = () => {
   const { user, loading, setUser } = useUser();
@@ -37,46 +39,34 @@ const Directory = () => {
       <NavigationComponent />
 
       <section className="dashboard-container">
-        <section className="dashboard-container-lefty d-none d-md-flex">
-          <section className="nav-top">
-            <IconButton
-              icon="account_circle"
-              label="My Profile"
-              route="/dashboard"
-            />
-            <IconButton icon="bookmark" label="Bookmarks" route="/bookmarks" />
-            <IconButton icon="folder" label="Directory" route="/directory" />
-            <IconButton
-              icon="group"
-              label="Manage Users"
-              route="/manageUsers"
-            />
-          </section>
-          <section className="nav-bottom">
-            <IconButton
-              onClick={() => handleLogout(setUser)}
-              icon="logout"
-              label="Log Out"
-            />
-            <IconButton icon="settings" label="Settings" route="/settings" />
-          </section>
-        </section>
-
+        <NavigationDashLeft />
         <section className="dashboard-container-righty">
-          <main className="dashboard-details">
-            <h2>Directory</h2>
-            <div className="directory-page">
-              <div className="upload-buttons">
-                <IconButton
-                  onClick={handleOpenModal}
-                  icon="upload_file"
-                  label="Upload File"
-                />
-                <IconButton
-                  route="/directory"
-                  icon="create_new_folder"
-                  label="Create Folder"
-                />
+          <main className="dashboard-details directory-dash">
+            <h2 className="right-title">Directory</h2>
+            <div>
+              <div className="directory-subhead">
+                <IconButton icon="arrow_back" label="Back" />
+                <div className="upload-buttons">
+                  <IconButton
+                    onClick={handleOpenModal}
+                    icon="upload_file"
+                    label="Upload File"
+                  />
+                  <IconButton
+                    route="/directory"
+                    icon="create_new_folder"
+                    label="Create Folder"
+                  />
+                </div>
+              </div>
+
+              <div className="directory-nav">
+                <p className="root-text">Root/ backup/</p>
+              </div>
+
+              {/* folders*/}
+              <div className="folder-container">
+                <DirectoryBlock />
               </div>
             </div>
           </main>
@@ -92,6 +82,8 @@ const Directory = () => {
         uploadedFile={uploadedFile}
         setUploadedFile={setUploadedFile}
       />
+
+      <Toaster position="top-center" reverseOrder={false} />
     </main>
   );
 };

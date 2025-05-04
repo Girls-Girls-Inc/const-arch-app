@@ -23,17 +23,17 @@ export default function SignUp() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-  
+
     const passwordErrors = validatePassword(password);
     if (passwordErrors.length > 0) {
       setErrorMsg(`Password must ${passwordErrors.join(", ")}.`);
       return;
     }
-  
+
     setLoading(true);
     try {
       const user = await signUpWithEmail(email, password, name);
-  
+
       const db = getFirestore();
       await setDoc(doc(db, "users", user.uid), {
         id: user.uid,
@@ -42,11 +42,9 @@ export default function SignUp() {
         isAdmin: false, // explicitly boolean
         photoURL: user.photoURL || "",
         signUpDate: new Date(),
-        profileComplete: false
+        profileComplete: false,
       });
 
-
-  
       toast.success("Check your email to complete sign-up.");
       navigate("/signIn");
     } catch (error) {
@@ -68,12 +66,12 @@ export default function SignUp() {
       console.error("Email signup error:", error.message);
     }
     setLoading(false);
-  };  
+  };
 
   const handleGoogleSignUp = async () => {
     try {
       const user = await withProvider(googleProvider);
-  
+
       const db = getFirestore();
       await setDoc(doc(db, "users", user.uid), {
         id: user.uid,
@@ -82,16 +80,16 @@ export default function SignUp() {
         isAdmin: false,
         photoURL: user.photoURL || "",
         signUpDate: new Date(),
-        profileComplete: false
+        profileComplete: false,
       });
-  
+
       setUser(user);
       navigate("/dashboard");
     } catch (error) {
       toast.error("Google Sign-up failed. Please try again.");
       console.error("Google Sign-up error:", error.message);
     }
-  };  
+  };
 
   const handleFacebookSignUp = async () => {
     try {
@@ -104,33 +102,35 @@ export default function SignUp() {
     }
   };
 
-  // Function to validate password and show toasts
   const validatePassword = (password) => {
     const errors = [];
+
     if (password.length < 6) {
-      errors.push("Password should be at least 6 characters.");
+      errors.push("at least 6 characters");
     }
     if (!/[A-Za-z]/.test(password)) {
-      errors.push("Password should contain at least one letter.");
+      errors.push("at least one letter");
     }
     if (!/[0-9]/.test(password)) {
-      errors.push("Password should contain at least one number.");
+      errors.push("at least one number");
     }
     if (!/[!@#$%^&*(),.?\":{}|<>_]/.test(password)) {
-      errors.push("Password should contain at least one special character.");
+      errors.push("at least one special character");
     }
 
     setPasswordErrors(errors);
 
-    toast.dismiss(); // Dismiss previous
+    toast.dismiss(); // Always dismiss old toasts before adding new ones
 
-    // Show each error toast with a unique ID and infinite duration
-    errors.forEach((error, index) => {
-      toast.error(error, {
-        id: `password-error-${index}`,
-        duration: Infinity,
+    if (errors.length > 0) {
+      errors.forEach((error, index) => {
+        toast.error(`Password must have ${error}`, {
+          id: `password-error-${index}`,
+          duration: 3000, // Toast disappears after 3 seconds
+        });
       });
-    });
+    }
+
     return errors;
   };
 
