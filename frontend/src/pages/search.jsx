@@ -72,7 +72,7 @@ const SearchPage = () => {
       <NavigationComponent />
       <section className="dashboard-container">
         <NavigationDashLeft />
-        <section className="dashboard-container-righty px-3 py-4">
+        <section className="dashboard-container-righty">
           <main className="dashboard-details w-100">
             <h2 className="right-title mb-4">Search Documents</h2>
 
