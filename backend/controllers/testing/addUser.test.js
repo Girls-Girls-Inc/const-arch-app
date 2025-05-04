@@ -29,8 +29,8 @@ describe('POST /addUser', () => {
 
   it('should create a new user and send a success response', async () => {
     const user = {
-      uid: 'test-user-id',
-      displayName: 'Test User',
+      id: 'test-user-id',
+      name: 'Test User',
       email: 'test@example.com',
       photoURL: '',
     };
@@ -43,7 +43,7 @@ describe('POST /addUser', () => {
     expect(response.text).toBe('User added successfully!');
     expect(admin.firestore().collection().doc().set).toHaveBeenCalledWith({
       uid: 'test-user-id',
-      name: 'Test User',
+      name: 'Test User'||'',
       email: 'test@example.com',
       isAdmin: false,
       photoURL: '',
@@ -54,7 +54,7 @@ describe('POST /addUser', () => {
 
   it('should return 400 if missing required fields', async () => {
     const user = {
-      displayName: 'Test User',
+      name: 'Test User',
       photoURL: '',
     };
 
@@ -70,8 +70,8 @@ describe('POST /addUser', () => {
     set.mockRejectedValueOnce(new Error('Firebase error'));
 
     const user = {
-      uid: 'test-user-id',
-      displayName: 'Test User',
+      id: 'test-user-id',
+      name: 'Test User',
       email: 'test@example.com',
       photoURL: '',
     };

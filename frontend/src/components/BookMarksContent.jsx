@@ -28,27 +28,28 @@ const BookmarksContent = () => {
 
   return (
     <>
-      <section>
-        <h2>Bookmarks</h2>
-      </section>
-      <section className="bookmark-grid">
-        {bookmarks.map((bookmark) => (
-          <article key={bookmark.id} className="bookmark-card">
-            <img
-              src={bookmark.image}
-              alt={bookmark.title}
-              className="bookmark-image"
-            />
-            <div className="bookmark-info">
-              <h3 className="bookmark-title">{bookmark.title}</h3>
-              <p className="bookmark-date">
-                {new Date(bookmark.date).toDateString()}
-              </p>
-              <p className="bookmark-description">{bookmark.description}</p>
-            </div>
-          </article>
-        ))}
-      </section>
+      <main className="dashboard-details">
+        <h2 className="right-title">Bookmarks</h2>
+
+        <section className="bookmark-grid">
+          {bookmarks.map((bookmark) => (
+            <article key={bookmark.id} className="bookmark-card">
+              <img
+                src={bookmark.image}
+                alt={bookmark.title}
+                className="bookmark-image"
+              />
+              <div className="bookmark-info">
+                <h3 className="bookmark-title">{bookmark.title}</h3>
+                <p className="bookmark-date">
+                  {new Date(bookmark.date).toDateString()}
+                </p>
+                <p className="bookmark-description">{bookmark.description}</p>
+              </div>
+            </article>
+          ))}
+        </section>
+      </main>
     </>
   );
 };

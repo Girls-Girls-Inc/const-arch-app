@@ -9,6 +9,8 @@ import InputImage from "../components/InputImage";
 import { Toaster, toast } from "react-hot-toast";
 import NavigationComponent from "../components/NavigationComponent";
 import InputField from "../components/InputField";
+import PasswordInputField from "../components/PasswordInputField";
+import NavigationDashLeft from "../components/NavigationDashLeft";
 
 const SettingsPage = () => {
   const { user, loading, setUser } = useUser();
@@ -25,6 +27,13 @@ const SettingsPage = () => {
       navigate("/signIn");
     }
   }, [user, loading, navigate]);
+
+  useEffect(() => {
+    if (user) {
+      setUsername(user.displayName || "");
+      setEmail(user.email || "");
+    }
+  }, [user]);
 
   useEffect(() => {
     document.body.classList.add("settings-page");
@@ -54,7 +63,6 @@ const SettingsPage = () => {
       }
 
       if (Object.keys(updates).length === 1) {
-
         toast("No changes to save.", { icon: "ℹ️" });
         return;
       }
@@ -64,7 +72,6 @@ const SettingsPage = () => {
       const HOST_URL = import.meta.env.VITE_API_HOST_URL;
 
       const res = await fetch(`${HOST_URL}/api/settings/updateUser`, {
-
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -77,93 +84,71 @@ const SettingsPage = () => {
       if (!res.ok) throw new Error(data.error);
 
       toast.success("Profile updated successfully!");
+
+      setUser((prevUser) => ({
+        ...prevUser,
+        displayName: username || prevUser.displayName,
+        email: email || prevUser.email,
+      }));
+      //setUsername(username || prevUser.displayName);
     } catch (error) {
       toast.error(`Failed: ${error.message}`);
     }
   };
 
   if (loading) return <p className="loading-message">Loading...</p>;
-  if (!user) return null;
 
   return (
     <main>
-
       <Toaster position="top-center" reverseOrder={false} />
       <NavigationComponent />
 
       <section className="dashboard-container">
-        <section className="dashboard-container-lefty d-none d-md-flex">
-          <section className="nav-top">
-            <IconButton
-              icon="account_circle"
-              label="My Profile"
-              route="/dashboard"
-            />
-            <IconButton icon="bookmark" label="Bookmarks" route="/bookmarks" />
-            <IconButton icon="folder" label="Directory" route="/directory" />
-            <IconButton
-              icon="group"
-              label="Manage Users"
-              route="/manageUsers"
-            />
-
-          </section>
-          <section className="nav-bottom">
-
-            <IconButton
-              onClick={() => handleLogout(setUser)}
-              icon="logout"
-              label="Log Out"
-            />
-
-            <IconButton icon="settings" label="Settings" route="/settings" />
-          </section>
-        </section>
+        <NavigationDashLeft />
 
         <section className="dashboard-container-righty">
           <main className="dashboard-details">
             <h2 className="dashboard-title">Settings</h2>
             <InputImage />
 
-            <form className="dashboard-details-grid" onSubmit={handleSave}>
-              <InputField
-                type="text"
-                placeholder="Enter username"
-                icon="badge"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required={false}
-              />
-              <InputField
-                type="email"
-                placeholder="Enter email"
-                icon="mail"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required={false}
-              />
-              <InputField
-                type="password"
-                placeholder="Current password"
-                icon="lock"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required={false}
-              />
-              <InputField
-                type="password"
-                placeholder="New password"
-                icon="lock_reset"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                required={false}
-              />
-
-              <div className="d-flex justify-content-center w-100 mt-4">
+            <form className="dashboard-details-grid-form" onSubmit={handleSave}>
+              <div className="dashboard-details-grid">
+                <InputField
+                  type="text"
+                  placeholder="Enter username"
+                  icon="badge"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required={false}
+                />
+                <InputField
+                  type="email"
+                  placeholder="Enter email"
+                  icon="mail"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required={false}
+                />
+                <PasswordInputField
+                  type="password"
+                  placeholder="Current password"
+                  icon="lock"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required={false}
+                />
+                <PasswordInputField
+                  type="password"
+                  placeholder="New password"
+                  icon="lock_reset"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  required={false}
+                />
+              </div>
+              <div className="d-flex justify-content-center w-100">
                 <IconButton icon="check" label="Save Changes" type="submit" />
               </div>
-
-
             </form>
           </main>
         </section>

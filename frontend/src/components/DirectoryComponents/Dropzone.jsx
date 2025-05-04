@@ -2,8 +2,8 @@ import React, { useCallback, useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import "../Styles/dropzone.css";
 
-const Dropzone = () => {
-  const [file, setFile] = useState(null);
+const Dropzone = ({ setUploadedFile, uploadedFile }) => {
+  const [file, setFile] = useState(uploadedFile?.file || null);
 
   // Cleanup object URL
   useEffect(() => {
@@ -12,19 +12,26 @@ const Dropzone = () => {
     };
   }, [file]);
 
-  const onDrop = useCallback((acceptedFiles) => {
-    if (acceptedFiles.length > 0) {
-      const newFile = acceptedFiles[0];
-      // Create a proper file object with needed properties
-      setFile({
-        file: newFile, // Store the actual File object
-        name: newFile.name,
-        type: newFile.type,
-        size: newFile.size,
-        isImage: newFile.type.startsWith("image/"),
-      });
-    }
-  }, []);
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      if (acceptedFiles.length > 0) {
+        const newFile = acceptedFiles[0];
+        setFile({
+          file: newFile, // Store the actual File object
+          name: newFile.name,
+          type: newFile.type,
+          size: newFile.size,
+          isImage: newFile.type.startsWith("image/"),
+        });
+
+        setUploadedFile({
+          file: newFile,
+          customName: newFile.name,
+        });
+      }
+    },
+    [setUploadedFile]
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -62,9 +69,8 @@ const Dropzone = () => {
         <div className="shadow-sm mt-3 d-flex align-items-center justify-content-between p-3 bg-light rounded">
           <div className="d-flex align-items-center">
             <i
-              className={`material-symbols-outlined me-3 fs-2 ${
-                file.isImage ? "text-primary" : "text-secondary"
-              }`}
+              className={`material-symbols-outlined me-3 fs-2 ${file.isImage ? "text-primary" : "text-secondary"
+                }`}
             >
               {file.isImage ? "image" : "description"}
             </i>

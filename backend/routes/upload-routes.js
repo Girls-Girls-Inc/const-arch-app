@@ -1,11 +1,11 @@
-const express = require('express');
-const { addUpload } = require('../controllers/uploadController');
+const express = require("express");
+const { addUpload, deleteUpload } = require("../controllers/uploadController");
 
 const router = express.Router();
 
-router.post('/upload', addUpload);
+router.post("/upload", addUpload);
+router.delete("/uploads/:id", deleteUpload);
 
 module.exports = {
-    routes: router
+  routes: router,
 };
-

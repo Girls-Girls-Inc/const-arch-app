@@ -9,7 +9,7 @@ jest.mock('firebase/auth', () => ({
 jest.mock('firebase/firestore', () => ({
   getDoc: jest.fn(() => Promise.resolve({ exists: () => false })),
   doc: jest.fn(),
-  getFirestore: jest.fn(() => ({})), // Add this to mock getFirestore
+  getFirestore: jest.fn(() => ({})),
 }));
 
 // Mock Axios
@@ -31,31 +31,37 @@ describe('signUpWithEmailAndPassword', () => {
     const password = 'password123';
     const name = 'Test User';
 
+    const mockUser = { uid: 'test-user-id', email };
+
     createUserWithEmailAndPassword.mockResolvedValueOnce({
-      user: { uid: 'test-user-id', email },
+      user: mockUser,
     });
 
     const user = await signUpWithEmail(email, password, name);
 
     expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(expect.anything(), email, password);
-    expect(updateProfile).toHaveBeenCalledWith({ uid: 'test-user-id', email }, { displayName: name });
+    expect(updateProfile).toHaveBeenCalledWith(mockUser, { displayName: name });
     expect(axios.post).toHaveBeenCalledWith(expect.stringContaining("/api/user"), {
-      uid: 'test-user-id',
-      email,
+      id: 'test-user-id',
+      email: 'test@example.com',
+      name: 'Test User',
+      photoURL: ''
     });
-    expect(user).toEqual({ uid: 'test-user-id', email });
+    expect(user).toEqual(mockUser);
   });
 
   it('should not call updateProfile if name is not provided', async () => {
     const email = 'test@example.com';
     const password = 'password123';
 
+    // Mock the user creation
     createUserWithEmailAndPassword.mockResolvedValueOnce({
       user: { uid: 'test-user-id', email },
     });
 
     await signUpWithEmail(email, password);
 
+    // Ensure updateProfile was not called when no name is provided
     expect(updateProfile).not.toHaveBeenCalled();
   });
 
@@ -65,19 +71,5 @@ describe('signUpWithEmailAndPassword', () => {
 
   it('should throw an error if password is missing', async () => {
     await expect(signUpWithEmail('test@example.com', '', 'Test User')).rejects.toThrow('Password cannot be empty');
-  });
-
-  it('should call updateProfile if name is provided', async () => {
-    const email = 'test@example.com';
-    const password = 'password123';
-    const name = 'Test User';
-
-    createUserWithEmailAndPassword.mockResolvedValueOnce({
-      user: { uid: 'test-user-id', email },
-    });
-
-    await signUpWithEmail(email, password, name);
-
-    expect(updateProfile).toHaveBeenCalledWith({ uid: 'test-user-id', email }, { displayName: name });
   });
 });
