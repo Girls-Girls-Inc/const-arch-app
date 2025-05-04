@@ -2,18 +2,28 @@ import React, { useState, useEffect } from "react";
 import NavigationComponent from "../components/NavigationComponent";
 import NavigationDashLeft from "../components/NavigationDashLeft";
 import IconButton from "../components/IconButton";
-import InputField from "../components/InputField"; // ✅ Import added
+import InputField from "../components/InputField";
 import "../index.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../Firebase/firebase";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/userContext";
 
 const SearchPage = () => {
+  const { user } = useUser();
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedTag, setSelectedTag] = useState("");
   const [showTagFilter, setShowTagFilter] = useState(false);
+
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate("/signIn");
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     const fetchDocuments = async () => {
