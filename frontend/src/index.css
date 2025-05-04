@@ -960,15 +960,15 @@ a {
 }
 
 .document-card h5 {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  font-size: 1rem;
 }
 
 @media (max-width: 576px) {
   .document-card {
-    flex-direction: column; /* Stack elements vertically */
+    flex-direction: column;
     align-items: flex-start;
   }
 
