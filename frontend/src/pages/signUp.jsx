@@ -9,6 +9,7 @@ import PasswordInputField from "../components/PasswordInputField";
 import { Link } from "react-router-dom";
 import { signUpWithEmail, withProvider } from "../Firebase/authorisation";
 import toast, { Toaster } from "react-hot-toast";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 export default function SignUp() {
   const { setUser } = useUser();
@@ -33,8 +34,20 @@ export default function SignUp() {
     setLoading(true);
     try {
       const user = await signUpWithEmail(email, password, name);
-      setUser({ ...user, displayName: name });
-      navigate("/dashboard");
+
+      const db = getFirestore();
+      await setDoc(doc(db, "users", user.uid), {
+        id: user.uid,
+        name: name,
+        email: user.email,
+        isAdmin: false, // explicitly boolean
+        photoURL: user.photoURL || "",
+        signUpDate: new Date(),
+        profileComplete: false,
+      });
+
+      toast.success("Check your email to complete sign-up.");
+      navigate("/signIn");
     } catch (error) {
       let message = "Signup failed. Please try again.";
       switch (error.code) {
@@ -59,6 +72,18 @@ export default function SignUp() {
   const handleGoogleSignUp = async () => {
     try {
       const user = await withProvider(googleProvider);
+
+      const db = getFirestore();
+      await setDoc(doc(db, "users", user.uid), {
+        id: user.uid,
+        name: user.displayName || "",
+        email: user.email,
+        isAdmin: false,
+        photoURL: user.photoURL || "",
+        signUpDate: new Date(),
+        profileComplete: false,
+      });
+
       setUser(user);
       navigate("/dashboard");
     } catch (error) {
@@ -78,33 +103,35 @@ export default function SignUp() {
     }
   };
 
-  // Function to validate password and show toasts
   const validatePassword = (password) => {
     const errors = [];
+
     if (password.length < 6) {
-      errors.push("Password should be at least 6 characters.");
+      errors.push("at least 6 characters");
     }
     if (!/[A-Za-z]/.test(password)) {
-      errors.push("Password should contain at least one letter.");
+      errors.push("at least one letter");
     }
     if (!/[0-9]/.test(password)) {
-      errors.push("Password should contain at least one number.");
+      errors.push("at least one number");
     }
     if (!/[!@#$%^&*(),.?\":{}|<>_]/.test(password)) {
-      errors.push("Password should contain at least one special character.");
+      errors.push("at least one special character");
     }
 
     setPasswordErrors(errors);
 
-    toast.dismiss(); // Dismiss previous
+    toast.dismiss(); // Always dismiss old toasts before adding new ones
 
-    // Show each error toast with a unique ID and infinite duration
-    errors.forEach((error, index) => {
-      toast.error(error, {
-        id: `password-error-${index}`,
-        duration: Infinity,
+    if (errors.length > 0) {
+      errors.forEach((error, index) => {
+        toast.error(`Password must have ${error}`, {
+          id: `password-error-${index}`,
+          duration: 3000, // Toast disappears after 3 seconds
+        });
       });
-    });
+    }
+
     return errors;
   };
 

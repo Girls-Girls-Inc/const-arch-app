@@ -2,6 +2,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
+  sendEmailVerification,
   signOut,
   updateProfile,
   getAuth,
@@ -9,10 +10,11 @@ import {
 import { auth } from "./firebase";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "./firebase";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-const HOST_URL = process.env.VITE_API_HOST_URL || 'https://fallback-url.com';
+const HOST_URL = process.env.VITE_API_HOST_URL || "https://fallback-url.com";
 
 // Helper to format the Firebase user to match backend expectations
 const formatUserForBackend = (user) => ({
@@ -26,16 +28,34 @@ export async function signUpWithEmail(email, password, name) {
   if (!email) throw new Error("Email cannot be empty");
   if (!password) throw new Error("Password cannot be empty");
 
-  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  const userCredential = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
   const user = userCredential.user;
 
   if (name) {
     await updateProfile(user, { displayName: name });
-    user.displayName = name; // Reflect the updated name for formatting
   }
 
-  const formattedUser = formatUserForBackend(user);
-  await axios.post(`${HOST_URL}/api/user`, formattedUser);
+  try {
+    await sendEmailVerification(user);
+    toast.success("Verification email sent. Please check your inbox.");
+  } catch (err) {
+    console.error("Error sending verification email:", err.message);
+    toast.error("Failed to send verification email.");
+  }
+
+  try {
+    // Send user data to backend to create Firestore entry
+    const formattedUser = formatUserForBackend(user);
+    await axios.post(`${HOST_URL}/api/user`, formattedUser);
+    console.log("User saved to Firestore.");
+  } catch (err) {
+    console.error("Error syncing user to backend:", err.message);
+    toast.error("Failed to save user in Firestore.");
+  }
 
   return user;
 }
@@ -44,7 +64,11 @@ export async function signInWithEmail(email, password) {
   if (!email) throw new Error("Email cannot be empty");
   if (!password) throw new Error("Password cannot be empty");
 
-  const userCredentials = await signInWithEmailAndPassword(auth, email, password);
+  const userCredentials = await signInWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
   return userCredentials.user;
 }
 
@@ -52,12 +76,23 @@ export async function withProvider(provider) {
   const result = await signInWithPopup(auth, provider);
   const user = result.user;
 
+  if (!user || !user.uid) {
+    throw new Error("No user returned from provider.");
+  }
+
   const userDocRef = doc(db, "users", user.uid);
   const userDocSnap = await getDoc(userDocRef);
 
   if (!userDocSnap.exists()) {
     const formattedUser = formatUserForBackend(user);
-    await axios.post(`${HOST_URL}/api/user`, formattedUser);
+    // await axios.post(`${HOST_URL}/api/user`, formattedUser);
+    try {
+      await axios.post(`${HOST_URL}/api/user`, formattedUser);
+      console.log("OAuth user saved to Firestore.");
+    } catch (err) {
+      console.error("Error syncing OAuth user:", err.message);
+      toast.error("Failed to save user in Firestore.");
+    }
   }
 
   return user;

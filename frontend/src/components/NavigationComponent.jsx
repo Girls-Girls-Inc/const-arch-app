@@ -13,6 +13,7 @@ const NavigationComponent = () => {
   return (
     <>
       {/* Mobile Menu Button */}
+
       <button
         className="hamburger-btn_ca d-md-none"
         onClick={() => setMenuOpen((prev) => !prev)}
@@ -28,8 +29,10 @@ const NavigationComponent = () => {
             label="My Profile"
             route="/dashboard"
           />
+          <IconButton icon={"search"} label="Search" route="/search" />
           <IconButton icon="bookmark" label="Bookmarks" route="/bookmarks" />
           <IconButton icon="folder" label="Directory" route="/directory" />
+
           <IconButton icon="group" label="Manage Users" route="/manageUsers" />
           <IconButton
             onClick={() => handleLogout(setUser)}
