@@ -12,6 +12,26 @@ function ManageUploads() {
   const [isAdmin, setIsAdmin] = useState(null); // Track admin status
   const auth = getAuth();
 
+
+  const handleDelete = async (uploadId) => {
+    if (!confirm("Are you sure you want to delete this upload?")) return;
+  
+    try {
+      const res = await fetch(`/api/uploads/${uploadId}`, {
+        method: "DELETE",
+      });
+  
+      if (!res.ok) throw new Error("Failed to delete upload");
+  
+      // Remove deleted item from state
+      setUploads((prev) => prev.filter((u) => u.id !== uploadId));
+      toast.success("Upload deleted successfully");
+    } catch (error) {
+      console.error("Error deleting upload:", error);
+      toast.error("Error deleting upload");
+    }
+  };
+
   useEffect(() => {
     const checkAdminStatusAndFetchUploads = async () => {
       const currentUser = auth.currentUser;
@@ -91,6 +111,7 @@ function ManageUploads() {
             <table className="user-table">
               <thead>
                 <tr>
+                  <th>Delete</th>
                   <th>File Name</th>
                   <th>File Path</th>
                   <th>Uploaded By</th>
@@ -101,6 +122,11 @@ function ManageUploads() {
               <tbody>
                 {uploads.map((upload) => (
                   <tr key={upload.id}>
+                    <td>
+                      <button onClick={() => handleDelete(upload.id)} className="delete-btn">
+                        🗑️
+                      </button>
+                    </td>
                     <td>{upload.fileName}</td>
                     <td>
                       <a href={upload.filePath} target="_blank" rel="noopener noreferrer">
