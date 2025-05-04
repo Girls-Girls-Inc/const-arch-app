@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import NavigationComponent from "../components/NavigationComponent";
 import NavigationDashLeft from "../components/NavigationDashLeft";
 import IconButton from "../components/IconButton";
+import InputField from "../components/InputField"; // ✅ Import added
 import "../index.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../Firebase/firebase";
@@ -75,15 +76,16 @@ const SearchPage = () => {
           <main className="dashboard-details w-100">
             <h2 className="right-title mb-4">Search Documents</h2>
 
-            <div className="search-filter-wrapper">
-              <div className="search-input-container">
-                <i className="material-symbols-outlined search-icon">search</i>
-                <input
+            <div className="search-filter-wrapper d-flex gap-3 align-items-center flex-wrap mb-3">
+              <div className="flex-grow-1">
+                <InputField
+                  id="search-docs"
                   type="text"
-                  className="search-input"
                   placeholder="Search by file name..."
+                  icon="search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  required={false}
                 />
               </div>
 

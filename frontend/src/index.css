@@ -897,10 +897,11 @@ a {
   background-color: var(--south-africa-blue);
 }
 .search-filter-wrapper {
+  padding: 0.5rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
-  flex-wrap: wrap;
   margin-bottom: 1rem;
   width: 100%;
 }
