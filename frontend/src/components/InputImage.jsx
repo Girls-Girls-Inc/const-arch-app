@@ -20,6 +20,7 @@ export default function InputImage() {
         id="profile-upload"
         type="file"
         accept="image/*"
+        data-testid="file-input"
         className="hidden"
         style={{ display: "none" }}
         onChange={(e) => {

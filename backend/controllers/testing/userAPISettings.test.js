@@ -79,4 +79,15 @@ describe("POST /api/settings/updateUser", () => {
     expect(res.body).toHaveProperty("error");
     expect(res.body.error).toBe("Missing data");
   });
+
+  it('should return 500 if Firebase error occurs', async () => {
+    set.mockRejectedValueOnce(new Error('Firebase error'));
+
+    const res = await request(app)
+      .post('/api/settings/updateUser')
+      .send(user)
+      .expect(500);
+
+    expect(res.text).toContain('Update faled:');
+  });
 });

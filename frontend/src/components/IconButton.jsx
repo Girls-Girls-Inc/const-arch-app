@@ -11,7 +11,6 @@ const IconButton = ({ route, icon, label, onClick, type = "button" }) => {
     </>
   );
 
-  // Render as <button> if onClick exists or if the type is "submit"
   if (onClick || type === "submit") {
     return (
       <button className="icon-button" onClick={onClick} type={type}>

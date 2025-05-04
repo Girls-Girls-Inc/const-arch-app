@@ -1,6 +1,7 @@
 // components/NavigationComponent.js
 "use client";
 import { useState } from "react";
+import React from "react";
 import IconButton from "./IconButton";
 import { handleLogout } from "../Firebase/authorisation";
 import { useUser } from "../context/userContext";
