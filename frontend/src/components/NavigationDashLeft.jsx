@@ -24,6 +24,7 @@ const NavigationDashLeft = () => {
         <IconButton icon={"bookmark"} label="Bookmarks" route="/bookmarks" />
         <IconButton icon={"folder"} label="Directory" route="/directory" />
         <IconButton icon={"group"} label="Manage Users" route="/manageUsers" />
+        <IconButton icon={"group"} label="Manage uploads" route="/manageUploads" />
       </section>
 
       <section className="nav-bottom">
