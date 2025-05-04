@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>22/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -172,33 +172,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -218,7 +216,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -271,31 +271,31 @@ import IconButton from "../components/IconButton";
 import FileUploadModal from "../components/DirectoryComponents/FileUploadModal";
 import NavigationComponent from "../components/NavigationComponent";
 &nbsp;
-const Directory = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-  const { user, loading, setUser } = <span class="cstat-no" title="statement not covered" >useUser();</span>
-  const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
-  const [menuOpen, setMenuOpen] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
-  const [showModal, setShowModal] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
-  const [modalStep, setModalStep] = <span class="cstat-no" title="statement not covered" >useState(1);</span>
-  const [uploadedFile, setUploadedFile] = <span class="cstat-no" title="statement not covered" >useState(null);</span>
+const Directory = () =&gt; {
+  const { user, loading, setUser } = useUser();
+  const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalStep, setModalStep] = useState(1);
+  const [uploadedFile, setUploadedFile] = useState(null);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (!loading &amp;&amp; !user) {</span>
-<span class="cstat-no" title="statement not covered" >      navigate("/signIn");</span>
+  useEffect(() =&gt; {
+    if (!loading &amp;&amp; !user) {
+      navigate("/signIn");
     }
   }, [user, loading, navigate]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (loading) <span class="cstat-no" title="statement not covered" >return &lt;p className="loading-message"&gt;Loading...&lt;/p&gt;;</span></span>
-<span class="cstat-no" title="statement not covered" >  if (!user) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+  if (loading) return &lt;p className="loading-message"&gt;Loading...&lt;/p&gt;;
+  if (!user) return null;
 &nbsp;
-  const handleOpenModal = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShowModal(true);</span></span>
-  const handleCloseModal = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    setShowModal(false);</span>
-<span class="cstat-no" title="statement not covered" >    setModalStep(1);</span>
-<span class="cstat-no" title="statement not covered" >    setUploadedFile(null);</span>
+  const handleOpenModal = () =&gt; setShowModal(true);
+  const handleCloseModal = () =&gt; {
+    setShowModal(false);
+    setModalStep(1);
+    setUploadedFile(null);
   };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;main&gt;
       &lt;NavigationComponent /&gt;
 &nbsp;
@@ -317,7 +317,7 @@ const Directory = <span class="cstat-no" title="statement not covered" ><span cl
           &lt;/section&gt;
           &lt;section className="nav-bottom"&gt;
             &lt;IconButton
-              onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >handleLogout(setUser)}</span>
+              onClick={() =&gt; handleLogout(setUser)}
               icon="logout"
               label="Log Out"
             /&gt;
@@ -367,7 +367,7 @@ export default Directory;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-03T10:50:21.352Z
+                at 2025-05-04T00:33:37.670Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
