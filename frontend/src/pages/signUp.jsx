@@ -8,6 +8,7 @@ import PasswordInputField from "../components/PasswordInputField";
 import { Link } from "react-router-dom";
 import { signUpWithEmail, withProvider } from "../Firebase/authorisation";
 import toast, { Toaster } from "react-hot-toast";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 export default function SignUp() {
   const { setUser } = useUser();
@@ -22,20 +23,32 @@ export default function SignUp() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-
+  
     const passwordErrors = validatePassword(password);
     if (passwordErrors.length > 0) {
       setErrorMsg(`Password must ${passwordErrors.join(", ")}.`);
       return;
     }
-
+  
     setLoading(true);
     try {
-      await signUpWithEmail(email, password, name, );
-      navigate("/signIn");
-      // Do not setUser or navigate — wait for email verification
-      toast.success("Check your email to complete sign-up.");
+      const user = await signUpWithEmail(email, password, name);
+  
+      const db = getFirestore();
+      await setDoc(doc(db, "users", user.uid), {
+        id: user.uid,
+        name: name,
+        email: user.email,
+        isAdmin: false, // explicitly boolean
+        photoURL: user.photoURL || "",
+        signUpDate: new Date(),
+        profileComplete: false
+      });
 
+
+  
+      toast.success("Check your email to complete sign-up.");
+      navigate("/signIn");
     } catch (error) {
       let message = "Signup failed. Please try again.";
       switch (error.code) {
@@ -55,18 +68,30 @@ export default function SignUp() {
       console.error("Email signup error:", error.message);
     }
     setLoading(false);
-  };
+  };  
 
   const handleGoogleSignUp = async () => {
     try {
       const user = await withProvider(googleProvider);
+  
+      const db = getFirestore();
+      await setDoc(doc(db, "users", user.uid), {
+        id: user.uid,
+        name: user.displayName || "",
+        email: user.email,
+        isAdmin: false,
+        photoURL: user.photoURL || "",
+        signUpDate: new Date(),
+        profileComplete: false
+      });
+  
       setUser(user);
       navigate("/dashboard");
     } catch (error) {
       toast.error("Google Sign-up failed. Please try again.");
       console.error("Google Sign-up error:", error.message);
     }
-  };
+  };  
 
   const handleFacebookSignUp = async () => {
     try {

@@ -45,6 +45,16 @@ export async function signUpWithEmail(email, password, name,) {
     toast.error("Failed to send verification email.");
   }
 
+  try {
+    // Send user data to backend to create Firestore entry
+    const formattedUser = formatUserForBackend(user);
+    await axios.post(`${HOST_URL}/api/user`, formattedUser);
+    console.log("User saved to Firestore.");
+  } catch (err) {
+    console.error("Error syncing user to backend:", err.message);
+    toast.error("Failed to save user in Firestore.");
+  }
+
   return user;
 }
 
@@ -72,6 +82,13 @@ export async function withProvider(provider) {
   if (!userDocSnap.exists()) {
     const formattedUser = formatUserForBackend(user);
     // await axios.post(`${HOST_URL}/api/user`, formattedUser);
+    try {
+      await axios.post(`${HOST_URL}/api/user`, formattedUser);
+      console.log("OAuth user saved to Firestore.");
+    } catch (err) {
+      console.error("Error syncing OAuth user:", err.message);
+      toast.error("Failed to save user in Firestore.");
+    }
   }
 
   return user;
