@@ -878,7 +878,7 @@ a {
 
 @media (min-width: 768px) {
   .directory-item {
-    flex: 1 1 16%; /* ~6 items per row on desktop */
+    flex: 1 1 16%;
     max-width: 16%;
   }
 }
@@ -888,14 +888,34 @@ a {
 }
 
 .document-card {
-  background-color: #fff;
   transition: background-color 0.2s ease;
   cursor: pointer;
+  transition: all 0.3s;
 }
 
 .document-card:hover {
-  background-color: var(--south-africa-blue);
+  transform: scale(1.03);
 }
+
+.bookmark-doc {
+  border: var(--south-africa-green) 1px solid;
+  padding: 0.5rem;
+  border-radius: 5px;
+  background-color: transparent;
+  transition: all ease-in-out 0.3s;
+}
+
+.bookmark-doc:hover {
+  border: var(--south-africa-green) 1px solid;
+  padding: 0.5rem;
+  border-radius: 5px;
+  background-color: var(--south-africa-green);
+}
+
+.bookmark-doc:hover * {
+  color: white;
+}
+
 .search-filter-wrapper {
   padding: 0.5rem;
   display: flex;
@@ -937,4 +957,27 @@ a {
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+.document-card h5 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+@media (max-width: 576px) {
+  .document-card {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start;
+  }
+
+  .document-card i {
+    margin-bottom: 0.5rem;
+  }
+
+  .document-card button {
+    align-self: flex-end;
+    margin-top: 0.5rem;
+  }
 }

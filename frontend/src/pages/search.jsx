@@ -93,10 +93,6 @@ const SearchPage = () => {
                 icon="filter_alt"
                 label={"Filter"}
                 ariaLabel="Toggle Tag Filter"
-                style={{
-                  backgroundColor: "#007847",
-                  color: "white",
-                }}
                 onClick={() => setShowTagFilter(!showTagFilter)}
               />
             </div>
@@ -128,7 +124,6 @@ const SearchPage = () => {
                     <article
                       key={doc.id}
                       className="document-card d-flex align-items-start p-3 mb-3 border rounded shadow-sm"
-                      style={{ background: "#fff", cursor: "pointer" }}
                       onClick={() => window.open(doc.filePath, "_blank")}
                     >
                       <i
@@ -151,9 +146,9 @@ const SearchPage = () => {
                         </div>
                       </div>
                       <button
-                        className="btn btn-sm"
+                        className="bookmark-doc"
                         style={{
-                          borderColor: "#007847",
+                          borderColor: "#777",
                           color: "#007847",
                         }}
                         onClick={(e) => {

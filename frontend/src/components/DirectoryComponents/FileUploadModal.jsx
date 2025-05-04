@@ -218,7 +218,10 @@ const FileUploadModal = ({
         <Modal.Title>Upload Process</Modal.Title>
       </Modal.Header>
 
-      <Modal.Body className="p-4" style={{ height: "400px" }}>
+      <Modal.Body
+        className="p-4"
+        style={{ maxHeight: "70vh", overflowY: "auto" }}
+      >
         {/* Step indicators */}
         <div className="d-flex justify-content-center mb-3">
           {[1, 2, 3].map((step) => (
