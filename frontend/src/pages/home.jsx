@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import "../index.css";
@@ -29,9 +30,6 @@ export default function Home() {
           </Link>
           <Link className="btn_ca" to="/signUp">
             Sign Up
-          </Link>
-          <Link className="btn_ca" to="/directory">
-            Directory
           </Link>
         </div>
       </div>

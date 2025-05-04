@@ -29,6 +29,13 @@ const SettingsPage = () => {
   }, [user, loading, navigate]);
 
   useEffect(() => {
+    if (user) {
+      setUsername(user.displayName || "");
+      setEmail(user.email || "");
+    }
+  }, [user]);
+
+  useEffect(() => {
     document.body.classList.add("settings-page");
     return () => {
       document.body.classList.remove("settings-page");
@@ -77,13 +84,19 @@ const SettingsPage = () => {
       if (!res.ok) throw new Error(data.error);
 
       toast.success("Profile updated successfully!");
+
+      setUser((prevUser) => ({
+        ...prevUser,
+        displayName: username || prevUser.displayName,
+        email: email || prevUser.email,
+      }));
+      //setUsername(username || prevUser.displayName);
     } catch (error) {
       toast.error(`Failed: ${error.message}`);
     }
   };
 
   if (loading) return <p className="loading-message">Loading...</p>;
-  if (!user) return null;
 
   return (
     <main>

@@ -8,6 +8,7 @@ import PasswordInputField from "../components/PasswordInputField";
 import { Link } from "react-router-dom";
 import { signUpWithEmail, withProvider } from "../Firebase/authorisation";
 import toast, { Toaster } from "react-hot-toast";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 export default function SignUp() {
   const { setUser } = useUser();
@@ -23,18 +24,29 @@ export default function SignUp() {
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    const passwordValidationErrors = validatePassword(password);
-    if (passwordValidationErrors.length > 0) {
-      // Do not proceed if password invalid
+    const passwordErrors = validatePassword(password);
+    if (passwordErrors.length > 0) {
+      setErrorMsg(`Password must ${passwordErrors.join(", ")}.`);
       return;
     }
 
     setLoading(true);
     try {
       const user = await signUpWithEmail(email, password, name);
-      toast.dismiss(); // Dismiss any leftover toasts once signup succeeds
-      setUser({ ...user, displayName: name });
-      navigate("/dashboard");
+
+      const db = getFirestore();
+      await setDoc(doc(db, "users", user.uid), {
+        id: user.uid,
+        name: name,
+        email: user.email,
+        isAdmin: false, // explicitly boolean
+        photoURL: user.photoURL || "",
+        signUpDate: new Date(),
+        profileComplete: false,
+      });
+
+      toast.success("Check your email to complete sign-up.");
+      navigate("/signIn");
     } catch (error) {
       let message = "Signup failed. Please try again.";
       switch (error.code) {
@@ -59,6 +71,18 @@ export default function SignUp() {
   const handleGoogleSignUp = async () => {
     try {
       const user = await withProvider(googleProvider);
+
+      const db = getFirestore();
+      await setDoc(doc(db, "users", user.uid), {
+        id: user.uid,
+        name: user.displayName || "",
+        email: user.email,
+        isAdmin: false,
+        photoURL: user.photoURL || "",
+        signUpDate: new Date(),
+        profileComplete: false,
+      });
+
       setUser(user);
       navigate("/dashboard");
     } catch (error) {

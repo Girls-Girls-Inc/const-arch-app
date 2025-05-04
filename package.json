@@ -6,12 +6,10 @@
   "scripts": {
     "install-all": "npm install --prefix frontend && npm install --prefix backend",
     "prebuild": "npm run install-all",
-    "build": "npm run frontend:build && npm run backend:build",
+    "build": "npm run frontend:build",
     "frontend:build": "npm run build --prefix frontend",
-    "backend:build": "npm start --prefix backend",
-    "start-backend": "node backend/app.js",
-    "serve": "npm run build && npm run start-backend",
-    "start": "npm run serve",
+    "start": "nodemon app.js",
+    "serve": "npm run build && npm start",
     "test": "jest",
     "test:coverage": "jest --coverage"
   },
@@ -20,6 +18,7 @@
   "dependencies": {
     "@redux-devtools/extension": "^3.3.0",
     "@reduxjs/toolkit": "^2.7.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "react-hot-toast": "^2.5.2",
@@ -29,18 +28,17 @@
   },
   "devDependencies": {
     "@babel/core": "^7.26.10",
-    "@babel/preset-env": "^7.26.9",
-    "@babel/preset-react": "^7.26.3",
+    "@babel/preset-env": "^7.27.1",
+    "@babel/preset-react": "^7.27.1",
+    "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "babel-jest": "^29.7.0",
-    "chai": "^5.2.0",
     "dotenv-cli": "^8.0.0",
     "firebase-admin": "^13.3.0",
     "jest": "^29.7.0",
     "jest-css-modules": "^2.1.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-transform-stub": "^2.0.0",
-    "mocha": "^11.1.0",
     "supertest": "^7.1.0"
   }
 }

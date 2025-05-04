@@ -1,5 +1,10 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {
+  getAuth,
+  onAuthStateChanged,
+  setPersistence,
+  browserLocalPersistence,
+} from "firebase/auth";
 
 const UserContext = createContext();
 
@@ -8,13 +13,20 @@ export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const auth = getAuth();
 
+  // Ensure persistence is set properly (should be outside the effect)
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      setUser(firebaseUser || null);
-      setLoading(false);
-    });
+    setPersistence(auth, browserLocalPersistence)
+      .then(() => {
+        const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+          setUser(firebaseUser || null);
+          setLoading(false);
+        });
 
-    return () => unsubscribe();
+        return () => unsubscribe();
+      })
+      .catch((error) => {
+        console.error("Persistence error:", error);
+      });
   }, [auth]);
 
   return (

@@ -5,6 +5,7 @@ class Upload {
     filePath,
     directoryId,
     uploadedBy,
+    metadataId,
     fileType,
     tags,
     uploadDate,
@@ -17,10 +18,11 @@ class Upload {
     this.filePath = filePath;
     this.directoryId = directoryId;
     this.uploadedBy = uploadedBy;
+    //this.metadataId = metadataId;
     this.fileType = fileType;
-    this.tags = tags;
+    this.tags = tags; // Array of strings
     this.uploadDate = uploadDate;
-    this.visibility = visibility;
+    this.visibility = visibility; // "public" or "private"
     this.bookmarkCount = bookmarkCount;
     this.updatedAt = updatedAt;
   }
