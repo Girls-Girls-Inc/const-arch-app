@@ -1,9 +1,15 @@
-// IconButton.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Styles/button.css";
 
-const IconButton = ({ route, icon, label, onClick, type = "button" }) => {
+const IconButton = ({
+  route,
+  icon,
+  label,
+  onClick,
+  type = "button",
+  target = null, // Changed default to null instead of "_blank"
+}) => {
   const buttonContent = (
     <>
       {icon && <i className="material-symbols-outlined">{icon}</i>}
@@ -21,7 +27,11 @@ const IconButton = ({ route, icon, label, onClick, type = "button" }) => {
   }
 
   return (
-    <Link to={route} className="icon-button">
+    <Link
+      to={route}
+      className="icon-button"
+      target={target} // Only added if target is provided
+    >
       {buttonContent}
     </Link>
   );
