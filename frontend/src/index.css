@@ -985,6 +985,7 @@ a {
 .btn-outline-primary {
   background-color: transparent !important;
   border-color: var(--south-africa-blue) !important;
+  color: var(--south-africa-blue) !important;
 }
 
 .btn-outline-primary:hover {
