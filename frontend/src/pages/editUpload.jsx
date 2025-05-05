@@ -90,13 +90,11 @@ function EditUpload() {
                 <UploadDetails upload={upload} />
               </div>
               <div className="card-footer">
-                <Link href="/manageUploads">
-                  <IconButton
-                    icon="arrow_back"
-                    label="Back to Uploads"
-                    route="/manageUploads"
-                  />
-                </Link>
+                <IconButton
+                  icon="arrow_back"
+                  label="Back to Uploads"
+                  route="/manageUploads"
+                />
               </div>
             </div>
           </div>

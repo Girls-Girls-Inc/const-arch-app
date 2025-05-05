@@ -5,7 +5,6 @@ import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import IconButton from "../components/IconButton";
 import Link from "next/link";
-import { main } from "@popperjs/core";
 import NavigationComponent from "../components/NavigationComponent";
 import NavigationDashLeft from "../components/NavigationDashLeft";
 import { Toaster, toast } from "react-hot-toast";
@@ -39,7 +38,7 @@ function ManageUploads() {
       const currentUser = auth.currentUser;
 
       if (!currentUser) {
-        console.log("No user signed in");
+        toast.error("No user signed in");
         setIsAdmin(false);
         setLoading(false);
         return;
@@ -62,7 +61,7 @@ function ManageUploads() {
               return {
                 ...data,
                 id: docSnap.id,
-                filePath: data.filePath && data.filePath,
+                filePath: data.filePath,
               };
             });
             setUploads(uploadsList);
@@ -70,12 +69,11 @@ function ManageUploads() {
             toast.success("Uploads loaded successfully!");
           }
         } else {
-          console.log("User document not found");
+          toast.error("User document not found");
           setIsAdmin(false);
         }
       } catch (error) {
-        console.error("Error checking admin status:", error);
-        toast.error("Failed to fetch uploads");
+        toast.error(`Failed to fetch uploads: ${error.message}`);
         setIsAdmin(false);
       } finally {
         setLoading(false);
@@ -85,8 +83,24 @@ function ManageUploads() {
     checkAdminStatusAndFetchUploads();
   }, [auth]);
 
-  if (loading) return <p>Loading uploads...</p>;
-  if (!isAdmin) return <p>You do not have permission to view this page.</p>;
+  if (loading)
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "50vh" }}
+      >
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+
+  if (!isAdmin)
+    return (
+      <div className="alert alert-danger m-4">
+        You do not have permission to view this page.
+      </div>
+    );
 
   return (
     <main>
@@ -110,9 +124,7 @@ function ManageUploads() {
                     <tr>
                       <th scope="col">Delete</th>
                       <th scope="col">File Name</th>
-                      <th scope="col" style={{ width: "20%" }}>
-                        File Path
-                      </th>
+                      <th scope="col">File</th>
                       <th scope="col">Uploaded By</th>
                       <th scope="col">Upload Date</th>
                       <th scope="col">Actions</th>
@@ -125,31 +137,26 @@ function ManageUploads() {
                           <button
                             onClick={() => handleDelete(upload.id)}
                             className="btn btn-danger btn-sm"
+                            title="Delete"
                           >
                             <i className="material-symbols-outlined">delete</i>
                           </button>
                         </td>
                         <td>{upload.fileName}</td>
-                        <td
-                          style={{
-                            width: "20%",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                          }}
-                        >
-                          <a
-                            href={upload.filePath}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-decoration-none"
-                            style={{
-                              display: "block",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                            }}
-                          >
-                            {upload.filePath}
-                          </a>
+                        <td>
+                          {upload.filePath ? (
+                            <a
+                              href={upload.filePath}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="btn btn-sm btn-outline-primary"
+                              title="Open file"
+                            >
+                              <i className="material-symbols-outlined">link</i>
+                            </a>
+                          ) : (
+                            <span className="text-muted">No file</span>
+                          )}
                         </td>
                         <td>{upload.uploadedBy}</td>
                         <td>{upload.uploadDate}</td>
