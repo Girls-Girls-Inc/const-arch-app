@@ -81,7 +81,7 @@ function EditUpload() {
         <section className="dashboard-container-righty">
           <div className="dashboard-details">
             <h2 className="right-title">Manage Uploads</h2>
-            <div className="card shadow-sm border-0">
+            <div className="card shadow-lg border-0">
               <div className="card-body">
                 <FileLink
                   filePath={upload.filePath}
