@@ -125,7 +125,7 @@ export default function SignUp() {
 
     if (errors.length > 0) {
       errors.forEach((error, index) => {
-        toast.error(`Password must have ${error}`, {
+        toast.error(`Password must have ${error}.`, {
           id: `password-error-${index}`,
           duration: 3000, // Toast disappears after 3 seconds
         });

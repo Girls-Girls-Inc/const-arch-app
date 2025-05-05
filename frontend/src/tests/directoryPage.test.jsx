@@ -72,7 +72,7 @@ describe('Directory Page', () => {
   });
 
   it('should render directory UI correctly with buttons and sections', () => {
-    expect(screen.getByText('Directory')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Directory' })).toBeInTheDocument();
     expect(screen.getByText('NavigationComponent')).toBeInTheDocument();
 
     expect(screen.getByTestId('icon-My Profile')).toBeInTheDocument();

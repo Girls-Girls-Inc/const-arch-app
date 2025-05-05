@@ -23,7 +23,7 @@ router.post("/updateUser", verifyToken, async (req, res) => {
         res.status(200).json({ message: "Profile updated successfully!" });
     } catch (error) {
         console.error("Update failed:", error);
-        res.status(500).json('Update failed:' + { error: error.message });
+        res.status(500).json({ error: 'Update failed: ' + error.message });
     }
 });
 

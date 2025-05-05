@@ -34,7 +34,7 @@ describe("InputImage component", () => {
 
     render(<InputImage />);
     const image = screen.getByAltText("Profile");
-    expect(image).toHaveAttribute("src", expect.stringContaining("via.placeholder.com"));
+    expect(image).toHaveAttribute("src", expect.stringContaining("/assets/logo.png"));
   });
 
   it("should display default name if displayName is missing", () => {

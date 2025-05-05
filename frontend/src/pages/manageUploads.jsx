@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { useEffect, useState } from "react";
 import { db } from "../Firebase/firebase";
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
@@ -123,7 +124,7 @@ function ManageUploads() {
                 {uploads.map((upload) => (
                   <tr key={upload.id}>
                     <td>
-                      <button onClick={() => handleDelete(upload.id)} className="delete-btn">
+                      <button onClick={() => handleDelete(upload.id)} className="delete-btn" data-testid="delete-button">
                         🗑️
                       </button>
                     </td>

@@ -7,7 +7,7 @@ const addBookmark = async (req, res, next) => {
   try {
     console.log("Request body:", req.body);
     const data = req.body;
-    console.log("Firestore DB object:", db); // Log the actual Firestore instance
+    console.log("Firestore DB object:", db);
 
     console.log("Received data:", data);
     await db.collection("bookmark").doc().set(data);

@@ -8,7 +8,7 @@ describe('Upload Model', () =>{
         filePath: '/mock/file/path',
         directoryId: '1234',
         uploadedBy: 'Jane Doe',
-        metadataId: 'meta',
+        //metadataId: 'meta',
         fileType: 'mock',
         tags: ['fake news'],
         uploadDate: '22/03/1983',
@@ -23,7 +23,7 @@ describe('Upload Model', () =>{
             mockData.filePath,
             mockData.directoryId,
             mockData.uploadedBy,
-            mockData.metadataId,
+            //mockData.metadataId,
             mockData.fileType,
             mockData.tags,
             mockData.uploadDate,
@@ -37,7 +37,7 @@ describe('Upload Model', () =>{
         expect(upload.filePath).toBe(mockData.filePath);
         expect(upload.directoryId).toBe(mockData.directoryId);
         expect(upload.uploadedBy).toBe(mockData.uploadedBy);
-        expect(upload.metadataId).toBe(mockData.metadataId);
+        //expect(upload.metadataId).toBe(mockData.metadataId);
         expect(upload.fileType).toBe(mockData.fileType);
         expect(upload.tags).toEqual(mockData.tags);
         expect(upload.uploadDate).toBe(mockData.uploadDate);

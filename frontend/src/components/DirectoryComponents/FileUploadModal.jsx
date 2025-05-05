@@ -8,7 +8,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 // import Upload from "../../../../backend/models/upload";
 import axios from "axios";
-const HOST_URL = import.meta.env.VITE_API_HOST_URL || "http://localhost:4000";
+const HOST_URL = process.env.VITE_API_HOST_URL || "http://localhost:4000";
 
 class Upload {
   constructor(

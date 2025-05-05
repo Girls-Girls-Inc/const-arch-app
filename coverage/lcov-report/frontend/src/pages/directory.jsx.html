@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/22</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/19</span>
+                <span class='fraction'>18/18</span>
             </div>
         
             
@@ -154,15 +154,9 @@
 <a name='L89'></a><a href='#L89'>89</a>
 <a name='L90'></a><a href='#L90'>90</a>
 <a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a>
-<a name='L99'></a><a href='#L99'>99</a>
-<a name='L100'></a><a href='#L100'>100</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L92'></a><a href='#L92'>92</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -218,16 +212,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -265,11 +249,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/userContext";
-import { handleLogout } from "../Firebase/authorisation";
 import "../index.css";
 import IconButton from "../components/IconButton";
 import FileUploadModal from "../components/DirectoryComponents/FileUploadModal";
 import NavigationComponent from "../components/NavigationComponent";
+import NavigationDashLeft from "../components/NavigationDashLeft";
+import { Toaster } from "react-hot-toast";
+import DirectoryBlock from "../components/DirectoryComponents/DirectoryBlock";
 &nbsp;
 const Directory = () =&gt; {
   const { user, loading, setUser } = useUser();
@@ -300,46 +286,34 @@ const Directory = () =&gt; {
       &lt;NavigationComponent /&gt;
 &nbsp;
       &lt;section className="dashboard-container"&gt;
-        &lt;section className="dashboard-container-lefty d-none d-md-flex"&gt;
-          &lt;section className="nav-top"&gt;
-            &lt;IconButton
-              icon="account_circle"
-              label="My Profile"
-              route="/dashboard"
-            /&gt;
-            &lt;IconButton icon="bookmark" label="Bookmarks" route="/bookmarks" /&gt;
-            &lt;IconButton icon="folder" label="Directory" route="/directory" /&gt;
-            &lt;IconButton
-              icon="group"
-              label="Manage Users"
-              route="/manageUsers"
-            /&gt;
-          &lt;/section&gt;
-          &lt;section className="nav-bottom"&gt;
-            &lt;IconButton
-              onClick={() =&gt; handleLogout(setUser)}
-              icon="logout"
-              label="Log Out"
-            /&gt;
-            &lt;IconButton icon="settings" label="Settings" route="/settings" /&gt;
-          &lt;/section&gt;
-        &lt;/section&gt;
-&nbsp;
+        &lt;NavigationDashLeft /&gt;
         &lt;section className="dashboard-container-righty"&gt;
-          &lt;main className="dashboard-details"&gt;
-            &lt;h2&gt;Directory&lt;/h2&gt;
-            &lt;div className="directory-page"&gt;
-              &lt;div className="upload-buttons"&gt;
-                &lt;IconButton
-                  onClick={handleOpenModal}
-                  icon="upload_file"
-                  label="Upload File"
-                /&gt;
-                &lt;IconButton
-                  route="/directory"
-                  icon="create_new_folder"
-                  label="Create Folder"
-                /&gt;
+          &lt;main className="dashboard-details directory-dash"&gt;
+            &lt;h2 className="right-title"&gt;Directory&lt;/h2&gt;
+            &lt;div&gt;
+              &lt;div className="directory-subhead"&gt;
+                &lt;IconButton icon="arrow_back" label="Back" /&gt;
+                &lt;div className="upload-buttons"&gt;
+                  &lt;IconButton
+                    onClick={handleOpenModal}
+                    icon="upload_file"
+                    label="Upload File"
+                  /&gt;
+                  &lt;IconButton
+                    route="/directory"
+                    icon="create_new_folder"
+                    label="Create Folder"
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+&nbsp;
+              &lt;div className="directory-nav"&gt;
+                &lt;p className="root-text"&gt;Root/ backup/&lt;/p&gt;
+              &lt;/div&gt;
+&nbsp;
+              {/* folders*/}
+              &lt;div className="folder-container"&gt;
+                &lt;DirectoryBlock /&gt;
               &lt;/div&gt;
             &lt;/div&gt;
           &lt;/main&gt;
@@ -355,6 +329,8 @@ const Directory = () =&gt; {
         uploadedFile={uploadedFile}
         setUploadedFile={setUploadedFile}
       /&gt;
+&nbsp;
+      &lt;Toaster position="top-center" reverseOrder={false} /&gt;
     &lt;/main&gt;
   );
 };
@@ -367,7 +343,7 @@ export default Directory;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-04T21:18:22.738Z
+                at 2025-05-05T01:17:12.828Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
