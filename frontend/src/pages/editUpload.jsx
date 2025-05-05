@@ -8,11 +8,21 @@ import Link from "next/link";
 import NavigationComponent from "../components/NavigationComponent";
 import NavigationDashLeft from "../components/NavigationDashLeft";
 import { Toaster, toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/userContext";
 
 function EditUpload() {
+  const { user } = useUser();
+  const navigate = useNavigate();
   const { id } = useParams();
   const [upload, setUpload] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate("/signIn");
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     if (!id) {

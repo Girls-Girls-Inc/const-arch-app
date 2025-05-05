@@ -8,12 +8,22 @@ import Link from "next/link";
 import NavigationComponent from "../components/NavigationComponent";
 import NavigationDashLeft from "../components/NavigationDashLeft";
 import { Toaster, toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/userContext";
 
 function ManageUploads() {
+  const { user } = useUser();
+  const navigate = useNavigate();
   const [uploads, setUploads] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(null);
   const auth = getAuth();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate("/signIn");
+    }
+  }, [user, navigate]);
 
   const handleDelete = async (uploadId) => {
     if (!confirm("Are you sure you want to delete this upload?")) return;
