@@ -20,7 +20,9 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          chmod -R +x node_modules/.bin
 
       - name: Run tests
         run: npx jest --coverage
