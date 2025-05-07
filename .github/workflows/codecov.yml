@@ -24,7 +24,6 @@ jobs:
 
       - name: Run tests
         run: npx jest --coverage
-        working-directory: ./const-arch-app
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
