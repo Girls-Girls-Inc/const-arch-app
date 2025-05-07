@@ -5,7 +5,6 @@ import "../Styles/dropzone.css";
 const Dropzone = ({ setUploadedFile, uploadedFile }) => {
   const [file, setFile] = useState(uploadedFile?.file || null);
 
-  // Cleanup object URL
   useEffect(() => {
     return () => {
       if (file?.preview) URL.revokeObjectURL(file.preview);
@@ -17,7 +16,7 @@ const Dropzone = ({ setUploadedFile, uploadedFile }) => {
       if (acceptedFiles.length > 0) {
         const newFile = acceptedFiles[0];
         setFile({
-          file: newFile, // Store the actual File object
+          file: newFile,
           name: newFile.name,
           type: newFile.type,
           size: newFile.size,
