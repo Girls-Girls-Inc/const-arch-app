@@ -157,10 +157,6 @@ const SearchPage = () => {
                       </div>
                       <button
                         className="bookmark-doc"
-                        style={{
-                          borderColor: "#777",
-                          color: "#007847",
-                        }}
                         onClick={(e) => {
                           e.stopPropagation();
                           toast.success(`Bookmarked "${doc.fileName}"`);

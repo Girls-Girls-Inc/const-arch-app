@@ -3,8 +3,12 @@ import { useEffect, useState } from "react";
 import { db } from "../Firebase/firebase";
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import IconButton from "../components/IconButton"; 
-import Link from "next/link"; // Import Link from Next.js
+import IconButton from "../components/IconButton";
+import NavigationComponent from "../components/NavigationComponent";
+import NavigationDashLeft from "../components/NavigationDashLeft";
+import { Toaster, toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/userContext";
 
 function ManageUploads() {
   const [uploads, setUploads] = useState([]);
@@ -12,17 +16,16 @@ function ManageUploads() {
   const [isAdmin, setIsAdmin] = useState(null); // Track admin status
   const auth = getAuth();
 
-
   const handleDelete = async (uploadId) => {
     if (!confirm("Are you sure you want to delete this upload?")) return;
-  
+
     try {
       const res = await fetch(`/api/uploads/${uploadId}`, {
         method: "DELETE",
       });
-  
+
       if (!res.ok) throw new Error("Failed to delete upload");
-  
+
       // Remove deleted item from state
       setUploads((prev) => prev.filter((u) => u.id !== uploadId));
       toast.success("Upload deleted successfully");
@@ -63,7 +66,7 @@ function ManageUploads() {
               return {
                 ...data,
                 id: docSnap.id,
-                filePath: data.filePath && data.filePath//[1], // Assuming you want the second entry from the array
+                filePath: data.filePath && data.filePath, //[1], // Assuming you want the second entry from the array
               };
             });
             setUploads(uploadsList);
@@ -91,11 +94,19 @@ function ManageUploads() {
     <main className="dashboard-container">
       <section className="dashboard-container-lefty d-none d-md-flex">
         <section className="nav-top">
-          <IconButton icon="account_circle" label="My Profile" route="/dashboard" />
+          <IconButton
+            icon="account_circle"
+            label="My Profile"
+            route="/dashboard"
+          />
           <IconButton icon="bookmark" label="Bookmarks" route="/bookmarks" />
           <IconButton icon="folder" label="Directory" route="/directory" />
           <IconButton icon="group" label="Manage Users" route="/manageUsers" />
-          <IconButton icon="upload" label="Manage Uploads" route="/ManageUploads" />
+          <IconButton
+            icon="upload"
+            label="Manage Uploads"
+            route="/ManageUploads"
+          />
         </section>
 
         <section className="nav-bottom">
@@ -123,13 +134,20 @@ function ManageUploads() {
                 {uploads.map((upload) => (
                   <tr key={upload.id}>
                     <td>
-                      <button onClick={() => handleDelete(upload.id)} className="delete-btn">
+                      <button
+                        onClick={() => handleDelete(upload.id)}
+                        className="delete-btn"
+                      >
                         🗑️
                       </button>
                     </td>
                     <td>{upload.fileName}</td>
                     <td>
-                      <a href={upload.filePath} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={upload.filePath}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         {upload.filePath}
                       </a>
                     </td>
@@ -137,7 +155,7 @@ function ManageUploads() {
                     <td>{upload.uploadDate}</td>
                     <td>
                       <Link href={`/editUpload/${upload.id}`}>
-                      <button>Details</button>
+                        <button>Details</button>
                       </Link>
                     </td>
                   </tr>
