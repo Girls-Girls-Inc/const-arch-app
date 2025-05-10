@@ -734,6 +734,13 @@ a {
 }
 
 @media (max-width: 768px) {
+  body,
+  html {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 768px) {
   .hamburger-btn_ca {
     display: block;
   }
