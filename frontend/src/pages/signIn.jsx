@@ -5,7 +5,7 @@ import "../index.css";
 import InputField from "../components/InputField";
 import PasswordInputField from "../components/PasswordInputField";
 import { withProvider, signInWithEmail } from "../Firebase/authorisation";
-import { facebookProvider, googleProvider } from "../Firebase/firebase";
+import { googleProvider } from "../Firebase/firebase";
 import toast, { Toaster } from "react-hot-toast";
 import { getAuth } from "firebase/auth";
 
@@ -17,11 +17,9 @@ export default function SigninPage() {
   const [errorMsg, setErrorMsg] = useState("");
 
   const loginWithEmail = async () => {
-
-    
     const user = await signInWithEmail(email, password);
     if (!user.emailVerified) {
-      await getAuth().signOut();  
+      await getAuth().signOut();
       throw new Error("Email not verified. Please check your inbox.");
     }
     setUser(user);
@@ -64,20 +62,6 @@ export default function SigninPage() {
     );
   };
 
-  const handleFacebookSignIn = () => {
-    toast.promise(
-      withProvider(facebookProvider).then((user) => {
-        setUser(user);
-        navigate("/dashboard");
-      }),
-      {
-        loading: "Signing in with Facebook...",
-        success: <b>Signed in successfully!</b>,
-        error: <b>Facebook Sign-in failed. Please try again.</b>,
-      }
-    );
-  };
-
   useEffect(() => {
     document.body.classList.add("signin-page");
     return () => {
@@ -104,14 +88,6 @@ export default function SigninPage() {
               className="social-icon"
             />
             Google
-          </button>
-          <button onClick={handleFacebookSignIn} className="social-button">
-            <img
-              src="/icons/facebook.svg"
-              alt="Facebook Icon"
-              className="social-icon"
-            />
-            Facebook
           </button>
         </div>
         <p className="seperator">
