@@ -4,7 +4,7 @@ import NavigationDashLeft from "../components/NavigationDashLeft";
 import IconButton from "../components/IconButton";
 import InputField from "../components/InputField";
 import "../index.css";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../Firebase/firebase";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -74,6 +74,35 @@ const SearchPage = () => {
       month: "short",
       day: "numeric",
     });
+  };
+
+  const handleBookmark = async (docId, docName) => {
+    if (!user) {
+      toast.error("You must be signed in to bookmark.");
+      return;
+    }
+
+    try {
+      const bookmarkRef = doc(db, "bookmark", user.uid);
+      const bookmarkSnap = await getDoc(bookmarkRef);
+
+      if (bookmarkSnap.exists()) {
+        // User already has bookmarks; update the array
+        await updateDoc(bookmarkRef, {
+          documentIds: arrayUnion(docId),
+        });
+      } else {
+        // First bookmark; create the document
+        await setDoc(bookmarkRef, {
+          documentIds: [docId],
+        });
+      }
+
+      toast.success(`Bookmarked "${docName}"`);
+    } catch (error) {
+      console.error("Error bookmarking document:", error);
+      toast.error("Failed to bookmark document.");
+    }
   };
 
   return (
@@ -163,7 +192,7 @@ const SearchPage = () => {
                         }}
                         onClick={(e) => {
                           e.stopPropagation();
-                          toast.success(`Bookmarked "${doc.fileName}"`);
+                          handleBookmark(doc.id, doc.fileName);
                         }}
                       >
                         <i className="material-symbols-outlined">bookmark</i>
