@@ -106,19 +106,16 @@ describe('Sign Up Page', () => {
     expect(await screen.findByText(/This email is already in use!/i)).toBeInTheDocument();
   });
 
-  it('renders third-party buttons and triggers social signups', async () => {
+  it('renders third-party button and triggers social signup', async () => {
     const googleButton = screen.getByRole('button', { name: /google/i });
-    const facebookButton = screen.getByRole('button', { name: /facebook/i });
 
     expect(googleButton).toBeInTheDocument();
-    expect(facebookButton).toBeInTheDocument();
 
     await act(async () => {
       fireEvent.click(googleButton);
-      fireEvent.click(facebookButton);
     });
 
-    expect(withProvider).toHaveBeenCalledTimes(2);
+    expect(withProvider).toHaveBeenCalledTimes(1);
     expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
   });
 

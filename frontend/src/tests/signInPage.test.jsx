@@ -94,24 +94,21 @@ describe('Sign In Page', () => {
         expect(toasts[0]).toBeInTheDocument();
     });
 
-    it('should render buttons for 3rd party auth that call the helper functions and navigate to dashboard on successful login and show toast messages', async () => {
+    it('should render button for 3rd party auth that call the helper function and navigate to dashboard on successful login and show toast messages', async () => {
         const googleButton = screen.getByRole('button', { name: /google/i });
-        const facebookButton = screen.getByRole('button', { name: /facebook/i });
 
         expect(googleButton).toBeInTheDocument();
-        expect(facebookButton).toBeInTheDocument();
 
         await act(async () => {
             fireEvent.click(googleButton);
-            fireEvent.click(facebookButton);
         });
 
-        expect(withProvider).toHaveBeenCalledTimes(2);
+        expect(withProvider).toHaveBeenCalledTimes(1);
         expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
 
         const toasts = await screen.findAllByText(/Signed in successfully!/i);
 
-        expect(toasts.length).toBe(2);
+        expect(toasts.length).toBe(1);
         expect(toasts[0]).toBeInTheDocument();
     });
 

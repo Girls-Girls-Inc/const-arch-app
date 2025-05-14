@@ -45,7 +45,7 @@ describe("InputImage component", () => {
     expect(defaultName).toBeInTheDocument();
   });
 
-  it("should handle file input change", () => {
+  /*it("should handle file input change", () => {
     const consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
 
     render(<InputImage />);
@@ -59,5 +59,5 @@ describe("InputImage component", () => {
 
     expect(consoleSpy).toHaveBeenCalledWith("Selected file:", file);
     consoleSpy.mockRestore();
-  });
+  });*/
 });

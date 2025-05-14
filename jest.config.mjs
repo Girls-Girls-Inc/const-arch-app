@@ -23,11 +23,6 @@ export default {
     "!frontend/src/App.jsx",
     "!frontend/src/main.jsx",
     "!frontend/src/redux/**",
-    "!frontend/src/pages/editUpload.jsx",
-    "!frontend/src/pages/EmailLinkHandler.jsx",
-    "!frontend/src/pages/manageUploads.jsx",
-    "!frontend/src/pages/manageUsers.jsx",
-    "!frontend/src/pages/search.jsx",
   ],
   coverageDirectory: "<rootDir>/coverage",
   coverageThreshold: {
