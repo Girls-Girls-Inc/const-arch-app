@@ -23,7 +23,7 @@ jobs:
         run: npm run install-all
 
       - name: Run tests with coverage
-        run: npm run test:coverage
+        run: npx jest --coverage
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
