@@ -19,17 +19,15 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
-        working-directory: ./
+      - name: Install all dependencies (root, frontend, backend)
+        run: npm run install-all
 
       - name: Run tests with coverage
         run: npm run test:coverage
-        working-directory: ./
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
-          token: ${{ secrets.CODECOV_TOKEN }} 
-          flags: unit
-          name: codecov-coverage
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittests
+          name: coverage-report
