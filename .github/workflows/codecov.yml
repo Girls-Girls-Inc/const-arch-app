@@ -19,10 +19,13 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Clean install dependencies
+      - name: Install all dependencies (root, frontend, backend, firebase)
         run: |
           rm -rf node_modules
-          npm install
+          npm install # Install root dependencies
+          cd frontend && npm install # Install frontend dependencies
+          cd backend && npm install # Install backend dependencies
+          npm install firebase # Ensure firebase is installed
 
       - name: Check Jest binary
         run: |
