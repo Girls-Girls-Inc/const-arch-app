@@ -8,7 +8,7 @@
     "prebuild": "npm run install-all",
     "build": "npm run frontend:build",
     "frontend:build": "npm run build --prefix frontend",
-    "start": "nodemon app.js",
+    "start": "node app.js",
     "serve": "npm run build && npm start",
     "test": "jest",
     "test:coverage": "jest --coverage"

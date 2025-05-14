@@ -6,8 +6,9 @@ import "../index.css";
 import InputField from "../components/InputField";
 import PasswordInputField from "../components/PasswordInputField";
 import { withProvider, signInWithEmail } from "../Firebase/authorisation";
-import { facebookProvider, googleProvider } from "../Firebase/firebase";
+import { googleProvider } from "../Firebase/firebase";
 import toast, { Toaster } from "react-hot-toast";
+import { getAuth } from "firebase/auth";
 
 export default function SigninPage() {
   const { setUser } = useUser();
@@ -18,6 +19,10 @@ export default function SigninPage() {
 
   const loginWithEmail = async () => {
     const user = await signInWithEmail(email, password);
+    if (!user.emailVerified) {
+      await getAuth().signOut();
+      throw new Error("Email not verified. Please check your inbox.");
+    }
     setUser(user);
     navigate("/dashboard");
   };
@@ -31,12 +36,12 @@ export default function SigninPage() {
       success: <b>Logged in successfully!</b>,
       error: (err) => {
         let message = "Login failed. Please try again.";
-        switch (err?.code) {
-          case "auth/invalid-credential":
-            message = "Email or Password is incorrect!";
-            break;
-          default:
-            message = "Login failed. " + err.message;
+        if (err?.message === "Email not verified. Please check your inbox.") {
+          message = err.message;
+        } else if (err?.code === "auth/invalid-credential") {
+          message = "Email or Password is incorrect!";
+        } else {
+          message = "Login failed. " + err.message;
         }
         setErrorMsg(message);
         return <b>{message}</b>;
@@ -54,20 +59,6 @@ export default function SigninPage() {
         loading: "Signing in with Google...",
         success: <b>Signed in successfully!</b>,
         error: <b>Google Sign-in failed. Please try again.</b>,
-      }
-    );
-  };
-
-  const handleFacebookSignIn = () => {
-    toast.promise(
-      withProvider(facebookProvider).then((user) => {
-        setUser(user);
-        navigate("/dashboard");
-      }),
-      {
-        loading: "Signing in with Facebook...",
-        success: <b>Signed in successfully!</b>,
-        error: <b>Facebook Sign-in failed. Please try again.</b>,
       }
     );
   };
@@ -98,14 +89,6 @@ export default function SigninPage() {
               className="social-icon"
             />
             Google
-          </button>
-          <button onClick={handleFacebookSignIn} className="social-button">
-            <img
-              src="/icons/facebook.svg"
-              alt="Facebook Icon"
-              className="social-icon"
-            />
-            Facebook
           </button>
         </div>
         <p className="seperator">

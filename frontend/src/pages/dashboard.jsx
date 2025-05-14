@@ -33,7 +33,7 @@ const Dashboard = () => {
         <NavigationDashLeft />
         <section className="dashboard-container-righty">
           <main className="dashboard-details">
-            <InputImage />
+            <InputImage canUpload={false}/>
             <section className="dashboard-details-profile">
               <article>
                 <h3 className="detail-label">

@@ -32,8 +32,12 @@ const NavigationComponent = () => {
           <IconButton icon={"search"} label="Search" route="/search" />
           <IconButton icon="bookmark" label="Bookmarks" route="/bookmarks" />
           <IconButton icon="folder" label="Directory" route="/directory" />
-
           <IconButton icon="group" label="Manage Users" route="/manageUsers" />
+          <IconButton
+            icon={"upload_file"}
+            label="Manage uploads"
+            route="/manageUploads"
+          />
           <IconButton
             onClick={() => handleLogout(setUser)}
             icon="logout"

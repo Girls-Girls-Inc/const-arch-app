@@ -141,12 +141,22 @@ const ManageUsers = () => {
                                 handleAdminToggle(user.id, user.isAdmin)
                               }
                             />
-                            <label
-                              className="form-check-label"
-                              htmlFor={`adminSwitch-${user.id}`}
-                            >
-                              Admin
-                            </label>
+                            {(() => {
+                              let roleLabel;
+                              if (user.isAdmin) {
+                                roleLabel = "Admin";
+                              } else {
+                                roleLabel = "User";
+                              }
+                              return (
+                                <label
+                                  className="form-check-label"
+                                  htmlFor={`adminSwitch-${user.id}`}
+                                >
+                                  {roleLabel}
+                                </label>
+                              );
+                            })()}
                           </div>
                         </td>
                       </tr>

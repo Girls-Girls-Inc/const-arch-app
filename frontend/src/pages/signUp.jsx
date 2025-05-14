@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { googleProvider, facebookProvider } from "../Firebase/firebase";
+import { googleProvider } from "../Firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/userContext";
 import ThemeSwitch from "../components/ThemeSwitch";
@@ -92,16 +92,16 @@ export default function SignUp() {
     }
   };
 
-  const handleFacebookSignUp = async () => {
-    try {
-      const user = await withProvider(facebookProvider);
-      setUser(user);
-      navigate("/dashboard");
-    } catch (error) {
-      toast.error("Facebook Sign-up failed. Please try again.");
-      console.error("Facebook Sign-up error:", error.message);
-    }
-  };
+  // const handleFacebookSignUp = async () => {
+  //   try {
+  //     const user = await withProvider(facebookProvider);
+  //     setUser(user);
+  //     navigate("/dashboard");
+  //   } catch (error) {
+  //     toast.error("Facebook Sign-up failed. Please try again.");
+  //     console.error("Facebook Sign-up error:", error.message);
+  //   }
+  // };
 
   const validatePassword = (password) => {
     const errors = [];
@@ -174,14 +174,6 @@ export default function SignUp() {
               className="social-icon"
             />
             Google
-          </button>
-          <button onClick={handleFacebookSignUp} className="social-button">
-            <img
-              src="/icons/facebook.svg"
-              alt="Facebook Icon"
-              className="social-icon"
-            />
-            Facebook
           </button>
         </div>
         <p className="seperator">

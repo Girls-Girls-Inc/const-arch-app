@@ -54,7 +54,7 @@ export async function signUpWithEmail(email, password, name) {
     console.log("User saved to Firestore.");
   } catch (err) {
     console.error("Error syncing user to backend:", err.message);
-    toast.error("Failed to save user in Firestore.");
+    
   }
 
   return user;
@@ -91,7 +91,7 @@ export async function withProvider(provider) {
       console.log("OAuth user saved to Firestore.");
     } catch (err) {
       console.error("Error syncing OAuth user:", err.message);
-      toast.error("Failed to save user in Firestore.");
+      
     }
   }
 
