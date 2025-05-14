@@ -6,7 +6,7 @@ import { useUser } from "../context/userContext";
 
 const NavigationComponent = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { user, setUser, isAdmin } = useUser(); // ✅ use isAdmin from context
+  const { user, setUser, isAdmin } = useUser();
 
   return (
     <>
