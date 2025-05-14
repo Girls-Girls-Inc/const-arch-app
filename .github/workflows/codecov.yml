@@ -19,11 +19,19 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install all dependencies (root, frontend, backend)
-        run: npm run install-all
+      - name: Clean install dependencies
+        run: |
+          rm -rf node_modules
+          npm install
+
+      - name: Check Jest binary
+        run: |
+          ls -l node_modules/.bin/jest
+          file node_modules/.bin/jest
 
       - name: Run tests with coverage
         run: npx jest --coverage
+
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
