@@ -13,7 +13,6 @@ export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const auth = getAuth();
 
-  // Ensure persistence is set properly (should be outside the effect)
   useEffect(() => {
     setPersistence(auth, browserLocalPersistence)
       .then(() => {
