@@ -21,11 +21,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: ./constitutional-archive-app
+        working-directory: ./
 
       - name: Run tests with coverage
         run: npx jest --coverage
-        working-directory: ./constitutional-archive-app
+        working-directory: ./
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
