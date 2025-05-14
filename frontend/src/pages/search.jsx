@@ -103,6 +103,24 @@ const SearchPage = () => {
       console.error("Error bookmarking document:", error);
       toast.error("Failed to bookmark document.");
     }
+
+    const handleSearchAPI = async () => {
+  try {
+    const res = await fetch("https://constitutionalarchive-f4cugbeydxd8gshz.brazilsouth-01.azurewebsites.net/search", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ query: searchQuery }),
+    });
+
+    const data = await res.json();
+    setDocuments(data.results || []);
+  } catch (err) {
+    console.error("Search API error:", err);
+    toast.error("Failed to fetch search results.");
+  }
+  };
   };
 
   return (
