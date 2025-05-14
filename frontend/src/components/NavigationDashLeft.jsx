@@ -1,12 +1,11 @@
 import { useUser } from "../context/userContext";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { handleLogout } from "../Firebase/authorisation";
 import "../index.css";
 import IconButton from "../components/IconButton";
 
 const NavigationDashLeft = () => {
-  const { setUser } = useUser();
+  const { user, setUser, isAdmin } = useUser();
+
   return (
     <section className="dashboard-container-lefty d-none d-md-flex">
       <section className="nav-top">
@@ -22,13 +21,22 @@ const NavigationDashLeft = () => {
         />
         <IconButton icon={"search"} label="Search" route="/search" />
         <IconButton icon={"bookmark"} label="Bookmarks" route="/bookmarks" />
-        <IconButton icon={"folder"} label="Directory" route="/directory" />
-        <IconButton icon={"group"} label="Manage Users" route="/manageUsers" />
-        <IconButton
-          icon={"upload_file"}
-          label="Manage uploads"
-          route="/manageUploads"
-        />
+
+        {isAdmin && (
+          <>
+            <IconButton icon={"folder"} label="Directory" route="/directory" />
+            <IconButton
+              icon={"group"}
+              label="Manage Users"
+              route="/manageUsers"
+            />
+            <IconButton
+              icon={"upload_file"}
+              label="Manage uploads"
+              route="/manageUploads"
+            />
+          </>
+        )}
       </section>
 
       <section className="nav-bottom">
