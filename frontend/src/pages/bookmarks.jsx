@@ -151,7 +151,7 @@ const BookmarksPage = () => {
 
   useEffect(() => {
     if (!user) {
-      return null;
+      navigate("/");
     } else {
       const fetchBookmarks = async () => {
         try {
