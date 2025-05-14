@@ -1,0 +1,35 @@
+name: Run Tests and Upload Coverage
+
+on:
+  push:
+    branches: [testing]
+  pull_request:
+    branches: [testing]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./constitutional-archive-app
+
+      - name: Run tests with coverage
+        run: npx jest --coverage
+        working-directory: ./constitutional-archive-app
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} 
+          flags: unit
+          name: codecov-coverage
