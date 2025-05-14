@@ -28,11 +28,10 @@ const Dashboard = () => {
     <main>
       <NavigationComponent />
       <section className="dashboard-container">
-        {/* Sidebar only visible on md and up */}
         <NavigationDashLeft />
         <section className="dashboard-container-righty">
           <main className="dashboard-details">
-            <InputImage canUpload={false}/>
+            <InputImage canUpload={false} />
             <section className="dashboard-details-profile">
               <article>
                 <h3 className="detail-label">
@@ -40,25 +39,13 @@ const Dashboard = () => {
                 </h3>
                 <p className="detail-text">{user.displayName}</p>
               </article>
-              <article>
-                <h3 className="detail-label">
-                  <i className="material-symbols-outlined">call</i> Phone number
-                </h3>
-                <p className="detail-text">{user.phone || "Not provided"}</p>
-              </article>
+
               <article>
                 <h3 className="detail-label">
                   <i className="material-symbols-outlined">mail</i> Email
                   address
                 </h3>
                 <p className="detail-text">{user.email}</p>
-              </article>
-              <article>
-                <h3 className="detail-label">
-                  <i className="material-symbols-outlined">home</i> Physical
-                  address
-                </h3>
-                <p className="detail-muted">No address</p>
               </article>
             </section>
           </main>
