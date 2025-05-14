@@ -12,7 +12,7 @@ import DirectoryBlock from "../components/DirectoryComponents/DirectoryBlock";
 
 const Directory = () => {
   const { user, loading, setUser } = useUser();
-  const navigate = useNavigate();
+  const navigate = useNavigate();s
   const [menuOpen, setMenuOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalStep, setModalStep] = useState(1);
