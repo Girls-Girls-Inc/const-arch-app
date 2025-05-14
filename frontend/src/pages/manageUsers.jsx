@@ -24,13 +24,7 @@ const ManageUsers = () => {
   const [isAdmin, setIsAdmin] = useState(null);
   const [usersLoading, setUsersLoading] = useState(true);
   const auth = getAuth();
-
-  useEffect(() => {
-    if (!loading && !user) {
-      navigate("/signIn");
-    }
-  }, [user, loading, navigate]);
-
+  
   useEffect(() => {
     const checkIfAdminAndFetchUsers = async () => {
       const currentUser = auth.currentUser;

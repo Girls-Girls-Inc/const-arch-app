@@ -8,7 +8,7 @@ const IconButton = ({
   label,
   onClick,
   type = "button",
-  target = null, // Changed default to null instead of "_blank"
+  target = null, 
 }) => {
   const buttonContent = (
     <>
@@ -29,7 +29,7 @@ const IconButton = ({
     <Link
       to={route}
       className="icon-button"
-      target={target} // Only added if target is provided
+      target={target} 
     >
       {buttonContent}
     </Link>

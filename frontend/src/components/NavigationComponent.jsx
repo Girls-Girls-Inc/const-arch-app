@@ -1,14 +1,15 @@
-// components/NavigationComponent.js
 "use client";
 import { useState } from "react";
 import React from "react";
 import IconButton from "./IconButton";
 import { handleLogout } from "../Firebase/authorisation";
 import { useUser } from "../context/userContext";
+import { useNavigate } from "react-router-dom";
 
 const NavigationComponent = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { setUser } = useUser();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -39,7 +40,7 @@ const NavigationComponent = () => {
             route="/manageUploads"
           />
           <IconButton
-            onClick={() => handleLogout(setUser)}
+            onClick={() => handleLogout(setUser, navigate)}
             icon="logout"
             label="Log Out"
           />

@@ -20,12 +20,6 @@ function ManageUploads() {
   const [isAdmin, setIsAdmin] = useState(null);
   const auth = getAuth();
 
-  useEffect(() => {
-    if (!loading && !user) {
-      navigate("/signIn");
-    }
-  }, [user, navigate]);
-
   const handleDelete = async (uploadId) => {
     if (!confirm("Are you sure you want to delete this upload?")) return;
 

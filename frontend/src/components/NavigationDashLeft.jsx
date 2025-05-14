@@ -8,6 +8,7 @@ import IconButton from "../components/IconButton";
 
 const NavigationDashLeft = () => {
   const { setUser } = useUser();
+  const navigate = useNavigate();
   return (
     <section className="dashboard-container-lefty d-none d-md-flex">
       <section className="nav-top">
@@ -34,7 +35,7 @@ const NavigationDashLeft = () => {
 
       <section className="nav-bottom">
         <IconButton
-          onClick={() => handleLogout(setUser)}
+          onClick={() => handleLogout(setUser, navigate)}
           icon={"logout"}
           label="Log Out"
         />

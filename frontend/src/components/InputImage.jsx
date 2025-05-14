@@ -67,7 +67,7 @@ export default function InputImage({ canUpload = true, onImageUpload }) {
       )}
 
       <h1 className="text-3xl font-bold mb-1 text-center">
-        Welcome, {user.displayName || "User"}
+        Welcome, {user?.displayName || "User"}
       </h1>
 
       <p className="text-gray-500">

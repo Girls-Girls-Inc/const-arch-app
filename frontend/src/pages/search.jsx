@@ -20,12 +20,6 @@ const SearchPage = () => {
   const [showTagFilter, setShowTagFilter] = useState(false);
 
   useEffect(() => {
-    if (!loading && !user) {
-      navigate("/signIn");
-    }
-  }, [user, navigate]);
-
-  useEffect(() => {
     const fetchDocuments = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "upload"));

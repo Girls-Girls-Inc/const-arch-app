@@ -2,7 +2,6 @@
 import { useUser } from "../context/userContext";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { handleLogout } from "../Firebase/authorisation";
 import "../index.css";
 import IconButton from "../components/IconButton";
 import InputImage from "../components/InputImage";
@@ -28,12 +27,6 @@ const SettingsPage = () => {
   const [selectedImageFile, setSelectedImageFile] = useState(null);
 
   useEffect(() => {
-    if (!loading && !user) {
-      navigate("/signIn");
-    }
-  }, [user, loading, navigate]);
-
-  useEffect(() => {
     if (user) {
       setUsername(user.displayName || "");
       setEmail(user.email || "");
@@ -46,17 +39,6 @@ const SettingsPage = () => {
       document.body.classList.remove("settings-page");
     };
   }, []);
-
-  useEffect(() => {
-    if (!loading && !user) {
-      setUsername("");
-      setEmail("");
-      setPassword("");
-      setNewPassword("");
-      navigate("/signIn");
-    }
-  }, [user, loading, navigate]);
-
 
   const handleSave = async (e) => {
     e.preventDefault();
