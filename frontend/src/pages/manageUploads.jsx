@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { useEffect, useState } from "react";
 import { db } from "../Firebase/firebase";
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
@@ -18,12 +19,6 @@ function ManageUploads() {
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(null);
   const auth = getAuth();
-
-  useEffect(() => {
-    if (!loading && !user) {
-      navigate("/signIn");
-    }
-  }, [user, navigate]);
 
   const handleDelete = async (uploadId) => {
     if (!confirm("Are you sure you want to delete this upload?")) return;

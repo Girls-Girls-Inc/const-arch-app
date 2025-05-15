@@ -98,15 +98,16 @@ export async function withProvider(provider) {
   return user;
 }
 
-export const handleLogout = async (setUser) => {
+export const handleLogout = async (setUser, navigate) => {
   const userAuth = getAuth();
   try {
     await signOut(userAuth);
+    navigate("/");
     setUser(null);
     console.log("User signed out.");
     toast.success("Successfully signed out", {
       duration: 4000,
-      position: "top-right",
+      position: "top-right",    
     });
   } catch (error) {
     console.error("Error signing out:", error);

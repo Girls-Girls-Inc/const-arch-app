@@ -17,21 +17,20 @@ export default {
   collectCoverage: true,
   collectCoverageFrom: [
     "frontend/src/**/*.{js,jsx,ts,tsx}",
-     "!frontend/src/components/**",
-     "!frontend/src/context/**",
+    "!frontend/src/context/**",
     "backend/**/*.{js,ts}" ,
-    "!backend/models/**",
     "!backend/config.js",
     "!frontend/src/App.jsx",
     "!frontend/src/main.jsx",
+    "!frontend/src/redux/**",
   ],
   coverageDirectory: "<rootDir>/coverage",
   coverageThreshold: {
     global: {
-      branches: 50,
-      functions: 50,
-      lines: 50,
-      statements: 50,
+      branches: 60,
+      functions: 60,
+      lines: 60,
+      statements: 60,
     },
   },
 };

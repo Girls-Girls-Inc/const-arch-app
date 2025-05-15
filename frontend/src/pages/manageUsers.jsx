@@ -23,13 +23,7 @@ const ManageUsers = () => {
   const [users, setUsers] = useState([]);
   const [usersLoading, setUsersLoading] = useState(true);
   const auth = getAuth();
-
-  useEffect(() => {
-    if (!loading && !user) {
-      navigate("/signIn");
-    }
-  }, [user, loading, navigate]);
-
+  
   useEffect(() => {
     if (isAdmin) {
       const fetchUsers = async () => {

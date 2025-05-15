@@ -25,10 +25,10 @@ export default function Home() {
             Links to current Pages:
           </p>
           <br></br>
-          <Link className="btn_ca" to="/signIn">
+          <Link className="btn_ca" to="/signin">
             Sign In
           </Link>
-          <Link className="btn_ca" to="/signUp">
+          <Link className="btn_ca" to="/signup">
             Sign Up
           </Link>
         </div>

@@ -5,7 +5,7 @@ class Upload {
     filePath,
     directoryId,
     uploadedBy,
-    metadataId,
+    //metadataId,
     fileType,
     tags,
     uploadDate,
@@ -28,4 +28,4 @@ class Upload {
   }
 }
 
-module.exports = Upload;
+export default Upload;

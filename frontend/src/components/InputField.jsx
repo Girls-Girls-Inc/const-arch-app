@@ -7,7 +7,7 @@ const InputField = ({
   icon,
   onChange,
   value,
-  required = true, // default to true
+  required = true,
 }) => {
   return (
     <div className="input-wrapper">

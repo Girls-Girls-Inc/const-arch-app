@@ -79,4 +79,19 @@ describe("POST /api/settings/updateUser", () => {
     expect(res.body).toHaveProperty("error");
     expect(res.body.error).toBe("Missing data");
   });
+
+  it("should return 500 if Firebase error occurs", async () => {
+    const mockedUpdateUser = require("firebase-admin").auth().updateUser;
+    mockedUpdateUser.mockImplementationOnce(() => {
+      throw new Error("Firebase error");
+    });
+  
+    const res = await request(app)
+      .post("/api/settings/updateUser")
+      .set("Authorization", "Bearer mocked_token")
+      .send({ email: "test@example.com" });
+  
+    expect(res.status).toBe(500);
+    expect(res.body.error).toContain("Update failed: Firebase error");
+  });
 });

@@ -19,12 +19,6 @@ function EditUpload() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!loading && !user) {
-      navigate("/signIn");
-    }
-  }, [user, navigate]);
-
-  useEffect(() => {
     if (!id) {
       toast.error("No upload ID provided");
       setLoading(false);

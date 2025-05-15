@@ -17,13 +17,7 @@ const Directory = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalStep, setModalStep] = useState(1);
   const [uploadedFile, setUploadedFile] = useState(null);
-
-  useEffect(() => {
-    if (!loading && !user) {
-      navigate("/signIn");
-    }
-  }, [user, loading, navigate]);
-
+  
   if (loading) return <p className="loading-message">Loading...</p>;
   if (!user) return null;
 

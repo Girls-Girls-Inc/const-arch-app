@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { googleProvider } from "../Firebase/firebase";
 import { useNavigate } from "react-router-dom";
@@ -113,7 +114,7 @@ export default function SignUp() {
 
     if (errors.length > 0) {
       errors.forEach((error, index) => {
-        toast.error(`Password must have ${error}`, {
+        toast.error(`Password must have ${error}.`, {
           id: `password-error-${index}`,
           duration: 3000,
         });

@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { useUser } from "../context/userContext";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -14,12 +15,6 @@ const Dashboard = () => {
   const { user, loading } = useUser();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (!loading && !user) {
-      navigate("/signIn");
-    }
-  }, [user, loading, navigate]);
 
   if (loading) return <p className="loading-message">Loading...</p>;
   if (!user) return null;

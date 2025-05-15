@@ -1,3 +1,4 @@
+import React from "react";
 import { useUser } from "../context/userContext";
 import { handleLogout } from "../Firebase/authorisation";
 import "../index.css";
@@ -6,6 +7,7 @@ import IconButton from "../components/IconButton";
 const NavigationDashLeft = () => {
   const { user, setUser, isAdmin } = useUser();
 
+  const navigate = useNavigate();
   return (
     <section className="dashboard-container-lefty d-none d-md-flex">
       <section className="nav-top">
@@ -41,7 +43,7 @@ const NavigationDashLeft = () => {
 
       <section className="nav-bottom">
         <IconButton
-          onClick={() => handleLogout(setUser)}
+          onClick={() => handleLogout(setUser, navigate)}
           icon={"logout"}
           label="Log Out"
         />

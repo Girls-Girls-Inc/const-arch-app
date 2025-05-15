@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -119,13 +119,11 @@
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,14 +145,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,8 +179,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from "react";
 &nbsp;
-const BookmarksContent = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-  const [bookmarks] = <span class="cstat-no" title="statement not covered" >useState([</span>
+const BookmarksContent = () =&gt; {
+  const [bookmarks] = useState([
     {
       id: "1",
       title: "South African Constitution",
@@ -203,29 +205,30 @@ const BookmarksContent = <span class="cstat-no" title="statement not covered" ><
     },
   ]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;&gt;
-      &lt;section&gt;
-        &lt;h2&gt;Bookmarks&lt;/h2&gt;
-      &lt;/section&gt;
-      &lt;section className="bookmark-grid"&gt;
-        {bookmarks.map(<span class="fstat-no" title="function not covered" >(b</span>ookmark) =&gt; (
-<span class="cstat-no" title="statement not covered" >          &lt;article key={bookmark.id} className="bookmark-card"&gt;</span>
-            &lt;img
-              src={bookmark.image}
-              alt={bookmark.title}
-              className="bookmark-image"
-            /&gt;
-            &lt;div className="bookmark-info"&gt;
-              &lt;h3 className="bookmark-title"&gt;{bookmark.title}&lt;/h3&gt;
-              &lt;p className="bookmark-date"&gt;
-                {new Date(bookmark.date).toDateString()}
-              &lt;/p&gt;
-              &lt;p className="bookmark-description"&gt;{bookmark.description}&lt;/p&gt;
-            &lt;/div&gt;
-          &lt;/article&gt;
-        ))}
-      &lt;/section&gt;
+      &lt;main className="dashboard-details"&gt;
+        &lt;h2 className="right-title"&gt;Bookmarks&lt;/h2&gt;
+&nbsp;
+        &lt;section className="bookmark-grid"&gt;
+          {bookmarks.map((bookmark) =&gt; (
+            &lt;article key={bookmark.id} className="bookmark-card"&gt;
+              &lt;img
+                src={bookmark.image}
+                alt={bookmark.title}
+                className="bookmark-image"
+              /&gt;
+              &lt;div className="bookmark-info"&gt;
+                &lt;h3 className="bookmark-title"&gt;{bookmark.title}&lt;/h3&gt;
+                &lt;p className="bookmark-date"&gt;
+                  {new Date(bookmark.date).toDateString()}
+                &lt;/p&gt;
+                &lt;p className="bookmark-description"&gt;{bookmark.description}&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/article&gt;
+          ))}
+        &lt;/section&gt;
+      &lt;/main&gt;
     &lt;/&gt;
   );
 };
@@ -238,7 +241,7 @@ export default BookmarksContent;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-24T11:48:26.466Z
+                at 2025-05-15T13:49:49.001Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
