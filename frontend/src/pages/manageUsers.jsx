@@ -95,7 +95,7 @@ const ManageUsers = () => {
               {!loading && !isAdmin && (
                 <p>You do not have permission to view this page.</p>
               )}
-
+              s
               {!loading && isAdmin && !usersLoading && users.length > 0 && (
                 <table className="table table-striped table-hover table-borderless w-100 rounded-4 overflow-hidden shadow">
                   <thead className="thead-dark bg-dark text-white">
