@@ -40,6 +40,36 @@ export default function InputImage({ canUpload = true, onImageUpload }) {
     onImageUpload && onImageUpload(file);
   };
 
+  /*
+const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      const storage = getStorage();
+      const storageRef = ref(storage, `profileImages/${user.uid}`);
+      await uploadBytes(storageRef, file);
+      const downloadURL = await getDownloadURL(storageRef);
+
+      const auth = getAuth();
+
+      if (auth.currentUser) {
+        await updateProfile(auth.currentUser, { photoURL: downloadURL });
+
+        // Update Firestore
+        const userRef = doc(db, "users", user.uid);
+        await updateDoc(userRef, { photoURL: downloadURL });
+
+        // Force reload and update user context
+        await auth.currentUser.reload();
+        setUser(auth.currentUser); // Triggers UI re-render immediately
+      }
+    } catch (err) {
+      console.error("Error uploading image:", err);
+    }
+  };
+*/
+
   return (
     <section className="profile-picture-wrapper">
       {/* Conditionally render upload input */}
@@ -77,36 +107,3 @@ export default function InputImage({ canUpload = true, onImageUpload }) {
     </section>
   );
 }
-
-
-
-
-/*
-const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    try {
-      const storage = getStorage();
-      const storageRef = ref(storage, `profileImages/${user.uid}`);
-      await uploadBytes(storageRef, file);
-      const downloadURL = await getDownloadURL(storageRef);
-
-      const auth = getAuth();
-
-      if (auth.currentUser) {
-        await updateProfile(auth.currentUser, { photoURL: downloadURL });
-
-        // Update Firestore
-        const userRef = doc(db, "users", user.uid);
-        await updateDoc(userRef, { photoURL: downloadURL });
-
-        // Force reload and update user context
-        await auth.currentUser.reload();
-        setUser(auth.currentUser); // Triggers UI re-render immediately
-      }
-    } catch (err) {
-      console.error("Error uploading image:", err);
-    }
-  };
-*/

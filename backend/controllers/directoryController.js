@@ -1,7 +1,7 @@
 "use strict";
 
 const { db } = require("../db");
-const Directory = require("../models/directory");
+//const Directory = require("../models/directory");
 
 // Add Directory
 const addDirectory = async (req, res, next) => {
