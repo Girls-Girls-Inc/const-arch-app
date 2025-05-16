@@ -14,7 +14,7 @@ const NavigationDashLeft = () => {
       <section className="nav-top">
         <section className="logo-container">
           <img src="/assets/logo.png" alt="Logo" className="logo-navbar" />
-          <h2>Constitutional Archive</h2>
+          <h2>LegiSync</h2>
         </section>
 
         <IconButton
