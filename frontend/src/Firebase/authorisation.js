@@ -6,6 +6,7 @@ import {
   signOut,
   updateProfile,
   getAuth,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from "./firebase";
 import { getDoc, doc } from "firebase/firestore";
@@ -16,7 +17,6 @@ import { toast } from "react-hot-toast";
 
 const HOST_URL = process.env.VITE_API_HOST_URL || "https://fallback-url.com";
 
-// Helper to format the Firebase user to match backend expectations
 const formatUserForBackend = (user) => ({
   id: user.uid,
   name: user.displayName || "",
@@ -111,3 +111,25 @@ export const handleLogout = async (setUser, navigate) => {
     console.error("Error signing out:", error);
   }
 };
+
+export const forgotPassword = async (email) => {
+  const userAuth = getAuth();
+  try{
+    if (!email){
+      toast.error("Please fill in your email :(",{
+        duration: 4000,
+        position: "top-right",
+      })
+      throw new Error("Email cannot be empty");
+    }
+
+    await sendPasswordResetEmail(userAuth, email)
+    console.log("Email Sent.");
+    toast.success("Successfully send email: Check your Inbox!", {
+      duration: 4000,
+      position: "top-right",    
+    });
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
+}
