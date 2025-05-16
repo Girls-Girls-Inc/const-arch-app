@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.45% </span>
+                <span class="strong">27.27% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>21/22</span>
+                <span class='fraction'>6/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/8</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">31.57% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/19</span>
+                <span class='fraction'>6/19</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -100,25 +100,25 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -129,26 +129,26 @@ const router = express.Router();
 const { admin } = require("../db");
 const verifyToken = require("./verifyToken");
 &nbsp;
-router.post("/updateUser", verifyToken, async (req, res) =&gt; {
-    const { uid } = req.user;
-    const { email, displayName, newPassword } = req.body;
+router.post("/updateUser", verifyToken, <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
+    const { uid } = <span class="cstat-no" title="statement not covered" >req.user;</span>
+    const { email, displayName, newPassword } = <span class="cstat-no" title="statement not covered" >req.body;</span>
 &nbsp;
-    try {
-        const updateData = {};
-        if (email) updateData.email = email;
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (newPassword) <span class="cstat-no" title="statement not covered" >updateData.password = newPassword;</span>
-        if (displayName) updateData.displayName = displayName;
+<span class="cstat-no" title="statement not covered" >    try {</span>
+        const updateData = <span class="cstat-no" title="statement not covered" >{};</span>
+<span class="cstat-no" title="statement not covered" >        if (email) <span class="cstat-no" title="statement not covered" >updateData.email = email;</span></span>
+<span class="cstat-no" title="statement not covered" >        if (newPassword) <span class="cstat-no" title="statement not covered" >updateData.password = newPassword;</span></span>
+<span class="cstat-no" title="statement not covered" >        if (displayName) <span class="cstat-no" title="statement not covered" >updateData.displayName = displayName;</span></span>
 &nbsp;
-        if (Object.keys(updateData).length === 0) {
-            return res.status(400).json({ error: "Missing data" });  // 400 Bad Request is more appropriate
+<span class="cstat-no" title="statement not covered" >        if (Object.keys(updateData).length === 0) {</span>
+<span class="cstat-no" title="statement not covered" >            return res.status(400).json({ error: "Missing data" }); </span> // 400 Bad Request is more appropriate
         }
 &nbsp;
-        await admin.auth().updateUser(uid, updateData);
+<span class="cstat-no" title="statement not covered" >        await admin.auth().updateUser(uid, updateData);</span>
 &nbsp;
-        res.status(200).json({ message: "Profile updated successfully!" });
+<span class="cstat-no" title="statement not covered" >        res.status(200).json({ message: "Profile updated successfully!" });</span>
     } catch (error) {
-        console.error("Update failed:", error);
-        res.status(500).json({ error: 'Update failed: ' + error.message });
+<span class="cstat-no" title="statement not covered" >        console.error("Update failed:", error);</span>
+<span class="cstat-no" title="statement not covered" >        res.status(500).json({ error: 'Update failed: ' + error.message });</span>
     }
 });
 &nbsp;
@@ -160,7 +160,7 @@ module.exports = { router };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-15T13:54:44.176Z
+                at 2025-05-16T00:33:39.161Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

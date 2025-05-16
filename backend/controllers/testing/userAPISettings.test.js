@@ -1,97 +1,100 @@
-const request = require("supertest");
-const app = require("../../../app");
+// backend/controllers/testing/settingsUpdate.test.js
 
-process.env.NODE_ENV = 'test';
+// 1) Mock the same "../db" module that both verifyToken.js and settingsUpdate.js import
+let mockVerifyIdToken;
+let mockUpdateUser;
 
-// Mock firebase-admin
-jest.mock("firebase-admin", () => {
-    const mockVerifyIdToken = jest.fn((token) => {
-      if (token === "mocked_token") return Promise.resolve({ uid: "12345" });
-      return Promise.reject(new Error("Invalid token"));
-    });
-  
-    const mockUpdateUser = jest.fn((uid, data) => {
-      if (uid && data) return Promise.resolve({ uid, ...data });
-      return Promise.reject(new Error("Missing data"));
-    });
-  
-    const mockCert = jest.fn(() => ({
-      projectId: "mocked-project-id",
-      privateKey: "mocked-private-key",
-      clientEmail: "mocked-email@example.com",
-    }));
-  
-    // Mocking firestore
-    const mockFirestore = jest.fn(() => ({
-      collection: jest.fn(() => ({
-        doc: jest.fn(() => ({
-          set: jest.fn(() => Promise.resolve()),
-          get: jest.fn(() => Promise.resolve({ data: () => ({ mock: "data" }) })),
-        })),
-      })),
-    }));
-  
-    return {
+jest.mock("../../db", () => {
+  mockVerifyIdToken = jest.fn();
+  mockUpdateUser = jest.fn();
+  return {
+    admin: {
       auth: () => ({
         verifyIdToken: mockVerifyIdToken,
         updateUser: mockUpdateUser,
       }),
-      initializeApp: jest.fn(),  // No-op for tests
-      credential: { cert: mockCert },
-      firestore: mockFirestore,  // Ensure firestore is mocked correctly
-    };
+    },
+  };
 });
 
+// 2) Now import supertest & your express app
+const request = require("supertest");
+const app = require("../../../app");
+
 describe("POST /api/settings/updateUser", () => {
-  // Reset mocks before each test to ensure clean state
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it("should return 401 if token is missing", async () => {
-    const res = await request(app).post("/api/settings/updateUser").send({});
+  it("returns 401 if no Authorization header", async () => {
+    const res = await request(app)
+      .post("/api/settings")
+      .send({}); // no Authorization header
     expect(res.status).toBe(401);
-    expect(res.body).toHaveProperty("error");
-    expect(res.body.error).toBe("Unauthorized - No token provided");
+    expect(res.body).toEqual({ error: "Unauthorized - No token provided" });
+    expect(mockVerifyIdToken).not.toHaveBeenCalled();
+    expect(mockUpdateUser).not.toHaveBeenCalled();
   });
 
-  it("should update user profile if authenticated", async () => {
+  it("returns 401 if token is invalid", async () => {
+    mockVerifyIdToken.mockRejectedValueOnce(new Error("Invalid token"));
+
     const res = await request(app)
-      .post("/api/settings/updateUser")
-      .set("Authorization", "Bearer mocked_token")
-      .send({
-        displayName: "newUsername",
-        email: "newemail@example.com",
-      });
+      .post("/api/settings")
+      .set("Authorization", "Bearer bad_token")
+      .send({});
 
-    expect(res.status).toBe(200);
-    expect(res.body).toHaveProperty("message", "Profile updated successfully!");
+    expect(mockVerifyIdToken).toHaveBeenCalledWith("bad_token");
+    expect(res.status).toBe(401);
+    expect(res.body).toEqual({ error: "Unauthorized - Invalid token" });
+    expect(mockUpdateUser).not.toHaveBeenCalled();
   });
 
-  it("should handle server errors gracefully", async () => {
-    // Simulate an error in the backend, e.g., missing data for update
+  it("returns 400 if authenticated but no update fields provided", async () => {
+    mockVerifyIdToken.mockResolvedValue({ uid: "user123" });
+
     const res = await request(app)
-      .post("/api/settings/updateUser")
-      .set("Authorization", "Bearer mocked_token")
-      .send({}); // No data to update
+      .post("/api/settings")
+      .set("Authorization", "Bearer good_token")
+      .send({}); // empty body
 
-    expect(res.status).toBe(400); // Internal Server Error should be returned
-    expect(res.body).toHaveProperty("error");
-    expect(res.body.error).toBe("Missing data");
+    expect(mockVerifyIdToken).toHaveBeenCalledWith("good_token");
+    expect(res.status).toBe(400);
+    expect(res.body).toEqual({ error: "Missing data" });
+    expect(mockUpdateUser).not.toHaveBeenCalled();
   });
 
-  it("should return 500 if Firebase error occurs", async () => {
-    const mockedUpdateUser = require("firebase-admin").auth().updateUser;
-    mockedUpdateUser.mockImplementationOnce(() => {
-      throw new Error("Firebase error");
+  it("returns 200 and calls updateUser with only provided fields", async () => {
+    mockVerifyIdToken.mockResolvedValue({ uid: "user123" });
+    mockUpdateUser.mockResolvedValue({ uid: "user123" });
+
+    const payload = { email: "x@example.com", displayName: "X" };
+    const res = await request(app)
+      .post("/api/settings")
+      .set("Authorization", "Bearer good_token")
+      .send(payload);
+
+    expect(mockVerifyIdToken).toHaveBeenCalledWith("good_token");
+    expect(mockUpdateUser).toHaveBeenCalledWith("user123", {
+      email: "x@example.com",
+      displayName: "X",
     });
-  
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({ message: "Profile updated successfully!" });
+  });
+
+  it("returns 500 if updateUser throws a Firebase error", async () => {
+    mockVerifyIdToken.mockResolvedValue({ uid: "user123" });
+    mockUpdateUser.mockRejectedValue(new Error("Firebase exploded"));
+
     const res = await request(app)
-      .post("/api/settings/updateUser")
-      .set("Authorization", "Bearer mocked_token")
-      .send({ email: "test@example.com" });
-  
+      .post("/api/settings")
+      .set("Authorization", "Bearer good_token")
+      .send({ newPassword: "pw" });
+
+    expect(mockVerifyIdToken).toHaveBeenCalledWith("good_token");
+    expect(mockUpdateUser).toHaveBeenCalledWith("user123", { password: "pw" });
     expect(res.status).toBe(500);
-    expect(res.body.error).toContain("Update failed: Firebase error");
+    expect(res.body.error).toContain("Update failed: Firebase exploded");
   });
 });
