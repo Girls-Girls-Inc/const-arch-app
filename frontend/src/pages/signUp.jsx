@@ -40,7 +40,7 @@ export default function SignUp() {
         id: user.uid,
         name: name,
         email: user.email,
-        isAdmin: false, // explicitly boolean
+        isAdmin: false,
         photoURL: user.photoURL || "",
         signUpDate: new Date(),
         profileComplete: false,
@@ -92,17 +92,6 @@ export default function SignUp() {
     }
   };
 
-  // const handleFacebookSignUp = async () => {
-  //   try {
-  //     const user = await withProvider(facebookProvider);
-  //     setUser(user);
-  //     navigate("/dashboard");
-  //   } catch (error) {
-  //     toast.error("Facebook Sign-up failed. Please try again.");
-  //     console.error("Facebook Sign-up error:", error.message);
-  //   }
-  // };
-
   const validatePassword = (password) => {
     const errors = [];
 
@@ -121,13 +110,13 @@ export default function SignUp() {
 
     setPasswordErrors(errors);
 
-    toast.dismiss(); // Always dismiss old toasts before adding new ones
+    toast.dismiss();
 
     if (errors.length > 0) {
       errors.forEach((error, index) => {
         toast.error(`Password must have ${error}.`, {
           id: `password-error-${index}`,
-          duration: 3000, // Toast disappears after 3 seconds
+          duration: 3000,
         });
       });
     }

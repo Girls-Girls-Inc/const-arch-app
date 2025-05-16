@@ -8,13 +8,11 @@ import { useNavigate } from "react-router-dom";
 
 const NavigationComponent = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { setUser } = useUser();
+  const { user, setUser, isAdmin } = useUser();
   const navigate = useNavigate();
 
   return (
     <>
-      {/* Mobile Menu Button */}
-
       <button
         className="hamburger-btn_ca d-md-none"
         onClick={() => setMenuOpen((prev) => !prev)}
@@ -22,7 +20,6 @@ const NavigationComponent = () => {
         ☰
       </button>
 
-      {/* Mobile Dropdown Menu */}
       {menuOpen && (
         <div className="mobile-dropdown-nav d-md-none">
           <IconButton
@@ -30,15 +27,25 @@ const NavigationComponent = () => {
             label="My Profile"
             route="/dashboard"
           />
-          <IconButton icon={"search"} label="Search" route="/search" />
+          <IconButton icon="search" label="Search" route="/search" />
           <IconButton icon="bookmark" label="Bookmarks" route="/bookmarks" />
-          <IconButton icon="folder" label="Directory" route="/directory" />
-          <IconButton icon="group" label="Manage Users" route="/manageUsers" />
-          <IconButton
-            icon={"upload_file"}
-            label="Manage uploads"
-            route="/manageUploads"
-          />
+
+          {isAdmin && (
+            <>
+              <IconButton icon="folder" label="Directory" route="/directory" />
+              <IconButton
+                icon="group"
+                label="Manage Users"
+                route="/manageUsers"
+              />
+              <IconButton
+                icon="upload_file"
+                label="Manage uploads"
+                route="/manageUploads"
+              />
+            </>
+          )}
+
           <IconButton
             onClick={() => handleLogout(setUser, navigate)}
             icon="logout"

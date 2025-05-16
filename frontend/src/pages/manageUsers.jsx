@@ -18,56 +18,37 @@ import NavigationComponent from "../components/NavigationComponent";
 import { Toaster, toast } from "react-hot-toast";
 
 const ManageUsers = () => {
-  const { user, loading, setUser } = useUser();
+  const { user, loading, setUser, isAdmin } = useUser();
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
-  const [isAdmin, setIsAdmin] = useState(null);
   const [usersLoading, setUsersLoading] = useState(true);
   const auth = getAuth();
   
   useEffect(() => {
-    const checkIfAdminAndFetchUsers = async () => {
-      const currentUser = auth.currentUser;
-
-      if (!currentUser) {
-        setIsAdmin(false);
-        return;
-      }
-
-      try {
-        const userDocRef = doc(db, "users", currentUser.uid);
-        const userSnap = await getDoc(userDocRef);
-
-        if (userSnap.exists()) {
-          const userData = userSnap.data();
-          setIsAdmin(userData.isAdmin);
-
-          if (userData.isAdmin) {
-            toast.loading("Fetching user data...");
-            const colRef = collection(db, "users");
-            const snapshot = await getDocs(colRef);
-            const usersList = snapshot.docs.map((docSnap) => ({
-              ...docSnap.data(),
-              id: docSnap.id,
-            }));
-            setUsers(usersList);
-            toast.dismiss();
-            toast.success("Users loaded successfully!");
-          }
-        } else {
-          setIsAdmin(false);
+    if (isAdmin) {
+      const fetchUsers = async () => {
+        try {
+          toast.loading("Fetching user data...");
+          const colRef = collection(db, "users");
+          const snapshot = await getDocs(colRef);
+          const usersList = snapshot.docs.map((docSnap) => ({
+            ...docSnap.data(),
+            id: docSnap.id,
+          }));
+          setUsers(usersList);
+          toast.dismiss();
+          toast.success("Users loaded successfully!");
+        } catch (error) {
+          console.error("Error fetching users:", error);
+          toast.error("Failed to fetch user data");
+        } finally {
+          setUsersLoading(false);
         }
-      } catch (error) {
-        console.error("Error checking admin status:", error);
-        toast.error("Failed to fetch user data");
-        setIsAdmin(false);
-      } finally {
-        setUsersLoading(false);
-      }
-    };
+      };
 
-    checkIfAdminAndFetchUsers();
-  }, []);
+      fetchUsers();
+    }
+  }, [isAdmin]);
 
   const handleAdminToggle = async (userId, currentValue) => {
     try {
@@ -84,7 +65,7 @@ const ManageUsers = () => {
         `User is now ${!currentValue ? "an admin" : "not an admin"}`
       );
     } catch (error) {
-      console.error("Error updating isAdmin field:", error);
+      console.error("Error updating admin status:", error);
       toast.error("Failed to update admin status");
     }
   };
@@ -105,12 +86,10 @@ const ManageUsers = () => {
               className="table-responsive"
               style={{ maxHeight: "65vh", overflowY: "auto" }}
             >
-              {!loading && isAdmin === false && (
+              {!loading && !isAdmin && (
                 <p>You do not have permission to view this page.</p>
               )}
-
-              {!loading && isAdmin && usersLoading && <p>Loading users...</p>}
-
+              s
               {!loading && isAdmin && !usersLoading && users.length > 0 && (
                 <table className="table table-striped table-hover table-borderless w-100 rounded-4 overflow-hidden shadow">
                   <thead className="thead-dark bg-dark text-white">
@@ -135,22 +114,12 @@ const ManageUsers = () => {
                                 handleAdminToggle(user.id, user.isAdmin)
                               }
                             />
-                            {(() => {
-                              let roleLabel;
-                              if (user.isAdmin) {
-                                roleLabel = "Admin";
-                              } else {
-                                roleLabel = "User";
-                              }
-                              return (
-                                <label
-                                  className="form-check-label"
-                                  htmlFor={`adminSwitch-${user.id}`}
-                                >
-                                  {roleLabel}
-                                </label>
-                              );
-                            })()}
+                            <label
+                              className="form-check-label"
+                              htmlFor={`adminSwitch-${user.id}`}
+                            >
+                              {user.isAdmin ? "Admin" : "User"}
+                            </label>
                           </div>
                         </td>
                       </tr>

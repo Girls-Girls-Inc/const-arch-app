@@ -54,7 +54,6 @@ export async function signUpWithEmail(email, password, name) {
     console.log("User saved to Firestore.");
   } catch (err) {
     console.error("Error syncing user to backend:", err.message);
-    
   }
 
   return user;
@@ -91,7 +90,6 @@ export async function withProvider(provider) {
       console.log("OAuth user saved to Firestore.");
     } catch (err) {
       console.error("Error syncing OAuth user:", err.message);
-      
     }
   }
 
@@ -102,13 +100,13 @@ export const handleLogout = async (setUser, navigate) => {
   const userAuth = getAuth();
   try {
     await signOut(userAuth);
-    navigate("/");
     setUser(null);
     console.log("User signed out.");
     toast.success("Successfully signed out", {
       duration: 4000,
-      position: "top-right",    
+      position: "top-right",
     });
+    navigate("/");
   } catch (error) {
     console.error("Error signing out:", error);
   }

@@ -1,7 +1,7 @@
 "use strict";
 
 const { db } = require("../db");
-const Bookmark = require("../models/bookmark");
+//const Bookmark = require("../models/bookmark");
 
 const addBookmark = async (req, res, next) => {
   try {

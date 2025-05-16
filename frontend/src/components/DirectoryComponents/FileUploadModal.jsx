@@ -62,14 +62,13 @@ const FileUploadModal = ({
     "publications",
   ];
 
-  // Reset all states when modal is closed
   useEffect(() => {
     if (!showModal) {
       setTags([]);
       setTagInput("");
       setFilteredTags([]);
-      setUploadedFile(null); // Reset the uploaded file
-      setModalStep(1); // Reset to the first step
+      setUploadedFile(null);
+      setModalStep(1);
     }
   }, [showModal, setModalStep, setUploadedFile]);
 
@@ -113,30 +112,29 @@ const FileUploadModal = ({
     const file = uploadedFile.file;
     const customName = uploadedFile.customName || file.name;
     const fileType = file.type;
-
-    // Add a unique identifier to prevent overwrites
+    const directory = file.directoryId;
     const uniqueFileName = `${Date.now()}_${customName.replace(/\s+/g, "_")}`;
-    const storageRef = ref(storage, `files/${uniqueFileName}`);
+    //adding folders for each user
+    const uid = auth.currentUser?.uid;
+    const storageRef = ref(storage, `${uid}/${directoryId}/${uniqueFileName}`);
 
     console.log(uniqueFileName);
     console.log(storageRef);
 
     try {
-      // Show loading indicator
       const uploadToast = toast.loading("Uploading file...");
 
-      // Upload the file
+      // Upload file
       const snapshot = await uploadBytes(storageRef, file);
       const fileURL = await getDownloadURL(snapshot.ref);
 
       console.log(fileURL);
 
-      // Create upload record
       const newUpload = new Upload(
         uniqueFileName,
         customName,
         fileURL,
-        "default_directory",
+        directory,
         auth.currentUser?.email || "anonymous",
         fileType,
         tags,
@@ -146,7 +144,7 @@ const FileUploadModal = ({
         serverTimestamp()
       );
 
-      // Save to Firestore
+      // Firestore
       const response = await axios.post(`${HOST_URL}/api/upload`, {
         id: newUpload.id,
         fileName: newUpload.fileName,
@@ -222,7 +220,6 @@ const FileUploadModal = ({
         className="p-4"
         style={{ maxHeight: "70vh", overflowY: "auto" }}
       >
-        {/* Step indicators */}
         <div className="d-flex justify-content-center mb-3">
           {[1, 2, 3].map((step) => (
             <span
@@ -235,7 +232,6 @@ const FileUploadModal = ({
           ))}
         </div>
 
-        {/* Step content */}
         <div className="d-flex flex-column justify-content-center text-center h-100">
           {modalStep === 1 && (
             <>
@@ -252,7 +248,6 @@ const FileUploadModal = ({
             <>
               <h4 className="text-uppercase mb-4">Add Metadata</h4>
 
-              {/* File name input */}
               <div className="w-100 mb-3">
                 <label className="form-label">File Name</label>
                 <input
@@ -266,7 +261,6 @@ const FileUploadModal = ({
                 />
               </div>
 
-              {/* Custom tag input */}
               <div className="w-100 mb-3">
                 <label className="form-label">Add Custom Tag</label>
                 <input
@@ -284,7 +278,6 @@ const FileUploadModal = ({
                 />
               </div>
 
-              {/* Suggested tags as clickable bubbles */}
               <div className="w-100">
                 <label className="form-label">Suggested Tags</label>
                 <div className="d-flex flex-wrap">
@@ -315,7 +308,6 @@ const FileUploadModal = ({
                 </div>
               </div>
 
-              {/* Selected tags */}
               {tags.length > 0 && (
                 <div className="mt-3">
                   <p className="mb-1">Selected Tags:</p>
@@ -346,7 +338,6 @@ const FileUploadModal = ({
           {modalStep === 3 && (
             <>
               <h4 className="text-uppercase mb-4">View Details</h4>{" "}
-              {/* Heading for Step 3 */}
               <p>
                 Ready to upload:{" "}
                 <strong>
