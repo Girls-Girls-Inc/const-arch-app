@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../index.css";
 import InputField from "../components/InputField";
 import PasswordInputField from "../components/PasswordInputField";
-import { withProvider, signInWithEmail } from "../Firebase/authorisation";
+import { withProvider, signInWithEmail, forgotPassword } from "../Firebase/authorisation";
 import { googleProvider } from "../Firebase/firebase";
 import toast, { Toaster } from "react-hot-toast";
 import { getAuth } from "firebase/auth";
@@ -118,7 +118,7 @@ export default function SigninPage() {
             </div>
           )}
 
-          <a href="#" className="forgot-password-link">
+          <a href="#" className="forgot-password-link" onClick={() => forgotPassword(email)}>
             Forgot Password?
           </a>
           <button className="login-button">Login</button>
