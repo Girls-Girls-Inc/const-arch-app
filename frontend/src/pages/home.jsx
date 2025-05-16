@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import "../index.css";
+import { Toaster } from "react-hot-toast";
 
 export default function Home() {
   useEffect(() => {
@@ -13,6 +14,7 @@ export default function Home() {
   }, []);
   return (
     <main>
+      <Toaster position="top-right" />
       <div className="home-container">
         <h2 className="form-title">Constitutional Archive App</h2>
 

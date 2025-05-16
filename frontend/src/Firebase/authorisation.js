@@ -6,6 +6,7 @@ import {
   signOut,
   updateProfile,
   getAuth,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from "./firebase";
 import { getDoc, doc } from "firebase/firestore";
@@ -16,7 +17,6 @@ import { toast } from "react-hot-toast";
 
 const HOST_URL = process.env.VITE_API_HOST_URL || "https://fallback-url.com";
 
-// Helper to format the Firebase user to match backend expectations
 const formatUserForBackend = (user) => ({
   id: user.uid,
   name: user.displayName || "",
@@ -54,7 +54,6 @@ export async function signUpWithEmail(email, password, name) {
     console.log("User saved to Firestore.");
   } catch (err) {
     console.error("Error syncing user to backend:", err.message);
-    
   }
 
   return user;
@@ -91,7 +90,6 @@ export async function withProvider(provider) {
       console.log("OAuth user saved to Firestore.");
     } catch (err) {
       console.error("Error syncing OAuth user:", err.message);
-      
     }
   }
 
@@ -102,14 +100,36 @@ export const handleLogout = async (setUser, navigate) => {
   const userAuth = getAuth();
   try {
     await signOut(userAuth);
-    navigate("/");
     setUser(null);
     console.log("User signed out.");
     toast.success("Successfully signed out", {
       duration: 4000,
-      position: "top-right",    
+      position: "top-right",
     });
+    navigate("/");
   } catch (error) {
     console.error("Error signing out:", error);
   }
 };
+
+export const forgotPassword = async (email) => {
+  const userAuth = getAuth();
+  try{
+    if (!email){
+      toast.error("Please fill in your email :(",{
+        duration: 4000,
+        position: "top-right",
+      })
+      throw new Error("Email cannot be empty");
+    }
+
+    await sendPasswordResetEmail(userAuth, email)
+    console.log("Email Sent.");
+    toast.success("Successfully send email: Check your Inbox!", {
+      duration: 4000,
+      position: "top-right",    
+    });
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
+}
