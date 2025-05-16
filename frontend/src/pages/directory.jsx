@@ -46,19 +46,17 @@ const Directory = () => {
             <h2 className="right-title">Directory</h2>
             <div>
               <div className="directory-subhead">
-                <div className="upload-buttons">
-                  <IconButton
-                    onClick={handleOpenModal}
-                    icon="upload_file"
-                    label="Upload File"
-                  />
-                  <IconButton
-                    onClick={handleOpenFolderModal}
-                    route="/directory"
-                    icon="create_new_folder"
-                    label="Create Folder"
-                  />
-                </div>
+                <IconButton
+                  onClick={handleOpenModal}
+                  icon="upload_file"
+                  label="Upload File"
+                />
+                <IconButton
+                  onClick={handleOpenFolderModal}
+                  route="/directory"
+                  icon="create_new_folder"
+                  label="Create Folder"
+                />
               </div>
 
               <div className="folder-container">

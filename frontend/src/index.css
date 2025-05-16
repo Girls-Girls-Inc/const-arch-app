@@ -453,7 +453,8 @@ a {
 .directory-subhead {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
 }
 
 .directory-nav {
@@ -461,12 +462,6 @@ a {
   flex-direction: row;
   align-items: center;
   padding: 0.5rem 0rem;
-}
-
-.upload-buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
 }
 
 .dashboard-container {
