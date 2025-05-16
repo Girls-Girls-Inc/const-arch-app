@@ -1,4 +1,3 @@
-// Directory.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/userContext";
@@ -9,6 +8,7 @@ import NavigationComponent from "../components/NavigationComponent";
 import NavigationDashLeft from "../components/NavigationDashLeft";
 import { Toaster } from "react-hot-toast";
 import DirectoryBlock from "../components/DirectoryComponents/DirectoryBlock";
+import CreateFolderModal from "../components/DirectoryComponents/CreateFolderModal";
 
 const Directory = () => {
   const { user, loading, setUser } = useUser();
@@ -17,6 +17,10 @@ const Directory = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalStep, setModalStep] = useState(1);
   const [uploadedFile, setUploadedFile] = useState(null);
+  const [showFolderModal, setShowFolderModal] = useState(false);
+
+  const [currentFolderId, setCurrentFolderId] = useState(null);
+  const [breadcrumb, setBreadcrumb] = useState([]);
 
   if (loading) return <p className="loading-message">Loading...</p>;
   if (!user) return null;
@@ -27,6 +31,9 @@ const Directory = () => {
     setModalStep(1);
     setUploadedFile(null);
   };
+
+  const handleOpenFolderModal = () => setShowFolderModal(true);
+  const handleCloseFolderModal = () => setShowFolderModal(false);
 
   return (
     <main>
@@ -39,7 +46,6 @@ const Directory = () => {
             <h2 className="right-title">Directory</h2>
             <div>
               <div className="directory-subhead">
-                <IconButton icon="arrow_back" label="Back" />
                 <div className="upload-buttons">
                   <IconButton
                     onClick={handleOpenModal}
@@ -47,6 +53,7 @@ const Directory = () => {
                     label="Upload File"
                   />
                   <IconButton
+                    onClick={handleOpenFolderModal}
                     route="/directory"
                     icon="create_new_folder"
                     label="Create Folder"
@@ -54,20 +61,19 @@ const Directory = () => {
                 </div>
               </div>
 
-              <div className="directory-nav">
-                <p className="root-text">Root/ backup/</p>
-              </div>
-
-              {/* folders*/}
               <div className="folder-container">
-                <DirectoryBlock />
+                <DirectoryBlock
+                  currentFolderId={currentFolderId}
+                  setCurrentFolderId={setCurrentFolderId}
+                  breadcrumb={breadcrumb}
+                  setBreadcrumb={setBreadcrumb}
+                />
               </div>
             </div>
           </main>
         </section>
       </section>
 
-      {/* Use the modal component */}
       <FileUploadModal
         showModal={showModal}
         handleClose={handleCloseModal}
@@ -75,6 +81,15 @@ const Directory = () => {
         setModalStep={setModalStep}
         uploadedFile={uploadedFile}
         setUploadedFile={setUploadedFile}
+      />
+
+      <CreateFolderModal
+        showModal={showFolderModal}
+        handleClose={handleCloseFolderModal}
+        currentFolderId={currentFolderId}
+        onFolderCreated={() => {
+          setCurrentFolderId((id) => (id ? id + "" : null));
+        }}
       />
 
       <Toaster position="top-center" reverseOrder={false} />
