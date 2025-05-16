@@ -1,10 +1,12 @@
 // backend/controllers/testing/verifyToken.test.js
-const verifyToken = require('../verifyToken');
-const { admin } = require('../../db');
 
+const express = require('express');
+const request = require('supertest');
+
+// Declare mock function before jest.mock
 let mockVerifyIdToken;
 
-// Mock the db admin.auth().verifyIdToken behavior
+// 1) Mock the same "../../db" module used in verifyToken.js
 jest.mock('../../db', () => {
   mockVerifyIdToken = jest.fn();
   return {
@@ -14,61 +16,71 @@ jest.mock('../../db', () => {
   };
 });
 
+// 2) Import the middleware under test
+const verifyToken = require('../verifyToken');
+
+// 3) Create a minimal express app to test the middleware
+function createApp() {
+  const app = express();
+  app.use(express.json());
+  // Protected route
+  app.get('/protected', verifyToken, (req, res) => {
+    // Middleware assigns req.user
+    res.status(200).json({ user: req.user });
+  });
+  return app;
+}
+
 describe('verifyToken middleware', () => {
-  let req;
-  let res;
-  let next;
+  let app;
+
+  beforeAll(() => {
+    app = createApp();
+  });
 
   beforeEach(() => {
     jest.clearAllMocks();
-    req = { headers: {} };
-    res = {
-      status: jest.fn().mockReturnThis(),
-      json: jest.fn(),
-    };
-    next = jest.fn();
   });
 
-  it('returns 401 if no Authorization header', async () => {
-    await verifyToken(req, res, next);
-    expect(res.status).toHaveBeenCalledWith(401);
-    expect(res.json).toHaveBeenCalledWith({ error: 'Unauthorized - No token provided' });
-    expect(next).not.toHaveBeenCalled();
+  it('should return 401 if no Authorization header', async () => {
+    const res = await request(app).get('/protected');
+    expect(res.status).toBe(401);
+    expect(res.body).toEqual({ error: 'Unauthorized - No token provided' });
+    expect(mockVerifyIdToken).not.toHaveBeenCalled();
   });
 
-  it('returns 401 if header does not start with Bearer', async () => {
-    req.headers.authorization = 'Token abc';
-    await verifyToken(req, res, next);
-    expect(res.status).toHaveBeenCalledWith(401);
-    expect(res.json).toHaveBeenCalledWith({ error: 'Unauthorized - No token provided' });
-    expect(next).not.toHaveBeenCalled();
+  it('should return 401 if Authorization header malformed', async () => {
+    const res = await request(app)
+      .get('/protected')
+      .set('Authorization', 'BadHeader token');
+
+    expect(res.status).toBe(401);
+    expect(res.body).toEqual({ error: 'Unauthorized - No token provided' });
+    expect(mockVerifyIdToken).not.toHaveBeenCalled();
   });
 
-  it('returns 401 on invalid token', async () => {
-    req.headers.authorization = 'Bearer invalid_token';
+  it('should return 401 if token verification fails', async () => {
     mockVerifyIdToken.mockRejectedValueOnce(new Error('Invalid token'));
 
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+    const res = await request(app)
+      .get('/protected')
+      .set('Authorization', 'Bearer bad_token');
 
-    await verifyToken(req, res, next);
-    expect(mockVerifyIdToken).toHaveBeenCalledWith('invalid_token');
-    expect(consoleSpy).toHaveBeenCalledWith('Token verification failed:', expect.any(Error));
-    expect(res.status).toHaveBeenCalledWith(401);
-    expect(res.json).toHaveBeenCalledWith({ error: 'Unauthorized - Invalid token' });
-    expect(next).not.toHaveBeenCalled();
-
-    consoleSpy.mockRestore();
+    expect(mockVerifyIdToken).toHaveBeenCalledWith('bad_token');
+    expect(res.status).toBe(401);
+    expect(res.body).toEqual({ error: 'Unauthorized - Invalid token' });
   });
 
-  it('calls next and attaches req.user on valid token', async () => {
-    const decoded = { uid: 'user123' };
-    req.headers.authorization = 'Bearer valid_token';
-    mockVerifyIdToken.mockResolvedValueOnce(decoded);
+  it('should call next and attach req.user on valid token', async () => {
+    const fakePayload = { uid: 'user123', email: 'x@y.com' };
+    mockVerifyIdToken.mockResolvedValueOnce(fakePayload);
 
-    await verifyToken(req, res, next);
-    expect(mockVerifyIdToken).toHaveBeenCalledWith('valid_token');
-    expect(req.user).toEqual(decoded);
-    expect(next).toHaveBeenCalled();
-    expect(res.status).not.toHaveBeenCalled();
+    const res = await request(app)
+      .get('/protected')
+      .set('Authorization', 'Bearer good_token');
+
+    expect(mockVerifyIdToken).toHaveBeenCalledWith('good_token');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({ user: fakePayload });
   });
 });

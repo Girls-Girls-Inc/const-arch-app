@@ -11,6 +11,8 @@ export default {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleNameMapper: {
     '\\.css$': 'identity-obj-proxy',
+    // map the relative "../../db" import inside backend/controllers → backend/db.js
+    '^\\.\\.\\/\\.\\.\\/db$': '<rootDir>/backend/db.js',
   },
   verbose: true,
 
