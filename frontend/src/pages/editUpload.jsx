@@ -36,7 +36,6 @@ function EditUpload() {
           setUpload({
             ...data,
             id: docSnap.id,
-            // Handle server timestamp
             updatedAt: data.updatedAt?.toDate?.() || null,
           });
           toast.success("Upload loaded successfully");
@@ -95,10 +94,10 @@ function EditUpload() {
               </div>
               <div className="card-footer">
                 <IconButton
-                    icon="edit"
-                    label="Edit Details"
-                    route={`/editDetails/${upload.id}`}
-                  />
+                  icon="edit"
+                  label="Edit Details"
+                  route={`/editDetails/${upload.id}`}
+                />
                 <IconButton
                   icon="arrow_back"
                   label="Back to Uploads"

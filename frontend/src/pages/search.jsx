@@ -4,7 +4,15 @@ import NavigationDashLeft from "../components/NavigationDashLeft";
 import IconButton from "../components/IconButton";
 import InputField from "../components/InputField";
 import "../index.css";
-import { collection, getDocs, doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
 import { db } from "../Firebase/firebase";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -81,12 +89,10 @@ const SearchPage = () => {
       const bookmarkSnap = await getDoc(bookmarkRef);
 
       if (bookmarkSnap.exists()) {
-        // User already has bookmarks; update the array
         await updateDoc(bookmarkRef, {
           documentIds: arrayUnion(docId),
         });
       } else {
-        // First bookmark; create the document
         await setDoc(bookmarkRef, {
           documentIds: [docId],
         });
@@ -99,22 +105,25 @@ const SearchPage = () => {
     }
 
     const handleSearchAPI = async () => {
-  try {
-    const res = await fetch("https://constitutionalarchive-f4cugbeydxd8gshz.brazilsouth-01.azurewebsites.net/search", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ query: searchQuery }),
-    });
+      try {
+        const res = await fetch(
+          "https://constitutionalarchive-f4cugbeydxd8gshz.brazilsouth-01.azurewebsites.net/search",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ query: searchQuery }),
+          }
+        );
 
-    const data = await res.json();
-    setDocuments(data.results || []);
-  } catch (err) {
-    console.error("Search API error:", err);
-    toast.error("Failed to fetch search results.");
-  }
-  };
+        const data = await res.json();
+        setDocuments(data.results || []);
+      } catch (err) {
+        console.error("Search API error:", err);
+        toast.error("Failed to fetch search results.");
+      }
+    };
   };
 
   return (

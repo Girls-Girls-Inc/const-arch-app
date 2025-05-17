@@ -25,7 +25,11 @@ const Directory = () => {
   if (loading) return <p className="loading-message">Loading...</p>;
   if (!user) return null;
 
-  const handleOpenModal = () => setShowModal(true);
+  const handleOpenModal = () => {
+    setUploadedFile({ directory: currentFolderId || "root" });
+    setShowModal(true);
+  };
+
   const handleCloseModal = () => {
     setShowModal(false);
     setModalStep(1);
