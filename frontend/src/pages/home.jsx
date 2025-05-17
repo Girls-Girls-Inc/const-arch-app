@@ -23,8 +23,7 @@ export default function Home() {
         </div>
         <div>
           <p>
-            We are currently in development.<br></br>
-            Links to current Pages:
+            Welcome to Constitutional Archive App<br></br>
           </p>
           <br></br>
           <Link className="btn_ca" to="/signin">
