@@ -95,6 +95,11 @@ function EditUpload() {
               </div>
               <div className="card-footer">
                 <IconButton
+                    icon="edit"
+                    label="Edit Details"
+                    route={`/editDetails/${upload.id}`}
+                  />
+                <IconButton
                   icon="arrow_back"
                   label="Back to Uploads"
                   route="/manageUploads"

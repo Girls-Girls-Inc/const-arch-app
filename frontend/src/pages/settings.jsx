@@ -12,7 +12,8 @@ import PasswordInputField from "../components/PasswordInputField";
 import NavigationDashLeft from "../components/NavigationDashLeft";
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getAuth } from "firebase/auth";
+// ← NEW: import updateProfile
+import { getAuth, updateProfile } from "firebase/auth";
 
 const SettingsPage = () => {
   const { user, loading, setUser } = useUser();
@@ -54,7 +55,6 @@ const SettingsPage = () => {
 
       // If a new image was selected, upload it now
       let newPhotoURL;
-
       if (selectedImageFile) {
         try {
           const storage = getStorage();
@@ -62,6 +62,10 @@ const SettingsPage = () => {
           await uploadBytes(storageRef, selectedImageFile);
           newPhotoURL = await getDownloadURL(storageRef);
           updates.photoURL = newPhotoURL;
+
+          // NEW: update Firebase Auth profile immediately
+          const auth = getAuth();
+          await updateProfile(auth.currentUser, { photoURL: newPhotoURL });
         } catch (err) {
           toast.error("Image upload failed");
           console.error(err);
@@ -69,39 +73,30 @@ const SettingsPage = () => {
         }
       }
 
-
-
       if (username && username !== user.displayName) {
         updates.displayName = username;
       }
-  
+
       if (email && email !== user.email) updates.email = email;
       if (password && newPassword) {
         updates.password = password;
         updates.newPassword = newPassword;
       }
 
-      /*if (Object.keys(updates).length === 1) {
-        toast("No changes to save.", { icon: "ℹ️" });
-        return;
-      }*/
-
       const hasProfileChange =
-      (username && username !== user.displayName) ||
-      (email && email !== user.email) ||
-      selectedImageFile ||
-      (password && newPassword);
+        (username && username !== user.displayName) ||
+        (email && email !== user.email) ||
+        selectedImageFile ||
+        (password && newPassword);
 
       if (!hasProfileChange) {
         toast("No changes to save.", { icon: "ℹ️" });
         return;
       }
 
-
       console.log("Sending update request with payload:", updates);
 
       const HOST_URL = import.meta.env.VITE_API_HOST_URL;
-
       const res = await fetch(`${HOST_URL}/api/user/${user.uid}`, {
         method: "PATCH",
         headers: {
@@ -113,7 +108,6 @@ const SettingsPage = () => {
 
       const text = await res.text();
       let data;
-
       try {
         data = JSON.parse(text);
       } catch (err) {
@@ -121,16 +115,24 @@ const SettingsPage = () => {
       }
       if (!res.ok) throw new Error(data.error || "Failed to update profile.");
 
-
+      //await fetch(...);
       toast.success("Profile updated successfully!");
 
       // Force Firebase to refresh the user’s profile 
       const auth = getAuth();
-      await auth.currentUser.reload();
+
+      if (username && username !== auth.currentUser.displayName) {
+        await updateProfile(auth.currentUser, { displayName: username });
+      }
 
       // Update context with the fully refreshed user object
+      setUser({
+        ...auth.currentUser,
+        displayName: username,
+      });
+
+      await auth.currentUser.reload();
       setUser(auth.currentUser);
-      //setUsername(username || prevUser.displayName);
     } catch (error) {
       toast.error(`Failed: ${error.message}`);
     }
@@ -150,8 +152,8 @@ const SettingsPage = () => {
           <main className="dashboard-details">
             <h2 className="dashboard-title">Settings</h2>
             <InputImage 
-            canUpload={true} 
-            onImageUpload={(file) => setSelectedImageFile(file)}
+              canUpload={true} 
+              onImageUpload={(file) => setSelectedImageFile(file)}
             />
 
             <form className="dashboard-details-grid-form" onSubmit={handleSave}>

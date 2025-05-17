@@ -6,24 +6,43 @@ import {
   setPersistence,
   browserLocalPersistence,
 } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../Firebase/firebase";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
   const auth = getAuth();
 
-  // Ensure persistence is set properly (should be outside the effect)
   useEffect(() => {
     setPersistence(auth, browserLocalPersistence)
       .then(() => {
-        const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+        const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
           setUser(firebaseUser || null);
           setLoading(false);
+
+          if (firebaseUser) {
+            try {
+              const userDoc = await getDoc(doc(db, "users", firebaseUser.uid));
+              if (userDoc.exists()) {
+                const data = userDoc.data();
+                setIsAdmin(data.isAdmin === true);
+              } else {
+                setIsAdmin(false);
+              }
+            } catch (error) {
+              console.error("Failed to fetch admin status:", error);
+              setIsAdmin(false);
+            }
+          } else {
+            setIsAdmin(false);
+          }
         });
 
-        return () => unsubscribe();
+        return unsubscribe;
       })
       .catch((error) => {
         console.error("Persistence error:", error);
@@ -31,7 +50,7 @@ export const UserProvider = ({ children }) => {
   }, [auth]);
 
   return (
-    <UserContext.Provider value={{ user, setUser, loading }}>
+    <UserContext.Provider value={{ user, setUser, loading, isAdmin }}>
       {children}
     </UserContext.Provider>
   );
