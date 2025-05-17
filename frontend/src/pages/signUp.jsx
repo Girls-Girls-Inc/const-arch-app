@@ -127,7 +127,7 @@ export default function SignUp() {
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
     setPassword(newPassword);
-    validatePassword(newPassword); // Validate password as the user types
+    validatePassword(newPassword);
   };
 
   useEffect(() => {

@@ -32,6 +32,7 @@ const NavigationComponent = () => {
 
           {isAdmin && (
             <>
+              {console.log("admin user!!")};
               <IconButton icon="folder" label="Directory" route="/directory" />
               <IconButton
                 icon="group"

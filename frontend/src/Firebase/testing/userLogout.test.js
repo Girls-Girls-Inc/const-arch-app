@@ -8,7 +8,7 @@ jest.mock('firebase/auth', () => ({
 jest.mock('firebase/firestore', () => ({
     getDoc: jest.fn(() => Promise.resolve({ exists: () => false })),
     doc: jest.fn(),
-    getFirestore: jest.fn(() => ({})), // Add this to mock getFirestore
+    getFirestore: jest.fn(() => ({})),
   }));
 
 
@@ -39,7 +39,7 @@ describe('handleLogout', () => {
   it('signs out the user and updates state', async () => {
       const setUser = jest.fn();
 
-      await handleLogout(setUser);
+      await handleLogout(setUser, navigate);
 
       expect(signOut).toHaveBeenCalled();
       expect(setUser).toHaveBeenCalledWith(null);

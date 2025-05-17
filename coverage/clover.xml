@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1747432356809" clover="3.2.0">
-  <project timestamp="1747432356809" name="All files">
-    <metrics statements="992" coveredstatements="518" conditionals="432" coveredconditionals="196" methods="200" coveredmethods="99" elements="1624" coveredelements="813" complexity="0" loc="992" ncloc="992" packages="8" files="44" classes="44"/>
+<coverage generated="1747515427762" clover="3.2.0">
+  <project timestamp="1747515427762" name="All files">
+    <metrics statements="997" coveredstatements="500" conditionals="432" coveredconditionals="201" methods="200" coveredmethods="100" elements="1629" coveredelements="801" complexity="0" loc="997" ncloc="997" packages="8" files="44" classes="44"/>
     <package name="backend">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="db.js" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\backend\db.js">
+      <file name="db.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\backend\db.js">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="2" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -15,10 +15,10 @@
     </package>
     <package name="backend.controllers">
       <metrics statements="154" coveredstatements="154" conditionals="57" coveredconditionals="57" methods="16" coveredmethods="16"/>
-      <file name="bookmarkController.js" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\backend\controllers\bookmarkController.js">
+      <file name="bookmarkController.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\backend\controllers\bookmarkController.js">
         <metrics statements="21" coveredstatements="21" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="6" count="2" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
         <line num="7" count="2" type="stmt"/>
         <line num="8" count="2" type="stmt"/>
         <line num="9" count="2" type="stmt"/>
@@ -28,7 +28,7 @@
         <line num="14" count="1" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
-        <line num="21" count="2" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
         <line num="22" count="3" type="stmt"/>
         <line num="23" count="3" type="stmt"/>
         <line num="24" count="3" type="cond" truecount="2" falsecount="0"/>
@@ -37,12 +37,12 @@
         <line num="28" count="1" type="stmt"/>
         <line num="30" count="1" type="stmt"/>
         <line num="31" count="1" type="stmt"/>
-        <line num="35" count="2" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
       </file>
-      <file name="directoryController.js" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\backend\controllers\directoryController.js">
+      <file name="directoryController.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\backend\controllers\directoryController.js">
         <metrics statements="22" coveredstatements="22" conditionals="10" coveredconditionals="10" methods="2" coveredmethods="2"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="7" count="2" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
         <line num="8" count="4" type="stmt"/>
         <line num="9" count="4" type="stmt"/>
         <line num="12" count="4" type="cond" truecount="6" falsecount="0"/>
@@ -53,7 +53,7 @@
         <line num="33" count="2" type="stmt"/>
         <line num="38" count="1" type="stmt"/>
         <line num="39" count="1" type="stmt"/>
-        <line num="44" count="2" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
         <line num="45" count="3" type="stmt"/>
         <line num="46" count="3" type="stmt"/>
         <line num="47" count="3" type="cond" truecount="2" falsecount="0"/>
@@ -62,15 +62,15 @@
         <line num="52" count="1" type="stmt"/>
         <line num="56" count="1" type="stmt"/>
         <line num="57" count="1" type="stmt"/>
-        <line num="61" count="2" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
       </file>
-      <file name="settingsUpdate.js" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\backend\controllers\settingsUpdate.js">
+      <file name="settingsUpdate.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\backend\controllers\settingsUpdate.js">
         <metrics statements="19" coveredstatements="19" conditionals="8" coveredconditionals="8" methods="1" coveredmethods="1"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="2" count="2" type="stmt"/>
-        <line num="4" count="2" type="stmt"/>
-        <line num="5" count="2" type="stmt"/>
-        <line num="7" count="2" type="stmt"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
         <line num="8" count="4" type="stmt"/>
         <line num="9" count="4" type="stmt"/>
         <line num="11" count="4" type="stmt"/>
@@ -84,20 +84,20 @@
         <line num="23" count="2" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
         <line num="26" count="1" type="stmt"/>
-        <line num="30" count="2" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
       </file>
-      <file name="uploadController.js" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\backend\controllers\uploadController.js">
+      <file name="uploadController.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\backend\controllers\uploadController.js">
         <metrics statements="32" coveredstatements="32" conditionals="6" coveredconditionals="6" methods="6" coveredmethods="6"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="6" count="2" type="stmt"/>
-        <line num="8" count="2" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
         <line num="9" count="2" type="stmt"/>
         <line num="10" count="2" type="stmt"/>
         <line num="11" count="2" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
-        <line num="19" count="2" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
         <line num="20" count="3" type="stmt"/>
         <line num="21" count="3" type="stmt"/>
         <line num="22" count="3" type="cond" truecount="2" falsecount="0"/>
@@ -106,7 +106,7 @@
         <line num="26" count="1" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
         <line num="29" count="1" type="stmt"/>
-        <line num="33" count="2" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
         <line num="34" count="4" type="stmt"/>
         <line num="35" count="4" type="stmt"/>
         <line num="37" count="4" type="cond" truecount="2" falsecount="0"/>
@@ -119,12 +119,12 @@
         <line num="53" count="2" type="stmt"/>
         <line num="56" count="1" type="stmt"/>
         <line num="57" count="1" type="stmt"/>
-        <line num="61" count="2" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
       </file>
-      <file name="userController.js" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\backend\controllers\userController.js">
+      <file name="userController.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\backend\controllers\userController.js">
         <metrics statements="49" coveredstatements="49" conditionals="27" coveredconditionals="27" methods="4" coveredmethods="4"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="5" count="2" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
         <line num="6" count="3" type="stmt"/>
         <line num="7" count="3" type="stmt"/>
         <line num="8" count="3" type="stmt"/>
@@ -137,7 +137,7 @@
         <line num="27" count="1" type="stmt"/>
         <line num="29" count="1" type="stmt"/>
         <line num="30" count="1" type="stmt"/>
-        <line num="34" count="2" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
         <line num="35" count="5" type="stmt"/>
         <line num="36" count="5" type="stmt"/>
         <line num="37" count="5" type="stmt"/>
@@ -151,7 +151,7 @@
         <line num="52" count="1" type="stmt"/>
         <line num="54" count="1" type="stmt"/>
         <line num="55" count="1" type="stmt"/>
-        <line num="59" count="2" type="stmt"/>
+        <line num="59" count="1" type="stmt"/>
         <line num="60" count="3" type="stmt"/>
         <line num="61" count="3" type="stmt"/>
         <line num="62" count="3" type="stmt"/>
@@ -162,7 +162,7 @@
         <line num="81" count="1" type="stmt"/>
         <line num="83" count="1" type="stmt"/>
         <line num="84" count="1" type="stmt"/>
-        <line num="88" count="2" type="stmt"/>
+        <line num="88" count="1" type="stmt"/>
         <line num="89" count="3" type="stmt"/>
         <line num="90" count="3" type="stmt"/>
         <line num="92" count="3" type="cond" truecount="2" falsecount="0"/>
@@ -171,12 +171,12 @@
         <line num="97" count="1" type="stmt"/>
         <line num="99" count="1" type="stmt"/>
         <line num="100" count="1" type="stmt"/>
-        <line num="106" count="2" type="stmt"/>
+        <line num="106" count="1" type="stmt"/>
       </file>
-      <file name="verifyToken.js" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\backend\controllers\verifyToken.js">
+      <file name="verifyToken.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\backend\controllers\verifyToken.js">
         <metrics statements="11" coveredstatements="11" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
-        <line num="2" count="2" type="stmt"/>
-        <line num="4" count="2" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
         <line num="7" count="4" type="cond" truecount="4" falsecount="0"/>
         <line num="8" count="2" type="stmt"/>
@@ -185,19 +185,19 @@
         <line num="15" count="2" type="stmt"/>
         <line num="17" count="2" type="stmt"/>
         <line num="18" count="2" type="stmt"/>
-        <line num="22" count="2" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
       </file>
     </package>
     <package name="backend.models">
       <metrics statements="27" coveredstatements="27" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
-      <file name="bookmark.js" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\backend\models\bookmark.js">
+      <file name="bookmark.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\backend\models\bookmark.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
       </file>
-      <file name="directory.js" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\backend\models\directory.js">
+      <file name="directory.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\backend\models\directory.js">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -205,7 +205,7 @@
         <line num="6" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
       </file>
-      <file name="upload.js" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\backend\models\upload.js">
+      <file name="upload.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\backend\models\upload.js">
         <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="16" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
@@ -219,7 +219,7 @@
         <line num="26" count="1" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
       </file>
-      <file name="user.js" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\backend\models\user.js">
+      <file name="user.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\backend\models\user.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -231,61 +231,61 @@
       </file>
     </package>
     <package name="backend.routes">
-      <metrics statements="32" coveredstatements="32" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="bookmark-routes.js" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\backend\routes\bookmark-routes.js">
-        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
+      <metrics statements="32" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="bookmark-routes.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\backend\routes\bookmark-routes.js">
+        <metrics statements="6" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="0" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
       </file>
-      <file name="directory-routes.js" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\backend\routes\directory-routes.js">
-        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
+      <file name="directory-routes.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\backend\routes\directory-routes.js">
+        <metrics statements="6" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="0" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
       </file>
-      <file name="settings-routes.js" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\backend\routes\settings-routes.js">
-        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
+      <file name="settings-routes.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\backend\routes\settings-routes.js">
+        <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="2" count="0" type="stmt"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
       </file>
-      <file name="upload-routes.js" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\backend\routes\upload-routes.js">
-        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
+      <file name="upload-routes.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\backend\routes\upload-routes.js">
+        <metrics statements="7" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="0" type="stmt"/>
+        <line num="2" count="0" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
       </file>
-      <file name="user-routes.js" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\backend\routes\user-routes.js">
-        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
+      <file name="user-routes.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\backend\routes\user-routes.js">
+        <metrics statements="8" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="2" count="0" type="stmt"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
       </file>
     </package>
     <package name="frontend.src.Firebase">
-      <metrics statements="62" coveredstatements="51" conditionals="24" coveredconditionals="22" methods="6" coveredmethods="5"/>
-      <file name="authorisation.js" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\Firebase\authorisation.js">
-        <metrics statements="55" coveredstatements="44" conditionals="24" coveredconditionals="22" methods="6" coveredmethods="5"/>
-        <line num="18" count="6" type="cond" truecount="2" falsecount="0"/>
-        <line num="20" count="6" type="stmt"/>
+      <metrics statements="62" coveredstatements="60" conditionals="24" coveredconditionals="24" methods="6" coveredmethods="6"/>
+      <file name="authorisation.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\Firebase\authorisation.js">
+        <metrics statements="56" coveredstatements="54" conditionals="24" coveredconditionals="24" methods="6" coveredmethods="6"/>
+        <line num="18" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="20" count="8" type="stmt"/>
         <line num="28" count="4" type="cond" truecount="2" falsecount="0"/>
         <line num="29" count="3" type="cond" truecount="2" falsecount="0"/>
         <line num="31" count="2" type="stmt"/>
@@ -320,7 +320,7 @@
         <line num="90" count="1" type="stmt"/>
         <line num="92" count="1" type="stmt"/>
         <line num="96" count="3" type="stmt"/>
-        <line num="99" count="6" type="stmt"/>
+        <line num="99" count="8" type="stmt"/>
         <line num="100" count="2" type="stmt"/>
         <line num="101" count="2" type="stmt"/>
         <line num="102" count="2" type="stmt"/>
@@ -328,52 +328,52 @@
         <line num="104" count="1" type="stmt"/>
         <line num="105" count="1" type="stmt"/>
         <line num="109" count="1" type="stmt"/>
-        <line num="111" count="2" type="stmt"/>
-        <line num="115" count="6" type="stmt"/>
-        <line num="116" count="0" type="stmt"/>
-        <line num="117" count="0" type="stmt"/>
-        <line num="118" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="119" count="0" type="stmt"/>
-        <line num="123" count="0" type="stmt"/>
-        <line num="126" count="0" type="stmt"/>
-        <line num="127" count="0" type="stmt"/>
-        <line num="128" count="0" type="stmt"/>
-        <line num="133" count="0" type="stmt"/>
+        <line num="111" count="1" type="stmt"/>
+        <line num="115" count="8" type="stmt"/>
+        <line num="116" count="3" type="stmt"/>
+        <line num="117" count="3" type="stmt"/>
+        <line num="118" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="119" count="1" type="stmt"/>
+        <line num="123" count="1" type="stmt"/>
+        <line num="126" count="2" type="stmt"/>
+        <line num="127" count="1" type="stmt"/>
+        <line num="128" count="1" type="stmt"/>
+        <line num="133" count="2" type="stmt"/>
+        <line num="134" count="2" type="stmt"/>
       </file>
-      <file name="firebase.js" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\Firebase\firebase.js">
-        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="10" count="11" type="stmt"/>
-        <line num="21" count="11" type="stmt"/>
-        <line num="23" count="11" type="stmt"/>
-        <line num="24" count="11" type="stmt"/>
-        <line num="25" count="11" type="stmt"/>
-        <line num="26" count="11" type="stmt"/>
-        <line num="27" count="11" type="stmt"/>
+      <file name="firebase.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\Firebase\firebase.js">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="10" count="13" type="stmt"/>
+        <line num="21" count="13" type="stmt"/>
+        <line num="23" count="13" type="stmt"/>
+        <line num="24" count="13" type="stmt"/>
+        <line num="25" count="13" type="stmt"/>
+        <line num="26" count="13" type="stmt"/>
       </file>
     </package>
     <package name="frontend.src.components">
-      <metrics statements="52" coveredstatements="52" conditionals="43" coveredconditionals="41" methods="22" coveredmethods="22"/>
-      <file name="BookMarksContent.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\components\BookMarksContent.jsx">
+      <metrics statements="52" coveredstatements="52" conditionals="43" coveredconditionals="43" methods="22" coveredmethods="22"/>
+      <file name="BookMarksContent.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\components\BookMarksContent.jsx">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="5" type="stmt"/>
         <line num="29" count="5" type="stmt"/>
         <line num="36" count="15" type="stmt"/>
       </file>
-      <file name="IconButton.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\components\IconButton.jsx">
+      <file name="IconButton.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\components\IconButton.jsx">
         <metrics statements="5" coveredstatements="5" conditionals="8" coveredconditionals="8" methods="1" coveredmethods="1"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="14" count="32" type="stmt"/>
-        <line num="20" count="32" type="cond" truecount="4" falsecount="0"/>
-        <line num="21" count="18" type="stmt"/>
-        <line num="28" count="14" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="14" count="58" type="stmt"/>
+        <line num="20" count="58" type="cond" truecount="4" falsecount="0"/>
+        <line num="21" count="22" type="stmt"/>
+        <line num="28" count="36" type="stmt"/>
       </file>
-      <file name="InputField.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\components\InputField.jsx">
+      <file name="InputField.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\components\InputField.jsx">
         <metrics statements="2" coveredstatements="2" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="3" count="3" type="stmt"/>
-        <line num="12" count="61" type="stmt"/>
+        <line num="12" count="59" type="stmt"/>
       </file>
-      <file name="InputImage.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\components\InputImage.jsx">
+      <file name="InputImage.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\components\InputImage.jsx">
         <metrics statements="15" coveredstatements="15" conditionals="21" coveredconditionals="21" methods="5" coveredmethods="5"/>
         <line num="7" count="4" type="cond" truecount="2" falsecount="0"/>
         <line num="9" count="3" type="stmt"/>
@@ -391,33 +391,33 @@
         <line num="33" count="7" type="stmt"/>
         <line num="54" count="1" type="stmt"/>
       </file>
-      <file name="NavigationComponent.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\components\NavigationComponent.jsx">
-        <metrics statements="7" coveredstatements="7" conditionals="4" coveredconditionals="3" methods="4" coveredmethods="4"/>
+      <file name="NavigationComponent.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\components\NavigationComponent.jsx">
+        <metrics statements="7" coveredstatements="7" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
         <line num="9" count="2" type="stmt"/>
-        <line num="10" count="6" type="stmt"/>
-        <line num="11" count="6" type="stmt"/>
-        <line num="12" count="6" type="stmt"/>
-        <line num="14" count="6" type="stmt"/>
-        <line num="18" count="2" type="stmt"/>
-        <line num="50" count="1" type="stmt"/>
-      </file>
-      <file name="NavigationDashLeft.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\components\NavigationDashLeft.jsx">
-        <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="2"/>
-        <line num="8" count="2" type="stmt"/>
-        <line num="9" count="8" type="stmt"/>
+        <line num="10" count="8" type="stmt"/>
         <line num="11" count="8" type="stmt"/>
         <line num="12" count="8" type="stmt"/>
-        <line num="47" count="1" type="stmt"/>
+        <line num="14" count="8" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
       </file>
-      <file name="PasswordInputField.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\components\PasswordInputField.jsx">
+      <file name="NavigationDashLeft.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\components\NavigationDashLeft.jsx">
+        <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="11" type="stmt"/>
+        <line num="11" count="11" type="stmt"/>
+        <line num="12" count="11" type="stmt"/>
+        <line num="47" count="2" type="stmt"/>
+      </file>
+      <file name="PasswordInputField.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\components\PasswordInputField.jsx">
         <metrics statements="5" coveredstatements="5" conditionals="5" coveredconditionals="5" methods="3" coveredmethods="3"/>
         <line num="3" count="3" type="stmt"/>
-        <line num="10" count="44" type="stmt"/>
-        <line num="12" count="44" type="stmt"/>
+        <line num="10" count="42" type="stmt"/>
+        <line num="12" count="42" type="stmt"/>
         <line num="13" count="2" type="stmt"/>
-        <line num="16" count="44" type="stmt"/>
+        <line num="16" count="42" type="stmt"/>
       </file>
-      <file name="ThemeSwitch.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\components\ThemeSwitch.jsx">
+      <file name="ThemeSwitch.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\components\ThemeSwitch.jsx">
         <metrics statements="9" coveredstatements="9" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4"/>
         <line num="4" count="2" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
@@ -432,7 +432,7 @@
     </package>
     <package name="frontend.src.components.DirectoryComponents">
       <metrics statements="136" coveredstatements="63" conditionals="84" coveredconditionals="42" methods="39" coveredmethods="21"/>
-      <file name="DirectoryBlock.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\components\DirectoryComponents\DirectoryBlock.jsx">
+      <file name="DirectoryBlock.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\components\DirectoryComponents\DirectoryBlock.jsx">
         <metrics statements="18" coveredstatements="10" conditionals="7" coveredconditionals="1" methods="7" coveredmethods="3"/>
         <line num="6" count="1" type="stmt"/>
         <line num="7" count="7" type="stmt"/>
@@ -453,7 +453,7 @@
         <line num="41" count="5" type="stmt"/>
         <line num="44" count="7" type="stmt"/>
       </file>
-      <file name="Dropzone.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\components\DirectoryComponents\Dropzone.jsx">
+      <file name="Dropzone.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\components\DirectoryComponents\Dropzone.jsx">
         <metrics statements="13" coveredstatements="9" conditionals="16" coveredconditionals="6" methods="5" coveredmethods="3"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="cond" truecount="2" falsecount="0"/>
@@ -469,7 +469,7 @@
         <line num="44" count="1" type="stmt"/>
         <line num="46" count="1" type="stmt"/>
       </file>
-      <file name="FileUploadModal.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\components\DirectoryComponents\FileUploadModal.jsx">
+      <file name="FileUploadModal.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\components\DirectoryComponents\FileUploadModal.jsx">
         <metrics statements="102" coveredstatements="42" conditionals="61" coveredconditionals="35" methods="25" coveredmethods="14"/>
         <line num="11" count="1" type="cond" truecount="2" falsecount="0"/>
         <line num="27" count="0" type="stmt"/>
@@ -574,7 +574,7 @@
         <line num="318" count="1" type="stmt"/>
         <line num="353" count="0" type="stmt"/>
       </file>
-      <file name="ShowItems.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\components\DirectoryComponents\ShowItems.jsx">
+      <file name="ShowItems.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\components\DirectoryComponents\ShowItems.jsx">
         <metrics statements="3" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="14" type="stmt"/>
@@ -582,8 +582,8 @@
       </file>
     </package>
     <package name="frontend.src.pages">
-      <metrics statements="524" coveredstatements="134" conditionals="224" coveredconditionals="34" methods="113" coveredmethods="31"/>
-      <file name="EmailLinkHandler.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\pages\EmailLinkHandler.jsx">
+      <metrics statements="529" coveredstatements="139" conditionals="224" coveredconditionals="35" methods="113" coveredmethods="31"/>
+      <file name="EmailLinkHandler.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\pages\EmailLinkHandler.jsx">
         <metrics statements="22" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="8" count="0" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
@@ -608,71 +608,76 @@
         <line num="38" count="0" type="stmt"/>
         <line num="41" count="0" type="stmt"/>
       </file>
-      <file name="bookmarks.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\pages\bookmarks.jsx">
-        <metrics statements="51" coveredstatements="18" conditionals="22" coveredconditionals="3" methods="14" coveredmethods="3"/>
-        <line num="145" count="1" type="stmt"/>
-        <line num="146" count="4" type="stmt"/>
-        <line num="147" count="4" type="stmt"/>
-        <line num="148" count="4" type="stmt"/>
-        <line num="149" count="3" type="stmt"/>
-        <line num="150" count="3" type="stmt"/>
-        <line num="152" count="3" type="stmt"/>
-        <line num="153" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="154" count="2" type="stmt"/>
-        <line num="156" count="1" type="stmt"/>
-        <line num="157" count="1" type="stmt"/>
-        <line num="158" count="1" type="stmt"/>
-        <line num="159" count="1" type="stmt"/>
-        <line num="161" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="162" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="163" count="0" type="stmt"/>
-        <line num="165" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="166" count="0" type="stmt"/>
-        <line num="167" count="0" type="stmt"/>
-        <line num="171" count="0" type="stmt"/>
-        <line num="172" count="0" type="stmt"/>
-        <line num="176" count="0" type="stmt"/>
-        <line num="177" count="0" type="stmt"/>
-        <line num="179" count="0" type="stmt"/>
-        <line num="183" count="1" type="stmt"/>
-        <line num="187" count="3" type="stmt"/>
-        <line num="188" count="0" type="stmt"/>
-        <line num="189" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="190" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="191" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="192" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="193" count="0" type="stmt"/>
-        <line num="196" count="3" type="stmt"/>
-        <line num="197" count="0" type="stmt"/>
-        <line num="198" count="0" type="stmt"/>
-        <line num="205" count="3" type="stmt"/>
-        <line num="206" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="208" count="0" type="stmt"/>
-        <line num="209" count="0" type="stmt"/>
-        <line num="210" count="0" type="stmt"/>
-        <line num="214" count="0" type="stmt"/>
-        <line num="215" count="0" type="stmt"/>
-        <line num="217" count="0" type="stmt"/>
-        <line num="218" count="0" type="stmt"/>
-        <line num="222" count="3" type="stmt"/>
-        <line num="237" count="0" type="stmt"/>
-        <line num="238" count="0" type="stmt"/>
-        <line num="242" count="0" type="stmt"/>
-        <line num="257" count="0" type="stmt"/>
-        <line num="270" count="0" type="stmt"/>
-        <line num="271" count="0" type="stmt"/>
+      <file name="bookmarks.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\pages\bookmarks.jsx">
+        <metrics statements="56" coveredstatements="19" conditionals="22" coveredconditionals="3" methods="14" coveredmethods="3"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="20" count="3" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
+        <line num="23" count="3" type="stmt"/>
+        <line num="25" count="3" type="stmt"/>
+        <line num="26" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="35" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="36" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="39" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="68" count="3" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="70" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="71" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="72" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="73" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="74" count="0" type="stmt"/>
+        <line num="77" count="3" type="stmt"/>
+        <line num="78" count="0" type="stmt"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="86" count="3" type="stmt"/>
+        <line num="87" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="89" count="0" type="stmt"/>
+        <line num="90" count="0" type="stmt"/>
+        <line num="91" count="0" type="stmt"/>
+        <line num="95" count="0" type="stmt"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="98" count="0" type="stmt"/>
+        <line num="99" count="0" type="stmt"/>
+        <line num="103" count="3" type="stmt"/>
+        <line num="118" count="0" type="stmt"/>
+        <line num="119" count="0" type="stmt"/>
+        <line num="123" count="0" type="stmt"/>
+        <line num="138" count="0" type="stmt"/>
+        <line num="151" count="0" type="stmt"/>
+        <line num="152" count="0" type="stmt"/>
       </file>
-      <file name="dashboard.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\pages\dashboard.jsx">
-        <metrics statements="7" coveredstatements="7" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+      <file name="dashboard.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\pages\dashboard.jsx">
+        <metrics statements="7" coveredstatements="7" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
         <line num="14" count="1" type="stmt"/>
-        <line num="15" count="3" type="stmt"/>
-        <line num="16" count="3" type="stmt"/>
-        <line num="17" count="3" type="stmt"/>
-        <line num="19" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="20" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="19" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="20" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="22" count="1" type="stmt"/>
       </file>
-      <file name="directory.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\pages\directory.jsx">
+      <file name="directory.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\pages\directory.jsx">
         <metrics statements="15" coveredstatements="15" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
         <line num="13" count="1" type="stmt"/>
         <line num="14" count="9" type="stmt"/>
@@ -690,7 +695,7 @@
         <line num="28" count="1" type="stmt"/>
         <line num="31" count="7" type="stmt"/>
       </file>
-      <file name="editDetails.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\pages\editDetails.jsx">
+      <file name="editDetails.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\pages\editDetails.jsx">
         <metrics statements="53" coveredstatements="0" conditionals="22" coveredconditionals="0" methods="13" coveredmethods="0"/>
         <line num="13" count="0" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
@@ -746,7 +751,7 @@
         <line num="106" count="0" type="stmt"/>
         <line num="114" count="0" type="stmt"/>
       </file>
-      <file name="editUpload.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\pages\editUpload.jsx">
+      <file name="editUpload.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\pages\editUpload.jsx">
         <metrics statements="41" coveredstatements="0" conditionals="26" coveredconditionals="0" methods="8" coveredmethods="0"/>
         <line num="15" count="0" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
@@ -790,7 +795,7 @@
         <line num="189" count="0" type="stmt"/>
         <line num="190" count="0" type="stmt"/>
       </file>
-      <file name="home.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\pages\home.jsx">
+      <file name="home.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\pages\home.jsx">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="8" count="3" type="stmt"/>
         <line num="9" count="3" type="stmt"/>
@@ -798,7 +803,7 @@
         <line num="12" count="3" type="stmt"/>
         <line num="15" count="3" type="stmt"/>
       </file>
-      <file name="manageUploads.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\pages\manageUploads.jsx">
+      <file name="manageUploads.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\pages\manageUploads.jsx">
         <metrics statements="52" coveredstatements="0" conditionals="18" coveredconditionals="0" methods="9" coveredmethods="0"/>
         <line num="16" count="0" type="stmt"/>
         <line num="17" count="0" type="stmt"/>
@@ -853,7 +858,7 @@
         <line num="140" count="0" type="stmt"/>
         <line num="143" count="0" type="stmt"/>
       </file>
-      <file name="manageUsers.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\pages\manageUsers.jsx">
+      <file name="manageUsers.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\pages\manageUsers.jsx">
         <metrics statements="34" coveredstatements="0" conditionals="16" coveredconditionals="0" methods="9" coveredmethods="0"/>
         <line num="20" count="0" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
@@ -890,7 +895,7 @@
         <line num="103" count="0" type="stmt"/>
         <line num="114" count="0" type="stmt"/>
       </file>
-      <file name="search.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\pages\search.jsx">
+      <file name="search.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\pages\search.jsx">
         <metrics statements="65" coveredstatements="0" conditionals="29" coveredconditionals="0" methods="18" coveredmethods="0"/>
         <line num="13" count="0" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
@@ -958,7 +963,7 @@
         <line num="202" count="0" type="stmt"/>
         <line num="203" count="0" type="stmt"/>
       </file>
-      <file name="settings.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\pages\settings.jsx">
+      <file name="settings.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\pages\settings.jsx">
         <metrics statements="70" coveredstatements="0" conditionals="47" coveredconditionals="0" methods="10" coveredmethods="0"/>
         <line num="18" count="0" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
@@ -1031,46 +1036,46 @@
         <line num="188" count="0" type="stmt"/>
         <line num="198" count="0" type="stmt"/>
       </file>
-      <file name="signIn.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\pages\signIn.jsx">
-        <metrics statements="36" coveredstatements="30" conditionals="8" coveredconditionals="5" methods="11" coveredmethods="10"/>
-        <line num="14" count="21" type="stmt"/>
-        <line num="15" count="21" type="stmt"/>
-        <line num="16" count="21" type="stmt"/>
-        <line num="17" count="21" type="stmt"/>
-        <line num="18" count="21" type="stmt"/>
-        <line num="20" count="21" type="stmt"/>
-        <line num="21" count="2" type="stmt"/>
-        <line num="22" count="1" type="cond" truecount="0" falsecount="2"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="30" count="21" type="stmt"/>
-        <line num="31" count="2" type="stmt"/>
-        <line num="32" count="2" type="stmt"/>
-        <line num="34" count="2" type="stmt"/>
+      <file name="signIn.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\pages\signIn.jsx">
+        <metrics statements="36" coveredstatements="34" conditionals="8" coveredconditionals="7" methods="11" coveredmethods="10"/>
+        <line num="14" count="20" type="stmt"/>
+        <line num="15" count="20" type="stmt"/>
+        <line num="16" count="20" type="stmt"/>
+        <line num="17" count="20" type="stmt"/>
+        <line num="18" count="20" type="stmt"/>
+        <line num="20" count="20" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="22" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="30" count="20" type="stmt"/>
+        <line num="31" count="3" type="stmt"/>
+        <line num="32" count="3" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
         <line num="38" count="2" type="stmt"/>
-        <line num="39" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="40" count="0" type="stmt"/>
-        <line num="41" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="39" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="41" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="42" count="1" type="stmt"/>
-        <line num="44" count="1" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
         <line num="46" count="2" type="stmt"/>
         <line num="47" count="2" type="stmt"/>
-        <line num="52" count="21" type="stmt"/>
+        <line num="52" count="20" type="stmt"/>
         <line num="53" count="1" type="stmt"/>
         <line num="55" count="1" type="stmt"/>
         <line num="56" count="1" type="stmt"/>
-        <line num="66" count="21" type="stmt"/>
-        <line num="67" count="6" type="stmt"/>
-        <line num="68" count="6" type="stmt"/>
-        <line num="69" count="6" type="stmt"/>
-        <line num="73" count="21" type="stmt"/>
-        <line num="103" count="2" type="stmt"/>
-        <line num="109" count="2" type="stmt"/>
+        <line num="66" count="20" type="stmt"/>
+        <line num="67" count="7" type="stmt"/>
+        <line num="68" count="7" type="stmt"/>
+        <line num="69" count="7" type="stmt"/>
+        <line num="73" count="20" type="stmt"/>
+        <line num="103" count="3" type="stmt"/>
+        <line num="109" count="3" type="stmt"/>
         <line num="121" count="0" type="stmt"/>
       </file>
-      <file name="signUp.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\pages\signUp.jsx">
+      <file name="signUp.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\pages\signUp.jsx">
         <metrics statements="71" coveredstatements="57" conditionals="24" coveredconditionals="18" methods="10" coveredmethods="10"/>
         <line num="15" count="22" type="stmt"/>
         <line num="16" count="22" type="stmt"/>
@@ -1144,7 +1149,7 @@
         <line num="177" count="2" type="stmt"/>
         <line num="186" count="2" type="stmt"/>
       </file>
-      <file name="uploadPage.jsx" path="C:\Users\jzkan\SD Project\Testing\const-arch-app\frontend\src\pages\uploadPage.jsx">
+      <file name="uploadPage.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\pages\uploadPage.jsx">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>

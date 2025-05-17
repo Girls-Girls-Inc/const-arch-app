@@ -13,12 +13,10 @@ import Bookmarks from "../pages/bookmarks";
 import { useUser } from "../context/userContext";
 import { useNavigate } from "react-router-dom";
 
-// Mock context
 jest.mock("../context/userContext", () => ({
     useUser: jest.fn(),
 }));
 
-// Mock components used in Bookmarks
 jest.mock("../components/NavigationComponent", () => () => <div data-testid="nav" />);
 jest.mock("../components/NavigationDashLeft", () => () => <div data-testid="sidebar" />);
 jest.mock("../components/BookMarksContent", () => () => <div data-testid="content" />);
@@ -28,7 +26,7 @@ describe("Bookmarks page", () => {
 
     beforeEach(() => {
         jest.clearAllMocks();
-        useNavigate.mockReturnValue(mockNavigate); // assign mocked function
+        useNavigate.mockReturnValue(mockNavigate);
     });
 
     it("shows loading message when loading is true", () => {
@@ -45,7 +43,7 @@ describe("Bookmarks page", () => {
         render(<Bookmarks />, { wrapper: MemoryRouter });
 
         await waitFor(() => {
-            expect(mockNavigate).toHaveBeenCalledWith("/signIn");
+            expect(mockNavigate).toHaveBeenCalledWith("/");
         });
     });
 

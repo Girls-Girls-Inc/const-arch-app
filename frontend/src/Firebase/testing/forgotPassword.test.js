@@ -1,7 +1,12 @@
-// __tests__/forgotPassword.test.js
+import { forgotPassword } from '../authorisation';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { toast } from 'react-hot-toast';
+
 jest.mock('firebase/auth', () => ({
   getAuth: jest.fn(() => ({})),
   sendPasswordResetEmail: jest.fn(() => Promise.resolve()),
+  GoogleAuthProvider: jest.fn().mockImplementation(() => ({})),
+  FacebookAuthProvider: jest.fn().mockImplementation(() => ({})),
 }));
 
 jest.mock('react-hot-toast', () => ({
@@ -11,9 +16,6 @@ jest.mock('react-hot-toast', () => ({
   },
 }));
 
-import { forgotPassword } from '../authorisation';
-import { sendPasswordResetEmail } from 'firebase/auth';
-
 describe('forgotPassword', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -21,7 +23,9 @@ describe('forgotPassword', () => {
 
   it('throws and toasts an error if email is empty', async () => {
     console.error = jest.fn();
-    await expect(forgotPassword('')).rejects.toThrow('Email cannot be empty');
+    const emptyEmail = '';
+
+    await expect(forgotPassword(emptyEmail)).rejects.toThrow('Email cannot be empty');
     expect(toast.error).toHaveBeenCalledWith("Please fill in your email :(", {
       duration: 4000,
       position: "top-right",
@@ -43,9 +47,9 @@ describe('forgotPassword', () => {
     sendPasswordResetEmail.mockRejectedValueOnce(error);
     console.error = jest.fn();
 
-    await forgotPassword('user@example.com');
+    await expect(forgotPassword('user@example.com')).rejects.toThrow('Reset failed');
 
-    expect(sendPasswordResetEmail).toHaveBeenCalled();
+    expect(sendPasswordResetEmail).toHaveBeenCalledWith(expect.anything(), 'user@example.com');
     expect(console.error).toHaveBeenCalledWith("Error sending email:", error);
   });
 });

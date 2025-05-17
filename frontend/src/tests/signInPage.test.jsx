@@ -5,6 +5,7 @@ import {
   act,
   fireEvent,
   waitFor,
+  cleanup,
 } from "@testing-library/react";
 import SignIn from "../pages/signIn";
 import { MemoryRouter } from "react-router-dom";
@@ -12,6 +13,8 @@ import { UserProvider } from "../context/userContext";
 import { signInWithEmail, withProvider } from "../Firebase/authorisation";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { getAuth, GoogleAuthProvider, setPersistence } from "firebase/auth";
+
 
 jest.mock("../Firebase/authorisation", () => ({
   withProvider: jest.fn(),
@@ -23,6 +26,12 @@ jest.mock("react-router-dom", () => ({
   useNavigate: jest.fn(),
 }));
 
+jest.mock("firebase/auth", () => ({
+  getAuth: jest.fn(),
+  GoogleAuthProvider: jest.fn().mockImplementation(() => ({})),
+  setPersistence: jest.fn(),
+}));
+
 describe("Sign In Page", () => {
   const mockNavigate = jest.fn();
 
@@ -32,6 +41,10 @@ describe("Sign In Page", () => {
       displayName: "Test User",
       email: "testuser@example.com",
     });
+
+    setPersistence.mockResolvedValue();
+
+    jest.spyOn(console, "error").mockImplementation(() => {});
 
     mockNavigate.mockClear();
     useNavigate.mockReturnValue(mockNavigate);
@@ -47,7 +60,20 @@ describe("Sign In Page", () => {
     });
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+    cleanup();
+    console.error.mockRestore();
+  });
+
   it("should render a form with login information and a login button and navigate to dashboard on successful login", async () => {
+    signInWithEmail.mockResolvedValue({
+      emailVerified: true,
+      uid: "1234",
+      displayName: "Test User",
+      email: "testuser@example.com",
+    });
+
     const emailInput = screen.getByPlaceholderText(/email address/i);
     const passwordInput = screen.getByPlaceholderText(/password/i);
     const loginButton = screen.getByRole("button", { name: /login/i });
@@ -57,11 +83,9 @@ describe("Sign In Page", () => {
     expect(loginButton).toBeInTheDocument();
 
     await act(async () => {
-      fireEvent.change(emailInput, {
-        target: { value: "testuser@example.com" },
-      });
+      fireEvent.change(emailInput, { target: { value: "testuser@example.com" } });
       fireEvent.change(passwordInput, { target: { value: "password123" } });
-      fireEvent.click(loginButton);
+      await fireEvent.click(loginButton);
     });
 
     await waitFor(() => {
@@ -69,7 +93,6 @@ describe("Sign In Page", () => {
       expect(mockNavigate).toHaveBeenCalledWith("/dashboard");
     });
 
-    // Check for success toast
     await waitFor(() => {
       expect(screen.getByText("Logged in successfully!")).toBeInTheDocument();
     });
@@ -94,7 +117,7 @@ describe("Sign In Page", () => {
     });
 
     await waitFor(() => {
-      expect(signInWithEmail).toHaveBeenCalledTimes(2);
+      expect(signInWithEmail).toHaveBeenCalledTimes(1);
       expect(mockNavigate).not.toHaveBeenCalled();
     });
 
@@ -106,7 +129,7 @@ describe("Sign In Page", () => {
     expect(toasts[0]).toBeInTheDocument();
   });
 
-  it("should render button for 3rd party auth that call the helper function and navigate to dashboard on successful login and show toast messages", async () => {
+  it("should render button for 3rd party auth that call the helper function, navigate to dashboard on successful login and show toast messages", async () => {
     const googleButton = screen.getByRole("button", { name: /google/i });
 
     expect(googleButton).toBeInTheDocument();
@@ -144,4 +167,39 @@ describe("Sign In Page", () => {
     expect(backLink).toBeInTheDocument();
     expect(backLink).toHaveAttribute("href", "/");
   });
+
+  it("should sign out user and throw an error if email is not verified", async () => {
+    const mockSignOut = jest.fn();
+
+    getAuth.mockReturnValue({
+      signOut: mockSignOut,
+    });
+
+    signInWithEmail.mockResolvedValue({
+      emailVerified: false,
+      uid: "1234",
+      displayName: "Test User",
+      email: "testuser@example.com",
+    });
+
+    const emailInput = screen.getByPlaceholderText(/email address/i);
+    const passwordInput = screen.getByPlaceholderText(/password/i);
+    const loginButton = screen.getByRole("button", { name: /login/i });
+
+    expect(emailInput).toBeInTheDocument();
+    expect(passwordInput).toBeInTheDocument();
+    expect(loginButton).toBeInTheDocument();
+
+    await act(async () => {
+      fireEvent.change(emailInput, { target: { value: "testuser@example.com" } });
+      fireEvent.change(passwordInput, { target: { value: "password123" } });
+      await fireEvent.click(loginButton);
+    });
+
+    await waitFor(() => {
+      expect(mockSignOut).toHaveBeenCalled();
+      const messages = screen.getAllByText("Email not verified. Please check your inbox.");
+      expect(messages.length).toBeGreaterThanOrEqual(1);
+    });
+  })
 });

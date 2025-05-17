@@ -53,7 +53,7 @@ import { getStorage, ref } from "firebase/storage";
 
 describe("FileUploadModal Component", () => {
     const handleCloseMock = jest.fn();
-    const setUploadedFileMock = jest.fn();  // Add a mock for setUploadedFile
+    const setUploadedFileMock = jest.fn();  
 
     const defaultProps = {
         showModal: true,

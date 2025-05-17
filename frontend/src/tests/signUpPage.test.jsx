@@ -65,7 +65,7 @@ describe('Sign Up Page', () => {
 
     await waitFor(() => {
       expect(signUpWithEmail).toHaveBeenCalledTimes(1);
-      //expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/signIn');
     });
   });
 
