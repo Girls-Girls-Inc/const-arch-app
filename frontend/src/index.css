@@ -1008,7 +1008,6 @@ a {
   align-items: center;
   padding: 16px;
   border-radius: 12px;
-
   border: #333 solid 1px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -1028,6 +1027,38 @@ a {
 }
 
 .folder-item span:last-child {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  word-break: break-word;
+}
+
+.file-item {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  border-radius: 12px;
+  border: #333 solid 1px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  text-align: center;
+}
+
+.file-item:hover {
+  background-color: #e0e4e7;
+  transform: translateY(-2px);
+}
+
+.file-item .material-symbols-outlined {
+  font-size: 32px;
+  color: var(--south-africa-yellow);
+  margin-bottom: 8px;
+}
+
+.file-item span:last-child {
   font-size: 14px;
   font-weight: 500;
   color: #333;

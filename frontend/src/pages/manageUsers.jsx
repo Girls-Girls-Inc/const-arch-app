@@ -23,7 +23,7 @@ const ManageUsers = () => {
   const [users, setUsers] = useState([]);
   const [usersLoading, setUsersLoading] = useState(true);
   const auth = getAuth();
-  
+
   useEffect(() => {
     if (isAdmin) {
       const fetchUsers = async () => {
@@ -89,7 +89,7 @@ const ManageUsers = () => {
               {!loading && !isAdmin && (
                 <p>You do not have permission to view this page.</p>
               )}
-              s
+
               {!loading && isAdmin && !usersLoading && users.length > 0 && (
                 <table className="table table-striped table-hover table-borderless w-100 rounded-4 overflow-hidden shadow">
                   <thead className="thead-dark bg-dark text-white">

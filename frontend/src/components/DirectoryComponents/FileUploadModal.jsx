@@ -54,7 +54,7 @@ const FileUploadModal = ({
   const [tagInput, setTagInput] = useState("");
   const [filteredTags, setFilteredTags] = useState([]);
   const [folderOptions, setFolderOptions] = useState([]);
-  const [selectedFolder, setSelectedFolder] = useState("");
+  const [selectedFolder, setSelectedFolder] = useState("default_directory");
 
   const availableTags = [
     "legal",
@@ -94,11 +94,13 @@ const FileUploadModal = ({
   }, [showModal]);
 
   useEffect(() => {
-    setUploadedFile((prev) => ({
-      ...prev,
-      directoryId: selectedFolder,
-    }));
-  }, [selectedFolder, setUploadedFile]);
+    if (showModal) {
+      setUploadedFile((prev) => ({
+        ...prev,
+        directoryId: selectedFolder || "default_directory",
+      }));
+    }
+  }, [selectedFolder, showModal, setUploadedFile]);
 
   useEffect(() => {
     if (!showModal) {
@@ -107,7 +109,7 @@ const FileUploadModal = ({
       setFilteredTags([]);
       setUploadedFile(null);
       setModalStep(1);
-      setSelectedFolder("");
+      setSelectedFolder("default_directory");
     }
   }, [showModal, setModalStep, setUploadedFile]);
 
@@ -132,7 +134,7 @@ const FileUploadModal = ({
     const file = uploadedFile.file;
     const customName = uploadedFile.customName || file.name;
     const fileType = file.type;
-    const directoryId = uploadedFile.directoryId;
+    const directoryId = uploadedFile?.directoryId || "default_directory";
     const uniqueFileName = `${Date.now()}_${customName.replace(/\s+/g, "_")}`;
     const uid = auth.currentUser?.uid;
     const storageRef = ref(storage, `${uid}/${directoryId}/${uniqueFileName}`);
@@ -156,6 +158,8 @@ const FileUploadModal = ({
         0,
         serverTimestamp()
       );
+
+      console.log("Uploading to directoryId:", directoryId);
 
       await axios.post(`${HOST_URL}/api/upload`, { ...newUpload });
 
@@ -236,7 +240,6 @@ const FileUploadModal = ({
             <>
               <h4 className="text-uppercase mb-4">Add Metadata</h4>
 
-              {/* Folder Selector */}
               <div className="w-100 mb-3">
                 <label className="form-label">Select Folder</label>
                 <select
@@ -244,7 +247,9 @@ const FileUploadModal = ({
                   value={selectedFolder}
                   onChange={(e) => setSelectedFolder(e.target.value)}
                 >
-                  <option value="">-- Choose Folder --</option>
+                  <option value="default_directory">
+                    -- default_directory Folder --
+                  </option>
                   {folderOptions.map((folder) => (
                     <option key={folder.id} value={folder.id}>
                       {folder.name}
@@ -355,7 +360,7 @@ const FileUploadModal = ({
                 Folder:{" "}
                 <strong>
                   {folderOptions.find((f) => f.id === selectedFolder)?.name ||
-                    "No folder selected"}
+                    "default_directory"}
                 </strong>
               </p>
               <div className="d-flex flex-column">

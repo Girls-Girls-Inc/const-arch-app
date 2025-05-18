@@ -11,60 +11,88 @@ const DirectoryBlock = ({
   setBreadcrumb,
 }) => {
   const [folders, setFolders] = useState([]);
+  const [files, setFiles] = useState([]);
 
-  const fetchFolders = useCallback(async () => {
-    const userId = auth.currentUser?.email;
-    if (!userId) {
-      console.log("No user logged in");
-      return;
-    }
+  const fetchData = useCallback(
+    async (showSuccessToast = false) => {
+      const userId = auth.currentUser?.email;
+      if (!userId) {
+        console.log("No user logged in");
+        return;
+      }
 
-    let loadingToastId;
-    const toastTimer = setTimeout(() => {
-      loadingToastId = toast.loading("Loading folders...");
-    }, 1000);
+      let loadingToastId;
+      const toastTimer = setTimeout(() => {
+        loadingToastId = toast.loading("Loading directory...");
+      }, 1000);
 
-    try {
-      const dirRef = collection(db, "directory");
+      try {
+        const dirRef = collection(db, "directory");
+        const fileRef = collection(db, "upload");
 
-      const foldersQuery = currentFolderId
-        ? query(
-            dirRef,
-            where("createdBy", "==", userId),
-            where("parentId", "==", currentFolderId)
-          )
-        : query(
-            dirRef,
-            where("createdBy", "==", userId),
-            where("parentId", "==", null)
+        const folderQuery = currentFolderId
+          ? query(
+              dirRef,
+              where("createdBy", "==", userId),
+              where("parentId", "==", currentFolderId)
+            )
+          : query(
+              dirRef,
+              where("createdBy", "==", userId),
+              where("parentId", "==", null)
+            );
+
+        let fileQuery;
+        if (currentFolderId) {
+          fileQuery = query(
+            fileRef,
+            where("uploadedBy", "==", userId),
+            where("directoryId", "==", currentFolderId)
           );
+        } else {
+          // Show all files regardless of directory when on the root
+          fileQuery = query(fileRef, where("uploadedBy", "==", userId));
+        }
 
-      const snapshot = await getDocs(foldersQuery);
+        const [folderSnap, fileSnap] = await Promise.all([
+          getDocs(folderQuery),
+          getDocs(fileQuery),
+        ]);
 
-      clearTimeout(toastTimer);
-      if (loadingToastId) toast.dismiss(loadingToastId);
+        clearTimeout(toastTimer);
+        if (loadingToastId) toast.dismiss(loadingToastId);
 
-      if (snapshot.empty) {
-        setFolders([]);
-      } else {
-        const fetchedFolders = snapshot.docs.map((doc) => ({
+        const fetchedFolders = folderSnap.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
+          type: "folder",
         }));
         setFolders(fetchedFolders);
-      }
-    } catch (error) {
-      clearTimeout(toastTimer);
-      if (loadingToastId) toast.dismiss(loadingToastId);
 
-      console.error("Error fetching folders:", error);
-      toast.error("Error loading folders");
-    }
-  }, [currentFolderId]);
+        const fetchedFiles = fileSnap.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+          type: "file",
+        }));
+        setFiles(fetchedFiles);
+
+        if (showSuccessToast) {
+          toast.success("Directory refreshed!");
+        }
+      } catch (error) {
+        clearTimeout(toastTimer);
+        if (loadingToastId) toast.dismiss(loadingToastId);
+
+        console.error("Error loading directory:", error);
+        toast.error("Failed to load directory.");
+      }
+    },
+    [currentFolderId]
+  );
 
   useEffect(() => {
-    fetchFolders();
-  }, [fetchFolders]);
+    fetchData();
+  }, [fetchData]);
 
   const handleFolderClick = (folder) => {
     if (
@@ -78,12 +106,15 @@ const DirectoryBlock = ({
 
   const handleGoBack = () => {
     if (breadcrumb.length === 0) return;
+    const updated = [...breadcrumb];
+    updated.pop();
+    const last = updated[updated.length - 1];
+    setBreadcrumb(updated);
+    setCurrentFolderId(last ? last.id : null);
+  };
 
-    const updatedBreadcrumb = [...breadcrumb];
-    updatedBreadcrumb.pop();
-    const previous = updatedBreadcrumb[updatedBreadcrumb.length - 1];
-    setCurrentFolderId(previous ? previous.id : null);
-    setBreadcrumb(updatedBreadcrumb);
+  const handleRefresh = () => {
+    fetchData(true);
   };
 
   return (
@@ -101,8 +132,7 @@ const DirectoryBlock = ({
             <span>/ {breadcrumb.map((b) => b.name).join(" / ")}</span>
           )}
         </div>
-
-        <IconButton icon="refresh" label="Refresh" onClick={fetchFolders} />
+        <IconButton icon="refresh" onClick={handleRefresh} />
       </div>
 
       <div className="folders-grid">
@@ -115,6 +145,19 @@ const DirectoryBlock = ({
             <span className="material-symbols-outlined">folder</span>
             <span>{folder.name || "Untitled Folder"}</span>
           </div>
+        ))}
+
+        {files.map((file) => (
+          <a
+            key={file.id}
+            href={file.filePath}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="file-item"
+          >
+            <span className="material-symbols-outlined">insert_drive_file</span>
+            <span>{file.fileName || "Untitled File"}</span>
+          </a>
         ))}
       </div>
     </div>
