@@ -1,59 +1,150 @@
-jest.mock("react-router-dom", () => {
-    const actual = jest.requireActual("react-router-dom");
-    return {
-        ...actual,
-        useNavigate: jest.fn(),
-    };
-});
-
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
-import Bookmarks from "../pages/bookmarks";
+import { render, screen, waitFor, act, fireEvent } from "@testing-library/react";
+import BookmarksPage from "../pages/bookmarks";
 import { useUser } from "../context/userContext";
-import { useNavigate } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+import * as firestore from "firebase/firestore";
+import toast from "react-hot-toast";
 
+// Mocks
 jest.mock("../context/userContext", () => ({
-    useUser: jest.fn(),
+  useUser: jest.fn(),
 }));
 
-jest.mock("../components/NavigationComponent", () => () => <div data-testid="nav" />);
-jest.mock("../components/NavigationDashLeft", () => () => <div data-testid="sidebar" />);
-jest.mock("../components/BookMarksContent", () => () => <div data-testid="content" />);
+jest.mock("firebase/firestore", () => ({
+  collection: jest.fn(),
+  getDocs: jest.fn(),
+  doc: jest.fn(),
+  getDoc: jest.fn(),
+  updateDoc: jest.fn(),
+  arrayRemove: jest.fn(),
+  getFirestore: jest.fn(),
+}));
 
-describe("Bookmarks page", () => {
-    const mockNavigate = jest.fn();
+jest.mock("react-hot-toast", () => ({
+  __esModule: true,
+  default: {
+    success: jest.fn(),
+    error: jest.fn(),
+    loading: jest.fn(() => "toast-id"),
+    dismiss: jest.fn(),
+  },
+  Toaster: () => <div />,
+}));
 
-    beforeEach(() => {
-        jest.clearAllMocks();
-        useNavigate.mockReturnValue(mockNavigate);
+const mockNavigate = jest.fn();
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => mockNavigate,
+}));
+
+describe("BookmarksPage Component", () => {
+  const mockUser = { uid: "user123" };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    useUser.mockReturnValue({ user: mockUser });
+  });
+
+  it("renders loading state and shows bookmarks if found", async () => {
+    const mockBookmarks = {
+      exists: () => true,
+      data: () => ({ documentIds: ["doc1"] }),
+    };
+
+    firestore.getDoc.mockResolvedValue(mockBookmarks);
+    firestore.getDocs.mockResolvedValue({
+      docs: [
+        {
+          id: "doc1",
+          data: () => ({
+            fileName: "Test Document",
+            filePath: "https://example.com/test.pdf",
+            uploadDate: new Date().toISOString(),
+            tags: ["tag1", "tag2"],
+          }),
+        },
+      ],
     });
 
-    it("shows loading message when loading is true", () => {
-        useUser.mockReturnValue({ user: null, loading: true });
-
-        render(<Bookmarks />, { wrapper: MemoryRouter });
-
-        expect(screen.getByText(/loading/i)).toBeInTheDocument();
+    await act(async () => {
+      render(
+        <Router>
+          <BookmarksPage />
+        </Router>
+      );
     });
 
-    it("navigates to /signIn if not loading and no user", async () => {
-        useUser.mockReturnValue({ user: null, loading: false });
+    expect(await screen.findByText("Test Document")).toBeInTheDocument();
+    expect(firestore.getDoc).toHaveBeenCalled();
+    expect(firestore.getDocs).toHaveBeenCalled();
+  });
 
-        render(<Bookmarks />, { wrapper: MemoryRouter });
-
-        await waitFor(() => {
-            expect(mockNavigate).toHaveBeenCalledWith("/");
-        });
+  it("shows a message if no bookmarks found", async () => {
+    firestore.getDoc.mockResolvedValue({
+      exists: () => true,
+      data: () => ({ documentIds: [] }),
     });
 
-    it("renders navigation and content when user is present", () => {
-        useUser.mockReturnValue({ user: { uid: "123" }, loading: false });
-
-        render(<Bookmarks />, { wrapper: MemoryRouter });
-
-        expect(screen.getByTestId("nav")).toBeInTheDocument();
-        expect(screen.getByTestId("sidebar")).toBeInTheDocument();
-        expect(screen.getByTestId("content")).toBeInTheDocument();
+    await act(async () => {
+      render(
+        <Router>
+          <BookmarksPage />
+        </Router>
+      );
     });
+
+    expect(screen.getByText("No bookmarks found.")).toBeInTheDocument();
+  });
+
+  it("redirects if no user is logged in", async () => {
+    useUser.mockReturnValue({ user: null });
+
+    await act(async () => {
+      render(
+        <Router>
+          <BookmarksPage />
+        </Router>
+      );
+    });
+
+    expect(mockNavigate).toHaveBeenCalledWith("/");
+  });
+
+  it("removes a bookmark when button clicked", async () => {
+    firestore.getDoc.mockResolvedValue({
+      exists: () => true,
+      data: () => ({ documentIds: ["doc1"] }),
+    });
+
+    firestore.getDocs.mockResolvedValue({
+      docs: [
+        {
+          id: "doc1",
+          data: () => ({
+            fileName: "Removable Doc",
+            filePath: "https://example.com/test.pdf",
+            uploadDate: new Date().toISOString(),
+            tags: [],
+          }),
+        },
+      ],
+    });
+
+    await act(async () => {
+      render(
+        <Router>
+          <BookmarksPage />
+        </Router>
+      );
+    });
+
+    const removeBtn = screen.getByTestId("remove-bookmark");
+    fireEvent.click(removeBtn);
+
+    await waitFor(() => {
+      expect(firestore.updateDoc).toHaveBeenCalled();
+      expect(toast.success).toHaveBeenCalledWith('Removed bookmark for "Removable Doc"');
+    });
+  });
 });

@@ -1,10 +1,12 @@
 
-import { signUpWithEmail } from '../authorisation'; // Adjust path as needed
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { signUpWithEmail } from '../authorisation';
+import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from 'firebase/auth';
 import axios from 'axios';
+import { toast } from "react-hot-toast";
 
 jest.mock('firebase/auth', () => ({
   createUserWithEmailAndPassword: jest.fn(),
+  sendEmailVerification: jest.fn(),
   updateProfile: jest.fn(),
   getAuth: jest.fn(() => ({})),
   GoogleAuthProvider: jest.fn().mockImplementation(() => ({})),
@@ -15,7 +17,15 @@ jest.mock('firebase/firestore', () => ({
   getDoc: jest.fn(() => Promise.resolve({ exists: () => false })),
   doc: jest.fn(),
   getFirestore: jest.fn(() => ({})),
+
 }));
+
+jest.mock('react-hot-toast', () => ({
+  toast: {
+    success: jest.fn(),
+    error: jest.fn(),
+  }
+}))
 
 jest.mock('axios', () => ({
   post: jest.fn(() => Promise.resolve({ status: 200 })),
@@ -51,6 +61,29 @@ describe('signUpWithEmail', () => {
       photoURL: '',
     });
     expect(user).toEqual(mockUser);
+  });
+
+  it('should send email to verify the email and call success toast', async () => {
+    const email = 'verify@example.com';
+    const password = 'password456';
+    const name = 'Verify User';
+
+    const mockUser = {
+      uid: 'verify-user-id',
+      email,
+      displayName: name,
+      photoURL: '',
+    };
+
+    createUserWithEmailAndPassword.mockResolvedValueOnce({ user: mockUser });
+    sendEmailVerification.mockResolvedValueOnce();
+
+    const { toast } = require('react-hot-toast');
+
+    await signUpWithEmail(email, password, name);
+
+    expect(sendEmailVerification).toHaveBeenCalledWith(mockUser);
+    expect(toast.success).toHaveBeenCalledWith("Verification email sent. Please check your inbox.");
   });
 
   it('should not call updateProfile if name is not provided', async () => {

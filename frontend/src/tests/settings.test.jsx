@@ -1,6 +1,3 @@
-// Stub Vite env for Jest
-
-// Stub the Firebase init module so GoogleAuthProvider isn’t constructed
 jest.mock('../Firebase/firebase', () => ({
   auth: {},
   googleProvider: {},
@@ -18,7 +15,6 @@ import SettingsPage from '../pages/settings';
 import { useUser } from '../context/userContext';
 import { toast, Toaster } from 'react-hot-toast';
 
-// Mocks for Firebase Auth and Storage
 jest.mock('firebase/auth', () => ({
   getAuth: jest.fn(() => ({ currentUser: { uid: 'user1', displayName: 'OldName', email: 'old@example.com', reload: jest.fn() } })),
   updateProfile: jest.fn(),
@@ -30,23 +26,23 @@ jest.mock('firebase/storage', () => ({
   getDownloadURL: jest.fn(),
 }));
 
-// Mock fetch for API calls
 global.fetch = jest.fn();
 
-// Mock userContext
 jest.mock('../context/userContext', () => ({
   useUser: jest.fn(),
 }));
 
-// Mock react-hot-toast
-jest.mock('react-hot-toast', () => ({
-  __esModule: true,
-  Toaster: jest.fn(() => <div />),  
-  toast: {
-    success: jest.fn(),
-    error: jest.fn(),
-  },
-}));
+jest.mock('react-hot-toast', () => {
+  const mockToastFn = jest.fn();
+  mockToastFn.success = jest.fn();
+  mockToastFn.error = jest.fn();
+  mockToastFn.dismiss = jest.fn();
+
+  return {
+    toast: mockToastFn,
+    Toaster: () => <div data-testid="toaster" />,
+  };
+});
 
 describe('SettingsPage Component', () => {
   const mockUser = {

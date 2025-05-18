@@ -11,9 +11,7 @@ import NavigationComponent from "../components/NavigationComponent";
 import InputField from "../components/InputField";
 import PasswordInputField from "../components/PasswordInputField";
 import NavigationDashLeft from "../components/NavigationDashLeft";
-
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-// ← NEW: import updateProfile
 import { getAuth, updateProfile } from "firebase/auth";
 
 const SettingsPage = () => {
@@ -54,7 +52,6 @@ const SettingsPage = () => {
       const token = await user.getIdToken();
       const updates = { uid: user.uid };
 
-      // If a new image was selected, upload it now
       let newPhotoURL;
       if (selectedImageFile) {
         try {
@@ -64,7 +61,6 @@ const SettingsPage = () => {
           newPhotoURL = await getDownloadURL(storageRef);
           updates.photoURL = newPhotoURL;
 
-          // NEW: update Firebase Auth profile immediately
           const auth = getAuth();
           await updateProfile(auth.currentUser, { photoURL: newPhotoURL });
         } catch (err) {
@@ -116,17 +112,14 @@ const SettingsPage = () => {
       }
       if (!res.ok) throw new Error(data.error || "Failed to update profile.");
 
-      //await fetch(...);
       toast.success("Profile updated successfully!");
 
-      // Force Firebase to refresh the user’s profile 
       const auth = getAuth();
 
       if (username && username !== auth.currentUser.displayName) {
         await updateProfile(auth.currentUser, { displayName: username });
       }
 
-      // Update context with the fully refreshed user object
       setUser({
         ...auth.currentUser,
         displayName: username,

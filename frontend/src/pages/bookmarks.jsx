@@ -151,6 +151,7 @@ const BookmarksPage = () => {
                           e.stopPropagation();
                           handleRemoveBookmark(doc.id, doc.fileName);
                         }}
+                        data-testid={'remove-bookmark'}
                       >
                         <i className="material-symbols-outlined">bookmark</i>
                       </button>
