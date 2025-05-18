@@ -50,8 +50,11 @@ const DirectoryBlock = ({
             where("directoryId", "==", currentFolderId)
           );
         } else {
-          // Show all files regardless of directory when on the root
-          fileQuery = query(fileRef, where("uploadedBy", "==", userId));
+          fileQuery = query(
+            fileRef,
+            where("uploadedBy", "==", userId),
+            where("directoryId", "==", "default_directory")
+          );
         }
 
         const [folderSnap, fileSnap] = await Promise.all([
@@ -69,11 +72,18 @@ const DirectoryBlock = ({
         }));
         setFolders(fetchedFolders);
 
-        const fetchedFiles = fileSnap.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-          type: "file",
-        }));
+        const fetchedFiles = fileSnap.docs
+          .map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+            type: "file",
+          }))
+          .filter(
+            (file) =>
+              file.directoryId === currentFolderId ||
+              (!currentFolderId && file.directoryId === "default_directory")
+          );
+
         setFiles(fetchedFiles);
 
         if (showSuccessToast) {
