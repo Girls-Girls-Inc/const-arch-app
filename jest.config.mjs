@@ -1,18 +1,20 @@
+// jest.config.mjs
+
 export default {
   transform: {
     '^.+\\.[jt]sx?$': 'babel-jest',
   },
   transformIgnorePatterns: [
     'node_modules/(?!firebase/)', // Keep this to avoid issues with Firebase
-    '\\.css$', // Ignore CSS files during transformation
+    '\\.(css)$',             // Ignore CSS files during transformation
   ],
   testEnvironment: 'jsdom',
   moduleDirectories: ['node_modules', 'frontend/src'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleNameMapper: {
-    '\\.css$': 'identity-obj-proxy',
+    '\\.(css)$': 'identity-obj-proxy',
     // map the relative "../../db" import inside backend/controllers → backend/db.js
-    '^\\.\\.\\/\\.\\.\\/db$': '<rootDir>/backend/db.js',
+    '^\.\.\\/\.\.\\/db$': '<rootDir>/backend/db.js',
   },
   verbose: true,
 
@@ -35,4 +37,9 @@ export default {
       statements: 60,
     },
   },
+
+  // Adjusted: remove '.js' since it's inferred
+  extensionsToTreatAsEsm: ['.jsx'],
+  // Jest infers .js as ESM if your package.json has "type": "module"
+  moduleFileExtensions: ['js','jsx','json','node'],
 };
