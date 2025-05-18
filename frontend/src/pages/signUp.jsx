@@ -191,7 +191,7 @@ export default function SignUp() {
           <PasswordInputField
             placeholder="Password"
             value={password}
-            onChange={handlePasswordChange} // Use the new handler
+            onChange={handlePasswordChange}
             required
           />
 

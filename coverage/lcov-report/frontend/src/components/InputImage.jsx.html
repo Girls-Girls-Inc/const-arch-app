@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/17</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>21/21</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -137,35 +137,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -184,7 +182,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -204,34 +204,34 @@ import { useUser } from "../context/userContext";
 import "../index.css";
 &nbsp;
 // Extracted function
-export function handleFileChange(e, canUpload, onImageUpload, setPreviewURL) {
-  if (!canUpload) return;
+export function <span class="fstat-no" title="function not covered" >handleFileChange(</span>e, canUpload, onImageUpload, setPreviewURL) {
+<span class="cstat-no" title="statement not covered" >  if (!canUpload) <span class="cstat-no" title="statement not covered" >return;</span></span>
 &nbsp;
-  const file = e.target.files[0];
-  if (!file) return;
+  const file = <span class="cstat-no" title="statement not covered" >e.target.files[0];</span>
+<span class="cstat-no" title="statement not covered" >  if (!file) <span class="cstat-no" title="statement not covered" >return;</span></span>
 &nbsp;
-  const tempURL = URL.createObjectURL(file);
-  setPreviewURL(tempURL);
-  onImageUpload &amp;&amp; onImageUpload(file);
+  const tempURL = <span class="cstat-no" title="statement not covered" >URL.createObjectURL(file);</span>
+<span class="cstat-no" title="statement not covered" >  setPreviewURL(tempURL);</span>
+<span class="cstat-no" title="statement not covered" >  onImageUpload &amp;&amp; onImageUpload(file);</span>
 }
 &nbsp;
-export default function InputImage({ canUpload = true, onImageUpload }) {
-  const { user } = useUser();
-  const defaultImage = "/assets/logo.png";
+export default function <span class="fstat-no" title="function not covered" >InputImage(</span>{ canUpload = <span class="branch-0 cbranch-no" title="branch not covered" >true,</span> onImageUpload }) {
+  const { user } = <span class="cstat-no" title="statement not covered" >useUser();</span>
+  const defaultImage = <span class="cstat-no" title="statement not covered" >"/assets/logo.png";</span>
 &nbsp;
-  const [previewURL, setPreviewURL] = useState(user?.photoURL || defaultImage);
+  const [previewURL, setPreviewURL] = <span class="cstat-no" title="statement not covered" >useState(user?.photoURL || defaultImage);</span>
 &nbsp;
-  const formattedDate = user?.metadata?.creationTime
+  const formattedDate = <span class="cstat-no" title="statement not covered" >user?.metadata?.creationTime</span>
     ? new Date(user.metadata.creationTime)
         .toLocaleDateString("en-US", { month: "short", year: "numeric" })
-        .replace(/\d{4}$/, (year) =&gt; `'${year.slice(-2)}`)
+        .replace(/\d{4}$/, <span class="fstat-no" title="function not covered" >(y</span>ear) =&gt; <span class="cstat-no" title="statement not covered" >`'${year.slice(-2)}`)</span>
     : "N/A";
 &nbsp;
-  useEffect(() =&gt; {
-    setPreviewURL(user?.photoURL || defaultImage);
+<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    setPreviewURL(user?.photoURL || defaultImage);</span>
   }, [user]);
 &nbsp;
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;section className="profile-picture-wrapper" data-testid="input-image-section"&gt;
       &lt;label
         htmlFor={canUpload ? "profile-upload" : undefined}
@@ -252,7 +252,7 @@ export default function InputImage({ canUpload = true, onImageUpload }) {
           type="file"
           accept="image/*"
           style={{ display: "none" }}
-          onChange={(e) =&gt; handleFileChange(e, canUpload, onImageUpload, setPreviewURL)}
+          onChange={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >handleFileChange(e, canUpload, onImageUpload, setPreviewURL)}</span>
           data-testid="file-input"
         /&gt;
       )}
@@ -274,11 +274,7 @@ export default function InputImage({ canUpload = true, onImageUpload }) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-<<<<<<< HEAD
-                at 2025-05-17T20:57:07.439Z
-=======
-                at 2025-05-17T19:11:22.157Z
->>>>>>> 91596c61bedce45536056cd76374f1ee7a544ff9
+                at 2025-05-17T22:31:47.356Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

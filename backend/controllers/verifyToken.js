@@ -1,5 +1,5 @@
 // backend/controllers/verifyToken.js
-const { admin } = require("../../db");
+const { admin } = require("../db");
 
 const verifyToken = async (req, res, next) => {
   const authHeader = req.headers.authorization;

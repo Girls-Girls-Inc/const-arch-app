@@ -5,10 +5,17 @@ import { MemoryRouter } from 'react-router-dom';
 import { UserProvider } from '../context/userContext';
 import { signUpWithEmail, withProvider } from '../Firebase/authorisation';
 import { useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
 
 jest.mock("../Firebase/authorisation", () => ({
   withProvider: jest.fn(),
   signUpWithEmail: jest.fn(),
+}));
+
+jest.mock("firebase/firestore", () => ({
+  getFirestore: jest.fn(),
+  setDoc: jest.fn().mockResolvedValue(),
+  doc: jest.fn(() => "mockDocRef"),
 }));
 
 jest.mock('react-router-dom', () => ({
@@ -39,6 +46,10 @@ describe('Sign Up Page', () => {
       );
     });
   });
+
+  afterEach(()=>{
+    jest.clearAllMocks();
+  })
 
   it('renders form fields and sign-up button, and navigates to dashboard on successful signup', async () => {
     const nameInput = screen.getByPlaceholderText(/name/i);
@@ -73,12 +84,13 @@ describe('Sign Up Page', () => {
     const passwordInput = screen.getByPlaceholderText(/password/i);
 
     await act(async () => {
-      fireEvent.change(passwordInput, { target: { value: '123' } });
+      fireEvent.change(passwordInput, { target: { value: ' ' } });
     });
 
     await waitFor(() => expect(screen.getByText(/Password must have at least 6 characters./i)).toBeInTheDocument());
     await waitFor(() => expect(screen.getByText(/Password must have at least one letter./i)).toBeInTheDocument());
     await waitFor(() => expect(screen.getByText(/Password must have at least one special character./i)).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText(/Password must have at least one number./i)).toBeInTheDocument());
   });
 
   it('shows error toast on signup failure', async () => {
@@ -116,7 +128,30 @@ describe('Sign Up Page', () => {
     });
 
     expect(withProvider).toHaveBeenCalledTimes(1);
-    expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+    await waitFor(() => {
+      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+    });
+  });
+
+  it('shows error toast on Google sign-up failure', async () => {
+    const errorMessage = 'Google popup closed';
+    withProvider.mockRejectedValueOnce(new Error(errorMessage));
+
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
+
+    const googleButton = screen.getByRole('button', { name: /google/i });
+    expect(googleButton).toBeInTheDocument();
+
+    await act(async () => {
+      fireEvent.click(googleButton);
+    });
+
+    expect(withProvider).toHaveBeenCalledTimes(1);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Google Sign-up error:", errorMessage
+    );
+
+    consoleErrorSpy.mockRestore();
   });
 
   it('renders a link to sign in page', () => {

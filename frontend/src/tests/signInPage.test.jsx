@@ -15,7 +15,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { getAuth, GoogleAuthProvider, setPersistence } from "firebase/auth";
 
-
 jest.mock("../Firebase/authorisation", () => ({
   withProvider: jest.fn(),
   signInWithEmail: jest.fn(),
