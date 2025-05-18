@@ -5,11 +5,16 @@ import DropzoneComponent from "./Dropzone";
 import { toast } from "react-hot-toast";
 import { storage, auth, db } from "../../Firebase/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-// import Upload from "../../../../backend/models/upload";
+import {
+  getDocs,
+  query,
+  where,
+  collection,
+  addDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 import axios from "axios";
-const HOST_URL = process.env.VITE_API_HOST_URL || "http://localhost:4000";
-
+const HOST_URL = process.env.VITE_API_HOST_URL || "http://localhost:4001";
 class Upload {
   constructor(
     id,
@@ -37,7 +42,6 @@ class Upload {
     this.updatedAt = updatedAt;
   }
 }
-
 const FileUploadModal = ({
   showModal,
   handleClose,
@@ -49,6 +53,8 @@ const FileUploadModal = ({
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
   const [filteredTags, setFilteredTags] = useState([]);
+  const [folderOptions, setFolderOptions] = useState([]);
+  const [selectedFolder, setSelectedFolder] = useState("");
 
   const availableTags = [
     "legal",
@@ -63,78 +69,85 @@ const FileUploadModal = ({
   ];
 
   useEffect(() => {
+    const fetchUserFolders = async () => {
+      const userId = auth.currentUser?.email;
+      if (!userId) return;
+
+      try {
+        const dirRef = collection(db, "directory");
+        const q = query(dirRef, where("createdBy", "==", userId));
+        const snapshot = await getDocs(q);
+
+        const options = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          name: doc.data().name || "Untitled Folder",
+        }));
+
+        setFolderOptions(options);
+      } catch (error) {
+        console.error("Error fetching folders:", error);
+        toast.error("Failed to load folders");
+      }
+    };
+
+    if (showModal) fetchUserFolders();
+  }, [showModal]);
+
+  useEffect(() => {
+    setUploadedFile((prev) => ({
+      ...prev,
+      directoryId: selectedFolder,
+    }));
+  }, [selectedFolder, setUploadedFile]);
+
+  useEffect(() => {
     if (!showModal) {
       setTags([]);
       setTagInput("");
       setFilteredTags([]);
       setUploadedFile(null);
       setModalStep(1);
+      setSelectedFolder("");
     }
   }, [showModal, setModalStep, setUploadedFile]);
 
-  const handleNext = () => {
-    if (modalStep < 3) setModalStep(modalStep + 1);
-  };
-
-  const handleBack = () => {
-    if (modalStep > 1) setModalStep(modalStep - 1);
-  };
+  const handleNext = () => modalStep < 3 && setModalStep(modalStep + 1);
+  const handleBack = () => modalStep > 1 && setModalStep(modalStep - 1);
 
   const handleFileChange = (e) => {
     const newName = e.target.value;
-    setUploadedFile((prev) => ({
-      ...prev,
-      customName: newName,
-    }));
+    setUploadedFile((prev) => ({ ...prev, customName: newName }));
   };
 
   const handlePreview = () => {
-    if (!uploadedFile?.file) {
-      toast.error("No file to preview!");
-      return;
-    }
+    if (!uploadedFile?.file) return toast.error("No file to preview!");
     const fileURL = URL.createObjectURL(uploadedFile.file);
-
     const newTab = window.open(fileURL, "_blank");
-    if (newTab) {
-      newTab.focus();
-    } else {
-      toast.error("Unable to open the file in a new tab.");
-    }
+    newTab ? newTab.focus() : toast.error("Unable to open the file.");
   };
 
   const handleUpload = async () => {
-    if (!uploadedFile?.file) {
-      toast.error("No file selected for upload.");
-      return;
-    }
+    if (!uploadedFile?.file) return toast.error("No file selected for upload.");
 
     const file = uploadedFile.file;
     const customName = uploadedFile.customName || file.name;
     const fileType = file.type;
-    const directory = file.directoryId;
+    const directoryId = uploadedFile.directoryId;
     const uniqueFileName = `${Date.now()}_${customName.replace(/\s+/g, "_")}`;
-    //adding folders for each user
     const uid = auth.currentUser?.uid;
     const storageRef = ref(storage, `${uid}/${directoryId}/${uniqueFileName}`);
-
-    console.log(uniqueFileName);
-    console.log(storageRef);
 
     try {
       const uploadToast = toast.loading("Uploading file...");
 
-      // Upload file
       const snapshot = await uploadBytes(storageRef, file);
       const fileURL = await getDownloadURL(snapshot.ref);
-
-      console.log(fileURL);
 
       const newUpload = new Upload(
         uniqueFileName,
         customName,
         fileURL,
-        directory,
+        directoryId,
         auth.currentUser?.email || "anonymous",
         fileType,
         tags,
@@ -144,25 +157,9 @@ const FileUploadModal = ({
         serverTimestamp()
       );
 
-      // Firestore
-      const response = await axios.post(`${HOST_URL}/api/upload`, {
-        id: newUpload.id,
-        fileName: newUpload.fileName,
-        filePath: newUpload.filePath,
-        directoryId: newUpload.directoryId,
-        uploadedBy: newUpload.uploadedBy,
-        fileType: newUpload.fileType,
-        tags: newUpload.tags,
-        uploadDate: newUpload.uploadDate,
-        visibility: newUpload.visibility,
-        bookmarkCount: newUpload.bookmarkCount,
-        updatedAt: newUpload.updatedAt,
-      });
+      await axios.post(`${HOST_URL}/api/upload`, { ...newUpload });
 
-      console.log(response.status);
-      console.log(response.data);
-
-      toast.dismiss();
+      toast.dismiss(uploadToast);
       toast.success("File uploaded successfully!", { duration: 2000 });
       handleClose();
     } catch (error) {
@@ -175,25 +172,20 @@ const FileUploadModal = ({
   const handleTagChange = (e) => {
     const input = e.target.value.toLowerCase();
     setTagInput(input);
-    if (input) {
-      const filtered = availableTags.filter((tag) =>
-        tag.toLowerCase().includes(input)
-      );
-      setFilteredTags(filtered);
-    } else {
-      setFilteredTags([]);
-    }
+    setFilteredTags(
+      input ? availableTags.filter((tag) => tag.includes(input)) : []
+    );
   };
 
   const addTag = (tag) => {
     if (tag && !tags.includes(tag) && tags.length < 5) {
-      setTags((prevTags) => [...prevTags, tag]);
+      setTags((prev) => [...prev, tag]);
       setTagInput("");
       setFilteredTags([]);
-    } else if (tags.length >= 5) {
-      toast.error("You can only add up to 5 tags.");
-    } else if (tags.includes(tag)) {
-      toast.error("Tag already added.");
+    } else {
+      toast.error(
+        tags.includes(tag) ? "Tag already added." : "Only 5 tags allowed."
+      );
     }
   };
 
@@ -203,10 +195,7 @@ const FileUploadModal = ({
 
   useEffect(() => {
     if (modalStep === 3) {
-      setUploadedFile((prev) => ({
-        ...prev,
-        tags: tags, // Include tags when proceeding to step 3
-      }));
+      setUploadedFile((prev) => ({ ...prev, tags }));
     }
   }, [tags, modalStep, setUploadedFile]);
 
@@ -228,15 +217,14 @@ const FileUploadModal = ({
                 modalStep === step ? "bg-custom-secondary" : "bg-custom-blank"
               }`}
               style={{ width: 15, height: 15 }}
-            ></span>
+            />
           ))}
         </div>
 
         <div className="d-flex flex-column justify-content-center text-center h-100">
           {modalStep === 1 && (
             <>
-              <h4 className="text-uppercase mb-4">Upload File</h4>{" "}
-              {/* Heading for Step 1 */}
+              <h4 className="text-uppercase mb-4">Upload File</h4>
               <DropzoneComponent
                 setUploadedFile={setUploadedFile}
                 uploadedFile={uploadedFile}
@@ -247,6 +235,23 @@ const FileUploadModal = ({
           {modalStep === 2 && (
             <>
               <h4 className="text-uppercase mb-4">Add Metadata</h4>
+
+              {/* Folder Selector */}
+              <div className="w-100 mb-3">
+                <label className="form-label">Select Folder</label>
+                <select
+                  className="form-select"
+                  value={selectedFolder}
+                  onChange={(e) => setSelectedFolder(e.target.value)}
+                >
+                  <option value="">-- Choose Folder --</option>
+                  {folderOptions.map((folder) => (
+                    <option key={folder.id} value={folder.id}>
+                      {folder.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
               <div className="w-100 mb-3">
                 <label className="form-label">File Name</label>
@@ -266,7 +271,7 @@ const FileUploadModal = ({
                 <input
                   type="text"
                   value={tagInput}
-                  onChange={(e) => setTagInput(e.target.value)}
+                  onChange={handleTagChange}
                   placeholder="Type and press Enter"
                   className="form-control"
                   onKeyDown={(e) => {
@@ -281,11 +286,11 @@ const FileUploadModal = ({
               <div className="w-100">
                 <label className="form-label">Suggested Tags</label>
                 <div className="d-flex flex-wrap">
-                  {availableTags.map((tag, index) => {
+                  {availableTags.map((tag) => {
                     const isSelected = tags.includes(tag);
                     return (
                       <span
-                        key={index}
+                        key={tag}
                         onClick={() =>
                           isSelected ? removeTag(tag) : addTag(tag)
                         }
@@ -312,9 +317,9 @@ const FileUploadModal = ({
                 <div className="mt-3">
                   <p className="mb-1">Selected Tags:</p>
                   <div className="d-flex flex-wrap">
-                    {tags.map((tag, index) => (
+                    {tags.map((tag) => (
                       <span
-                        key={index}
+                        key={tag}
                         onClick={() => removeTag(tag)}
                         className="badge bg-secondary m-1"
                         style={{
@@ -337,21 +342,28 @@ const FileUploadModal = ({
 
           {modalStep === 3 && (
             <>
-              <h4 className="text-uppercase mb-4">View Details</h4>{" "}
+              <h4 className="text-uppercase mb-4">View Details</h4>
               <p>
-                Ready to upload:{" "}
+                File:{" "}
                 <strong>
                   {uploadedFile?.customName ||
                     uploadedFile?.file?.name ||
                     "No file selected"}
                 </strong>
               </p>
+              <p>
+                Folder:{" "}
+                <strong>
+                  {folderOptions.find((f) => f.id === selectedFolder)?.name ||
+                    "No folder selected"}
+                </strong>
+              </p>
               <div className="d-flex flex-column">
                 <p>Tags:</p>
                 <div className="d-flex flex-wrap">
-                  {tags.map((tag, index) => (
+                  {tags.map((tag) => (
                     <span
-                      key={index}
+                      key={tag}
                       className="badge bg-custom-secondary m-1"
                       style={{
                         padding: "0.4rem 0.8rem",
@@ -363,6 +375,7 @@ const FileUploadModal = ({
                   ))}
                 </div>
               </div>
+
               <div className="d-flex justify-content-center mt-3 w-1/2">
                 <IconButton
                   icon="check"

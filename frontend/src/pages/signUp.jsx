@@ -127,7 +127,7 @@ export default function SignUp() {
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
     setPassword(newPassword);
-    validatePassword(newPassword); // Validate password as the user types
+    validatePassword(newPassword);
   };
 
   useEffect(() => {
@@ -191,7 +191,7 @@ export default function SignUp() {
           <PasswordInputField
             placeholder="Password"
             value={password}
-            onChange={handlePasswordChange} // Use the new handler
+            onChange={handlePasswordChange}
             required
           />
 

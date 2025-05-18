@@ -1,5 +1,9 @@
 const express = require("express");
-const { addUpload, deleteUpload, handleSearch } = require("../controllers/uploadController");
+const {
+  addUpload,
+  deleteUpload,
+  handleSearch,
+} = require("../controllers/uploadController");
 
 const router = express.Router();
 
