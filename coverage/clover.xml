@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1747644005522" clover="3.2.0">
-  <project timestamp="1747644005522" name="All files">
-    <metrics statements="1084" coveredstatements="872" conditionals="507" coveredconditionals="335" methods="229" coveredmethods="168" elements="1820" coveredelements="1375" complexity="0" loc="1084" ncloc="1084" packages="8" files="45" classes="45"/>
+<coverage generated="1747645181627" clover="3.2.0">
+  <project timestamp="1747645181627" name="All files">
+    <metrics statements="1084" coveredstatements="905" conditionals="507" coveredconditionals="354" methods="229" coveredmethods="179" elements="1820" coveredelements="1438" complexity="0" loc="1084" ncloc="1084" packages="8" files="45" classes="45"/>
     <package name="backend">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="db.js" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\backend\db.js">
@@ -432,7 +432,7 @@
       </file>
     </package>
     <package name="frontend.src.components.DirectoryComponents">
-      <metrics statements="214" coveredstatements="98" conditionals="145" coveredconditionals="58" methods="63" coveredmethods="26"/>
+      <metrics statements="214" coveredstatements="131" conditionals="145" coveredconditionals="77" methods="63" coveredmethods="37"/>
       <file name="CreateFolderModal.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\components\DirectoryComponents\CreateFolderModal.jsx">
         <metrics statements="41" coveredstatements="36" conditionals="24" coveredconditionals="16" methods="9" coveredmethods="6"/>
         <line num="16" count="2" type="stmt"/>
@@ -478,59 +478,59 @@
         <line num="115" count="0" type="stmt"/>
       </file>
       <file name="DirectoryBlock.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\components\DirectoryComponents\DirectoryBlock.jsx">
-        <metrics statements="52" coveredstatements="14" conditionals="32" coveredconditionals="4" methods="15" coveredmethods="3"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="13" count="7" type="stmt"/>
-        <line num="14" count="7" type="stmt"/>
-        <line num="16" count="7" type="stmt"/>
-        <line num="18" count="5" type="stmt"/>
-        <line num="19" count="5" type="cond" truecount="1" falsecount="1"/>
+        <metrics statements="52" coveredstatements="47" conditionals="32" coveredconditionals="23" methods="15" coveredmethods="14"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="13" count="16" type="stmt"/>
+        <line num="14" count="16" type="stmt"/>
+        <line num="16" count="16" type="stmt"/>
+        <line num="18" count="11" type="stmt"/>
+        <line num="19" count="11" type="cond" truecount="2" falsecount="0"/>
         <line num="20" count="5" type="stmt"/>
         <line num="21" count="5" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
+        <line num="25" count="6" type="stmt"/>
         <line num="26" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="33" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="46" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="65" count="0" type="stmt"/>
-        <line num="66" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="68" count="0" type="stmt"/>
-        <line num="73" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="76" count="0" type="stmt"/>
-        <line num="83" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="87" count="0" type="stmt"/>
-        <line num="89" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="90" count="0" type="stmt"/>
+        <line num="29" count="6" type="stmt"/>
+        <line num="30" count="6" type="stmt"/>
+        <line num="31" count="6" type="stmt"/>
+        <line num="33" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="46" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="53" count="5" type="stmt"/>
+        <line num="60" count="6" type="stmt"/>
+        <line num="65" count="6" type="stmt"/>
+        <line num="66" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="68" count="6" type="stmt"/>
+        <line num="73" count="6" type="stmt"/>
+        <line num="75" count="6" type="stmt"/>
+        <line num="76" count="6" type="stmt"/>
+        <line num="83" count="6" type="cond" truecount="3" falsecount="0"/>
+        <line num="87" count="6" type="stmt"/>
+        <line num="89" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="90" count="1" type="stmt"/>
         <line num="93" count="0" type="stmt"/>
         <line num="94" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="96" count="0" type="stmt"/>
         <line num="97" count="0" type="stmt"/>
-        <line num="103" count="7" type="stmt"/>
-        <line num="104" count="5" type="stmt"/>
-        <line num="107" count="7" type="stmt"/>
-        <line num="108" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="112" count="0" type="stmt"/>
-        <line num="114" count="0" type="stmt"/>
-        <line num="117" count="7" type="stmt"/>
-        <line num="118" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="119" count="0" type="stmt"/>
-        <line num="120" count="0" type="stmt"/>
-        <line num="121" count="0" type="stmt"/>
-        <line num="122" count="0" type="stmt"/>
-        <line num="123" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="126" count="7" type="stmt"/>
-        <line num="127" count="0" type="stmt"/>
-        <line num="130" count="7" type="stmt"/>
-        <line num="142" count="0" type="stmt"/>
-        <line num="150" count="0" type="stmt"/>
-        <line num="152" count="0" type="stmt"/>
-        <line num="161" count="0" type="stmt"/>
+        <line num="103" count="16" type="stmt"/>
+        <line num="104" count="10" type="stmt"/>
+        <line num="107" count="16" type="stmt"/>
+        <line num="108" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="112" count="1" type="stmt"/>
+        <line num="114" count="1" type="stmt"/>
+        <line num="117" count="16" type="stmt"/>
+        <line num="118" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="119" count="1" type="stmt"/>
+        <line num="120" count="1" type="stmt"/>
+        <line num="121" count="1" type="stmt"/>
+        <line num="122" count="1" type="stmt"/>
+        <line num="123" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="126" count="16" type="stmt"/>
+        <line num="127" count="1" type="stmt"/>
+        <line num="130" count="16" type="stmt"/>
+        <line num="142" count="1" type="stmt"/>
+        <line num="150" count="4" type="stmt"/>
+        <line num="152" count="1" type="stmt"/>
+        <line num="161" count="4" type="stmt"/>
       </file>
       <file name="Dropzone.jsx" path="C:\Users\dhava\OneDrive\Desktop\SD Project\const-arch-app\frontend\src\components\DirectoryComponents\Dropzone.jsx">
         <metrics statements="13" coveredstatements="13" conditionals="16" coveredconditionals="10" methods="5" coveredmethods="5"/>
