@@ -30,7 +30,10 @@ export default function InputImage({ canUpload = true, onImageUpload }) {
   }, [user]);
 
   return (
-    <section className="profile-picture-wrapper" data-testid="input-image-section">
+    <section
+      className="profile-picture-wrapper"
+      data-testid="input-image-section"
+    >
       <label
         htmlFor={canUpload ? "profile-upload" : undefined}
         className={canUpload ? "cursor-pointer" : ""}
@@ -50,12 +53,17 @@ export default function InputImage({ canUpload = true, onImageUpload }) {
           type="file"
           accept="image/*"
           style={{ display: "none" }}
-          onChange={(e) => handleFileChange(e, canUpload, onImageUpload, setPreviewURL)}
+          onChange={(e) =>
+            handleFileChange(e, canUpload, onImageUpload, setPreviewURL)
+          }
           data-testid="file-input"
         />
       )}
 
-      <h1 className="text-3xl font-bold mb-1 text-center" data-testid="welcome-text">
+      <h1
+        className="text-3xl font-bold mb-1 text-center"
+        data-testid="welcome-text"
+      >
         Welcome, {user?.displayName || "User"}
       </h1>
 

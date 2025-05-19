@@ -453,7 +453,8 @@ a {
 .directory-subhead {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
 }
 
 .directory-nav {
@@ -461,11 +462,6 @@ a {
   flex-direction: row;
   align-items: center;
   padding: 0.5rem 0rem;
-}
-
-.upload-buttons {
-  display: flex;
-  flex-direction: row;
 }
 
 .dashboard-container {
@@ -998,4 +994,87 @@ a {
 .btn-outline-primary:hover {
   background-color: var(--south-africa-blue) !important;
   color: white !important;
+}
+.folders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.folder-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  border-radius: 12px;
+  border: #333 solid 1px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  text-align: center;
+}
+
+.folder-item:hover {
+  background-color: #e0e4e7;
+  transform: translateY(-2px);
+}
+
+.folder-item .material-symbols-outlined {
+  font-size: 32px;
+  color: var(--south-africa-blue);
+  margin-bottom: 8px;
+}
+
+.folder-item span:last-child {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  word-break: break-word;
+}
+
+.file-item {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  border-radius: 12px;
+  border: #333 solid 1px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  text-align: center;
+}
+
+.file-item:hover {
+  background-color: #e0e4e7;
+  transform: translateY(-2px);
+}
+
+.file-item .material-symbols-outlined {
+  font-size: 32px;
+  color: var(--south-africa-yellow);
+  margin-bottom: 8px;
+}
+
+.file-item span:last-child {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  word-break: break-word;
+}
+
+.breadcrumb-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.bnav-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

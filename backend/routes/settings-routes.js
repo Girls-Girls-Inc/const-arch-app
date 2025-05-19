@@ -6,5 +6,5 @@ const settingsRoutes = express.Router();
 settingsRoutes.use('/settings', router);
 
 module.exports = {
-    routes: settingsRoutes
+  routes: settingsRoutes,
 };

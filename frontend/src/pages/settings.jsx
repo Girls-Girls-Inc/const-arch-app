@@ -12,6 +12,7 @@ import InputField from "../components/InputField";
 import PasswordInputField from "../components/PasswordInputField";
 import NavigationDashLeft from "../components/NavigationDashLeft";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 import { getAuth, updateProfile } from "firebase/auth";
 
 const SettingsPage = () => {
@@ -145,8 +146,8 @@ const SettingsPage = () => {
         <section className="dashboard-container-righty">
           <main className="dashboard-details">
             <h2 className="dashboard-title">Settings</h2>
-            <InputImage 
-              canUpload={true} 
+            <InputImage
+              canUpload={true}
               onImageUpload={(file) => setSelectedImageFile(file)}
             />
 

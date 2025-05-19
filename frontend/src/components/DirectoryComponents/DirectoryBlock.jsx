@@ -1,50 +1,175 @@
-import React, { useState, useEffect } from "react";
-import ShowItems from "./ShowItems";
-import { collection, getDocs } from "firebase/firestore";
+import React, { useState, useEffect, useCallback } from "react";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db, auth } from "../../Firebase/firebase";
+import IconButton from "../IconButton";
+import toast from "react-hot-toast";
 
-const DirectoryBlock = () => {
+const DirectoryBlock = ({
+  currentFolderId,
+  setCurrentFolderId,
+  breadcrumb,
+  setBreadcrumb,
+}) => {
   const [folders, setFolders] = useState([]);
   const [files, setFiles] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userId = auth.currentUser?.uid;
-        if (!userId) return;
-
-        const foldersSnapshot = await getDocs(
-          collection(db, "users", userId, "folders")
-        );
-        const fetchedFolders = foldersSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setFolders(
-          fetchedFolders.map(
-            (folder) => folder.name || folder.title || "Untitled Folder"
-          )
-        );
-        const filesSnapshot = await getDocs(
-          collection(db, "users", userId, "files")
-        );
-        const fetchedFiles = filesSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setFiles(fetchedFiles.map((file) => file.fileName || "Untitled File"));
-      } catch (error) {
-        console.error("Error fetching folders or files:", error);
+  const fetchData = useCallback(
+    async (showSuccessToast = false) => {
+      const userId = auth.currentUser?.email;
+      if (!userId) {
+        console.log("No user logged in");
+        return;
       }
-    };
 
+      let loadingToastId;
+      const toastTimer = setTimeout(() => {
+        loadingToastId = toast.loading("Loading directory...");
+      }, 1000);
+
+      try {
+        const dirRef = collection(db, "directory");
+        const fileRef = collection(db, "upload");
+
+        const folderQuery = currentFolderId
+          ? query(
+              dirRef,
+              where("createdBy", "==", userId),
+              where("parentId", "==", currentFolderId)
+            )
+          : query(
+              dirRef,
+              where("createdBy", "==", userId),
+              where("parentId", "==", null)
+            );
+
+        let fileQuery;
+        if (currentFolderId) {
+          fileQuery = query(
+            fileRef,
+            where("uploadedBy", "==", userId),
+            where("directoryId", "==", currentFolderId)
+          );
+        } else {
+          fileQuery = query(
+            fileRef,
+            where("uploadedBy", "==", userId),
+            where("directoryId", "==", "default_directory")
+          );
+        }
+
+        const [folderSnap, fileSnap] = await Promise.all([
+          getDocs(folderQuery),
+          getDocs(fileQuery),
+        ]);
+
+        clearTimeout(toastTimer);
+        if (loadingToastId) toast.dismiss(loadingToastId);
+
+        const fetchedFolders = folderSnap.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+          type: "folder",
+        }));
+        setFolders(fetchedFolders);
+
+        const fetchedFiles = fileSnap.docs
+          .map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+            type: "file",
+          }))
+          .filter(
+            (file) =>
+              file.directoryId === currentFolderId ||
+              (!currentFolderId && file.directoryId === "default_directory")
+          );
+
+        setFiles(fetchedFiles);
+
+        if (showSuccessToast) {
+          toast.success("Directory refreshed!");
+        }
+      } catch (error) {
+        clearTimeout(toastTimer);
+        if (loadingToastId) toast.dismiss(loadingToastId);
+
+        console.error("Error loading directory:", error);
+        toast.error("Failed to load directory.");
+      }
+    },
+    [currentFolderId]
+  );
+
+  useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
+
+  const handleFolderClick = (folder) => {
+    if (
+      breadcrumb.length === 0 ||
+      breadcrumb[breadcrumb.length - 1].id !== folder.id
+    ) {
+      setBreadcrumb((prev) => [...prev, { id: folder.id, name: folder.name }]);
+    }
+    setCurrentFolderId(folder.id);
+  };
+
+  const handleGoBack = () => {
+    if (breadcrumb.length === 0) return;
+    const updated = [...breadcrumb];
+    updated.pop();
+    const last = updated[updated.length - 1];
+    setBreadcrumb(updated);
+    setCurrentFolderId(last ? last.id : null);
+  };
+
+  const handleRefresh = () => {
+    fetchData(true);
+  };
 
   return (
-    <div className="col-md-12 w-100">
-      <ShowItems title="Created folders" items={folders} />
-      <ShowItems title="Created files" items={files} />
+    <div className="folder-list">
+      <div className="breadcrumb-nav">
+        <div className="bnav-left">
+          <IconButton
+            icon="arrow_back"
+            label="Back"
+            onClick={handleGoBack}
+            disabled={breadcrumb.length === 0}
+            className={breadcrumb.length === 0 ? "disabled-back-button" : ""}
+          />
+          {breadcrumb.length > 0 && (
+            <span>/ {breadcrumb.map((b) => b.name).join(" / ")}</span>
+          )}
+        </div>
+        <IconButton icon="refresh" onClick={handleRefresh} />
+      </div>
+
+      <div className="folders-grid">
+        {folders.map((folder) => (
+          <div
+            key={folder.id}
+            onClick={() => handleFolderClick(folder)}
+            className="folder-item"
+          >
+            <span className="material-symbols-outlined">folder</span>
+            <span>{folder.name || "Untitled Folder"}</span>
+          </div>
+        ))}
+
+        {files.map((file) => (
+          <a
+            key={file.id}
+            href={file.filePath}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="file-item"
+          >
+            <span className="material-symbols-outlined">insert_drive_file</span>
+            <span>{file.fileName || "Untitled File"}</span>
+          </a>
+        ))}
+      </div>
     </div>
   );
 };
