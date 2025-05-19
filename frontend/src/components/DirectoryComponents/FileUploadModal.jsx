@@ -15,7 +15,8 @@ import {
 } from "firebase/firestore";
 import axios from "axios";
 
-const HOST_URL = process.env.VITE_API_HOST_URL;
+const HOST_URL = import.meta.env.VITE_API_HOST_URL;
+
 class Upload {
   constructor(
     id,
