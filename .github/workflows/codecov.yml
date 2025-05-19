@@ -1,0 +1,44 @@
+name: Run Tests and Upload Coverage
+
+on:
+  push:
+    branches: [testing]
+  pull_request:
+    branches: [testing]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install all dependencies (root, frontend, backend, firebase)
+        run: |
+          rm -rf node_modules
+          npm install # Install root dependencies
+          cd frontend && npm install # Install frontend dependencies
+          cd backend && npm install # Install backend dependencies
+          npm install firebase # Ensure firebase is installed
+
+      - name: Check Jest binary
+        run: |
+          ls -l node_modules/.bin/jest
+          file node_modules/.bin/jest
+
+      - name: Run tests with coverage
+        run: npx jest --coverage
+        continue-on-error: true
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittests
+          name: coverage-report

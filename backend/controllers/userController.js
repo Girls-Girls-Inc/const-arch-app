@@ -48,7 +48,8 @@ const updateUser = async (req, res) => {
         }
 
         await userRef.update(updates);
-        res.status(200).send(`User with ID ${userId} updated successfully (PATCH).`);
+        //res.status(200).send(`User with ID ${userId} updated successfully (PATCH).`);
+        res.status(200).json({ message: `User with ID ${userId} updated successfully.` });
     } catch (error) {
         console.error('Error updating user:', error.message);
         res.status(500).send('Error updating user: ' + error.message);

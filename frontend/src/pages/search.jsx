@@ -4,7 +4,15 @@ import NavigationDashLeft from "../components/NavigationDashLeft";
 import IconButton from "../components/IconButton";
 import InputField from "../components/InputField";
 import "../index.css";
-import { collection, getDocs } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
 import { db } from "../Firebase/firebase";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -18,12 +26,6 @@ const SearchPage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedTag, setSelectedTag] = useState("");
   const [showTagFilter, setShowTagFilter] = useState(false);
-
-  useEffect(() => {
-    if (!loading && !user) {
-      navigate("/signIn");
-    }
-  }, [user, navigate]);
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -74,6 +76,54 @@ const SearchPage = () => {
       month: "short",
       day: "numeric",
     });
+  };
+
+  const handleBookmark = async (docId, docName) => {
+    if (!user) {
+      toast.error("You must be signed in to bookmark.");
+      return;
+    }
+
+    try {
+      const bookmarkRef = doc(db, "bookmark", user.uid);
+      const bookmarkSnap = await getDoc(bookmarkRef);
+
+      if (bookmarkSnap.exists()) {
+        await updateDoc(bookmarkRef, {
+          documentIds: arrayUnion(docId),
+        });
+      } else {
+        await setDoc(bookmarkRef, {
+          documentIds: [docId],
+        });
+      }
+
+      toast.success(`Bookmarked "${docName}"`);
+    } catch (error) {
+      console.error("Error bookmarking document:", error);
+      toast.error("Failed to bookmark document.");
+    }
+
+    const handleSearchAPI = async () => {
+      try {
+        const res = await fetch(
+          "https://constitutionalarchive-f4cugbeydxd8gshz.brazilsouth-01.azurewebsites.net/search",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ query: searchQuery }),
+          }
+        );
+
+        const data = await res.json();
+        setDocuments(data.results || []);
+      } catch (err) {
+        console.error("Search API error:", err);
+        toast.error("Failed to fetch search results.");
+      }
+    };
   };
 
   return (
@@ -157,13 +207,9 @@ const SearchPage = () => {
                       </div>
                       <button
                         className="bookmark-doc"
-                        style={{
-                          borderColor: "#777",
-                          color: "#007847",
-                        }}
                         onClick={(e) => {
                           e.stopPropagation();
-                          toast.success(`Bookmarked "${doc.fileName}"`);
+                          handleBookmark(doc.id, doc.fileName);
                         }}
                       >
                         <i className="material-symbols-outlined">bookmark</i>

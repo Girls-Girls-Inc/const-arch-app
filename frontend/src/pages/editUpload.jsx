@@ -19,12 +19,6 @@ function EditUpload() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!loading && !user) {
-      navigate("/signIn");
-    }
-  }, [user, navigate]);
-
-  useEffect(() => {
     if (!id) {
       toast.error("No upload ID provided");
       setLoading(false);
@@ -42,7 +36,6 @@ function EditUpload() {
           setUpload({
             ...data,
             id: docSnap.id,
-            // Handle server timestamp
             updatedAt: data.updatedAt?.toDate?.() || null,
           });
           toast.success("Upload loaded successfully");
@@ -100,6 +93,11 @@ function EditUpload() {
                 <UploadDetails upload={upload} />
               </div>
               <div className="card-footer">
+                <IconButton
+                  icon="edit"
+                  label="Edit Details"
+                  route={`/editDetails/${upload.id}`}
+                />
                 <IconButton
                   icon="arrow_back"
                   label="Back to Uploads"

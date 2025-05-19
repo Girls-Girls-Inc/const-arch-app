@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import "../index.css";
+import { Toaster } from "react-hot-toast";
 
 export default function Home() {
   useEffect(() => {
@@ -13,6 +14,7 @@ export default function Home() {
   }, []);
   return (
     <main>
+      <Toaster position="top-right" />
       <div className="home-container">
         <h2 className="form-title">Constitutional Archive App</h2>
 
@@ -21,14 +23,13 @@ export default function Home() {
         </div>
         <div>
           <p>
-            We are currently in development.<br></br>
-            Links to current Pages:
+            Welcome to Constitutional Archive App<br></br>
           </p>
           <br></br>
-          <Link className="btn_ca" to="/signIn">
+          <Link className="btn_ca" to="/signin">
             Sign In
           </Link>
-          <Link className="btn_ca" to="/signUp">
+          <Link className="btn_ca" to="/signup">
             Sign Up
           </Link>
         </div>

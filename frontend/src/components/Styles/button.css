@@ -39,3 +39,9 @@
     font-size: 1.2rem;
   }
 }
+
+.disabled-back-button {
+  opacity: 0.5;
+  cursor: default;
+  filter: grayscale(100%);
+}

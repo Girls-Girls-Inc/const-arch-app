@@ -8,7 +8,9 @@ const IconButton = ({
   label,
   onClick,
   type = "button",
-  target = null, // Changed default to null instead of "_blank"
+  target = null,
+  disabled = false,
+  className = "",
 }) => {
   const buttonContent = (
     <>
@@ -17,10 +19,15 @@ const IconButton = ({
     </>
   );
 
-  // Render as <button> if onClick exists or if the type is "submit"
   if (onClick || type === "submit") {
     return (
-      <button className="icon-button" onClick={onClick} type={type}>
+      <button
+        className={`icon-button ${className}`}
+        onClick={onClick}
+        type={type}
+        disabled={disabled}
+        style={disabled ? { pointerEvents: "none" } : undefined}
+      >
         {buttonContent}
       </button>
     );
@@ -29,8 +36,11 @@ const IconButton = ({
   return (
     <Link
       to={route}
-      className="icon-button"
-      target={target} // Only added if target is provided
+      className={`icon-button ${className}`}
+      target={target}
+      aria-disabled={disabled ? "true" : "false"}
+      tabIndex={disabled ? -1 : 0}
+      onClick={disabled ? (e) => e.preventDefault() : undefined}
     >
       {buttonContent}
     </Link>

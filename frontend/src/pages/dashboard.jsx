@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { useUser } from "../context/userContext";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -15,12 +16,6 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    if (!loading && !user) {
-      navigate("/signIn");
-    }
-  }, [user, loading, navigate]);
-
   if (loading) return <p className="loading-message">Loading...</p>;
   if (!user) return null;
 
@@ -28,11 +23,10 @@ const Dashboard = () => {
     <main>
       <NavigationComponent />
       <section className="dashboard-container">
-        {/* Sidebar only visible on md and up */}
         <NavigationDashLeft />
         <section className="dashboard-container-righty">
           <main className="dashboard-details">
-            <InputImage />
+            <InputImage canUpload={false} />
             <section className="dashboard-details-profile">
               <article>
                 <h3 className="detail-label">
@@ -40,25 +34,13 @@ const Dashboard = () => {
                 </h3>
                 <p className="detail-text">{user.displayName}</p>
               </article>
-              <article>
-                <h3 className="detail-label">
-                  <i className="material-symbols-outlined">call</i> Phone number
-                </h3>
-                <p className="detail-text">{user.phone || "Not provided"}</p>
-              </article>
+
               <article>
                 <h3 className="detail-label">
                   <i className="material-symbols-outlined">mail</i> Email
                   address
                 </h3>
                 <p className="detail-text">{user.email}</p>
-              </article>
-              <article>
-                <h3 className="detail-label">
-                  <i className="material-symbols-outlined">home</i> Physical
-                  address
-                </h3>
-                <p className="detail-muted">No address</p>
               </article>
             </section>
           </main>

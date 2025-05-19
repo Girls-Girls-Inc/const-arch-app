@@ -9,3 +9,5 @@ class User {
         this.profileComplete = profileComplete;
     }
 }
+
+export default User;

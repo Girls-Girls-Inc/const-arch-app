@@ -1,5 +1,6 @@
+import React from "react";
 import { useState, useEffect } from "react";
-import { googleProvider, facebookProvider } from "../Firebase/firebase";
+import { googleProvider } from "../Firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/userContext";
 import ThemeSwitch from "../components/ThemeSwitch";
@@ -39,7 +40,7 @@ export default function SignUp() {
         id: user.uid,
         name: name,
         email: user.email,
-        isAdmin: false, // explicitly boolean
+        isAdmin: false,
         photoURL: user.photoURL || "",
         signUpDate: new Date(),
         profileComplete: false,
@@ -91,17 +92,6 @@ export default function SignUp() {
     }
   };
 
-  const handleFacebookSignUp = async () => {
-    try {
-      const user = await withProvider(facebookProvider);
-      setUser(user);
-      navigate("/dashboard");
-    } catch (error) {
-      toast.error("Facebook Sign-up failed. Please try again.");
-      console.error("Facebook Sign-up error:", error.message);
-    }
-  };
-
   const validatePassword = (password) => {
     const errors = [];
 
@@ -120,13 +110,13 @@ export default function SignUp() {
 
     setPasswordErrors(errors);
 
-    toast.dismiss(); // Always dismiss old toasts before adding new ones
+    toast.dismiss();
 
     if (errors.length > 0) {
       errors.forEach((error, index) => {
-        toast.error(`Password must have ${error}`, {
+        toast.error(`Password must have ${error}.`, {
           id: `password-error-${index}`,
-          duration: 3000, // Toast disappears after 3 seconds
+          duration: 3000,
         });
       });
     }
@@ -137,7 +127,7 @@ export default function SignUp() {
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
     setPassword(newPassword);
-    validatePassword(newPassword); // Validate password as the user types
+    validatePassword(newPassword);
   };
 
   useEffect(() => {
@@ -174,14 +164,6 @@ export default function SignUp() {
             />
             Google
           </button>
-          <button onClick={handleFacebookSignUp} className="social-button">
-            <img
-              src="/icons/facebook.svg"
-              alt="Facebook Icon"
-              className="social-icon"
-            />
-            Facebook
-          </button>
         </div>
         <p className="seperator">
           <span>or</span>
@@ -209,7 +191,7 @@ export default function SignUp() {
           <PasswordInputField
             placeholder="Password"
             value={password}
-            onChange={handlePasswordChange} // Use the new handler
+            onChange={handlePasswordChange}
             required
           />
 

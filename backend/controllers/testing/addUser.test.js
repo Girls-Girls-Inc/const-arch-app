@@ -71,7 +71,7 @@ describe('POST /addUser', () => {
 
     const user = {
       id: 'test-user-id',
-      name: 'Test User',
+      name: '',
       email: 'test@example.com',
       photoURL: '',
     };

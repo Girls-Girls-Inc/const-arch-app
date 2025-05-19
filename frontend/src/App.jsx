@@ -1,4 +1,3 @@
-// frontend/src/App.jsx
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
@@ -14,6 +13,7 @@ import EmailLinkHandler from "./pages/EmailLinkHandler";
 import SearchPage from "./pages/search";
 import ManageUploads from "./pages/manageUploads";
 import EditUpload from "./pages/editUpload";
+import EditUploadDetails from "./pages/editDetails";
 
 const App = () => {
   return (
@@ -31,6 +31,7 @@ const App = () => {
       <Route path="/verify-link" element={<EmailLinkHandler />} />
       <Route path="/manageUploads" element={<ManageUploads />} />
       <Route path="/editUpload/:id" element={<EditUpload />} />
+      <Route path="/editDetails/:id" element={<EditUploadDetails />} />
       {/* Add other routes here */}
     </Routes>
   );
