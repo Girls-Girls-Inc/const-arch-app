@@ -24,7 +24,7 @@ const BookmarksPage = () => {
 
   useEffect(() => {
     if (!user) {
-      return null;
+      navigate("/");
     } else {
       const fetchBookmarks = async () => {
         const toastId = toast.loading("Loading bookmarks...");
@@ -151,6 +151,7 @@ const BookmarksPage = () => {
                           e.stopPropagation();
                           handleRemoveBookmark(doc.id, doc.fileName);
                         }}
+                        data-testid={'remove-bookmark'}
                       >
                         <i className="material-symbols-outlined">bookmark</i>
                       </button>

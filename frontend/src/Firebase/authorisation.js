@@ -48,7 +48,6 @@ export async function signUpWithEmail(email, password, name) {
   }
 
   try {
-    // Send user data to backend to create Firestore entry
     const formattedUser = formatUserForBackend(user);
     await axios.post(`${HOST_URL}/api/user`, formattedUser);
     console.log("User saved to Firestore.");
@@ -84,7 +83,6 @@ export async function withProvider(provider) {
 
   if (!userDocSnap.exists()) {
     const formattedUser = formatUserForBackend(user);
-    // await axios.post(`${HOST_URL}/api/user`, formattedUser);
     try {
       await axios.post(`${HOST_URL}/api/user`, formattedUser);
       console.log("OAuth user saved to Firestore.");
@@ -112,24 +110,25 @@ export const handleLogout = async (setUser, navigate) => {
   }
 };
 
-export const forgotPassword = async (email) => {
-  const userAuth = getAuth();
-  try{
-    if (!email){
-      toast.error("Please fill in your email :(",{
-        duration: 4000,
-        position: "top-right",
-      })
-      throw new Error("Email cannot be empty");
-    }
+  export const forgotPassword = async (email) => {
+    const userAuth = getAuth();
+    try{
+      if (!email){
+        toast.error("Please fill in your email :(",{
+          duration: 4000,
+          position: "top-right",
+        })
+        throw new Error("Email cannot be empty");
+      }
 
-    await sendPasswordResetEmail(userAuth, email)
-    console.log("Email Sent.");
-    toast.success("Successfully send email: Check your Inbox!", {
-      duration: 4000,
-      position: "top-right",    
-    });
-  } catch (error) {
-    console.error("Error sending email:", error);
-  }
+      await sendPasswordResetEmail(userAuth, email)
+      console.log("Email Sent.");
+      toast.success("Successfully send email: Check your Inbox!", {
+        duration: 4000,
+        position: "top-right",    
+      });
+    } catch (error) {
+      console.error("Error sending email:", error);
+      throw error;
+    }
 }

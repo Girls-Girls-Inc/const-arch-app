@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/15</span>
+                <span class='fraction'>14/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.5% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/16</span>
+                <span class='fraction'>10/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.23% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/13</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -160,28 +160,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -189,8 +181,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -199,9 +190,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -263,10 +263,10 @@ const Dropzone = ({ setUploadedFile, uploadedFile }) =&gt; {
   }, [file]);
 &nbsp;
   const onDrop = useCallback(
-<span class="fstat-no" title="function not covered" >    (a</span>cceptedFiles) =&gt; {
-<span class="cstat-no" title="statement not covered" >      if (acceptedFiles.length &gt; 0) {</span>
-        const newFile = <span class="cstat-no" title="statement not covered" >acceptedFiles[0];</span>
-<span class="cstat-no" title="statement not covered" >        setFile({</span>
+    (acceptedFiles) =&gt; {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (acceptedFiles.length &gt; 0) {
+        const newFile = acceptedFiles[0];
+        setFile({
           file: newFile,
           name: newFile.name,
           type: newFile.type,
@@ -274,7 +274,7 @@ const Dropzone = ({ setUploadedFile, uploadedFile }) =&gt; {
           isImage: newFile.type.startsWith("image/"),
         });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        setUploadedFile({</span>
+        setUploadedFile({
           file: newFile,
           customName: newFile.name,
         });
@@ -292,7 +292,7 @@ const Dropzone = ({ setUploadedFile, uploadedFile }) =&gt; {
     },
   });
 &nbsp;
-  const removeFile = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setFile(null);</span>
+  const removeFile = () =&gt; setFile(null);
 &nbsp;
   return (
     &lt;div className="dropzone-form container mt-4"&gt;
@@ -300,7 +300,7 @@ const Dropzone = ({ setUploadedFile, uploadedFile }) =&gt; {
         {...getRootProps()}
         className={`dropzone-container ${isDragActive ? <span class="branch-0 cbranch-no" title="branch not covered" >"active" </span>: ""}`}
       &gt;
-        &lt;input {...getInputProps()} /&gt;
+        &lt;input {...getInputProps()} data-testid={"dropzone-input"}/&gt;
         {isDragActive ? (
 <span class="branch-0 cbranch-no" title="branch not covered" >          &lt;div className="dropzone-content"&gt;</span>
             &lt;i className="material-symbols-outlined fs-1"&gt;drag_pan&lt;/i&gt;
@@ -316,14 +316,14 @@ const Dropzone = ({ setUploadedFile, uploadedFile }) =&gt; {
       &lt;/div&gt;
 &nbsp;
       {file &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;div className="shadow-sm mt-3 d-flex align-items-center justify-content-between p-3 bg-light rounded"&gt;</span>
+        &lt;div className="shadow-sm mt-3 d-flex align-items-center justify-content-between p-3 bg-light rounded"&gt;
           &lt;div className="d-flex align-items-center"&gt;
             &lt;i
               className={`material-symbols-outlined me-3 fs-2 ${
-                file.isImage ? "text-primary" : "text-secondary"
+                file.isImage ? <span class="branch-0 cbranch-no" title="branch not covered" >"text-primary" </span>: "text-secondary"
               }`}
             &gt;
-              {file.isImage ? "image" : "description"}
+              {file.isImage ? <span class="branch-0 cbranch-no" title="branch not covered" >"image" </span>: "description"}
             &lt;/i&gt;
             &lt;div&gt;
               &lt;div className="text-dark fw-medium"&gt;{file.name}&lt;/div&gt;
@@ -349,7 +349,7 @@ export default Dropzone;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-15T13:54:44.176Z
+                at 2025-05-19T08:59:41.443Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

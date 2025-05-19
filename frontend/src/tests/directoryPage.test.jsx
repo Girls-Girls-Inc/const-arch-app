@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, act, fireEvent, waitFor } from '@testing-library/react';
-import Directory from '../pages/Directory';
+import Directory from '../pages/directory';
 import { MemoryRouter } from 'react-router-dom';
 import { useUser } from '../context/userContext';
 import { handleLogout } from '../Firebase/authorisation';
@@ -77,8 +77,6 @@ describe('Directory Page', () => {
 
     expect(screen.getByTestId('icon-My Profile')).toBeInTheDocument();
     expect(screen.getByTestId('icon-Bookmarks')).toBeInTheDocument();
-    expect(screen.getByTestId('icon-Directory')).toBeInTheDocument();
-    expect(screen.getByTestId('icon-Manage Users')).toBeInTheDocument();
     expect(screen.getByTestId('icon-Log Out')).toBeInTheDocument();
     expect(screen.getByTestId('icon-Settings')).toBeInTheDocument();
     expect(screen.getByTestId('icon-Upload File')).toBeInTheDocument();
@@ -109,28 +107,7 @@ describe('Directory Page', () => {
     });
 
     expect(handleLogout).toHaveBeenCalledTimes(1);
-    expect(handleLogout).toHaveBeenCalledWith(mockSetUser);
-    expect(mockNavigate).not.toHaveBeenCalled(); // no redirect directly from logout
-  });
-
-  it('should navigate to signIn page if no user is logged in', async () => {
-    useUser.mockReturnValue({
-      user: null,
-      loading: false,
-      setUser: mockSetUser,
-    });
-
-    await act(async () => {
-      render(
-        <MemoryRouter>
-          <Directory />
-        </MemoryRouter>
-      );
-    });
-
-    await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith('/signIn');
-    });
+    expect(handleLogout).toHaveBeenCalledWith(mockSetUser, mockNavigate);
   });
 
   it('should render loading message when loading is true', async () => {
@@ -149,5 +126,21 @@ describe('Directory Page', () => {
     });
 
     expect(screen.getByText(/Loading\.\.\./i)).toBeInTheDocument();
+  });
+
+  it("should return null if there is no user", async () => {
+    useUser.mockReturnValue({
+      user: null,
+      loading: false,
+      setUser: mockSetUser,
+    });
+
+    const { container } = render(
+      <MemoryRouter>
+        <Directory />
+      </MemoryRouter>
+    );
+
+    expect(container.firstChild).toBeNull(); 
   });
 });

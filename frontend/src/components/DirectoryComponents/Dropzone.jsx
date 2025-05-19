@@ -49,7 +49,7 @@ const Dropzone = ({ setUploadedFile, uploadedFile }) => {
         {...getRootProps()}
         className={`dropzone-container ${isDragActive ? "active" : ""}`}
       >
-        <input {...getInputProps()} />
+        <input {...getInputProps()} data-testid={"dropzone-input"}/>
         {isDragActive ? (
           <div className="dropzone-content">
             <i className="material-symbols-outlined fs-1">drag_pan</i>

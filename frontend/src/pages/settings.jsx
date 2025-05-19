@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { useUser } from "../context/userContext";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +11,6 @@ import NavigationComponent from "../components/NavigationComponent";
 import InputField from "../components/InputField";
 import PasswordInputField from "../components/PasswordInputField";
 import NavigationDashLeft from "../components/NavigationDashLeft";
-
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { getAuth, updateProfile } from "firebase/auth";
@@ -94,7 +94,7 @@ const SettingsPage = () => {
 
       console.log("Sending update request with payload:", updates);
 
-      const HOST_URL = import.meta.env.VITE_API_HOST_URL;
+      const HOST_URL = process.env.VITE_API_HOST_URL;
       const res = await fetch(`${HOST_URL}/api/user/${user.uid}`, {
         method: "PATCH",
         headers: {

@@ -2,7 +2,6 @@ jest.mock('firebase/auth', () => ({
   signInWithEmailAndPassword: jest.fn(),
   getAuth: jest.fn(() => ({})),
   GoogleAuthProvider: jest.fn().mockImplementation(() => ({})),
-  FacebookAuthProvider: jest.fn().mockImplementation(() => ({})),
 }));
 
 import { signInWithEmail } from '../authorisation'; 

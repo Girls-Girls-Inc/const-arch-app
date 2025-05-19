@@ -19,12 +19,12 @@ describe('Home Page', () => {
   it('renders the Sign In link with correct href', () => {
     const signInLink = screen.getByRole('link', { name: /sign in/i });
     expect(signInLink).toBeInTheDocument();
-    expect(signInLink).toHaveAttribute('href', '/signIn');
+    expect(signInLink).toHaveAttribute('href', '/signin');
   });
 
   it('renders the Sign Up link with correct href', () => {
     const signUpLink = screen.getByRole('link', { name: /sign up/i });
     expect(signUpLink).toBeInTheDocument();
-    expect(signUpLink).toHaveAttribute('href', '/signUp');
+    expect(signUpLink).toHaveAttribute('href', '/signup');
   });
 });

@@ -2,7 +2,7 @@ if (typeof setImmediate === "undefined") {
     global.setImmediate = (fn, ...args) => setTimeout(fn, 0, ...args);
 }
 
-const { addBookmark } = require("../bookmarkController");
+const { addBookmark, removeBookmark} = require("../bookmarkController");
 
 const mockSet = jest.fn();
 const mockDoc = jest.fn(() => ({ set: mockSet }));

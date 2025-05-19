@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">88.88% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>8/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
@@ -116,20 +116,7 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -143,27 +130,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,17 +188,16 @@ const Dashboard = () =&gt; {
   const [menuOpen, setMenuOpen] = useState(false);
 &nbsp;
   if (loading) return &lt;p className="loading-message"&gt;Loading...&lt;/p&gt;;
-  if (!user) return null;
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!user) <span class="cstat-no" title="statement not covered" >return null;</span>
 &nbsp;
   return (
     &lt;main&gt;
       &lt;NavigationComponent /&gt;
       &lt;section className="dashboard-container"&gt;
-        {/* Sidebar only visible on md and up */}
         &lt;NavigationDashLeft /&gt;
         &lt;section className="dashboard-container-righty"&gt;
           &lt;main className="dashboard-details"&gt;
-            &lt;InputImage canUpload={false}/&gt;
+            &lt;InputImage canUpload={false} /&gt;
             &lt;section className="dashboard-details-profile"&gt;
               &lt;article&gt;
                 &lt;h3 className="detail-label"&gt;
@@ -232,25 +205,13 @@ const Dashboard = () =&gt; {
                 &lt;/h3&gt;
                 &lt;p className="detail-text"&gt;{user.displayName}&lt;/p&gt;
               &lt;/article&gt;
-              &lt;article&gt;
-                &lt;h3 className="detail-label"&gt;
-                  &lt;i className="material-symbols-outlined"&gt;call&lt;/i&gt; Phone number
-                &lt;/h3&gt;
-                &lt;p className="detail-text"&gt;{user.phone || "Not provided"}&lt;/p&gt;
-              &lt;/article&gt;
+&nbsp;
               &lt;article&gt;
                 &lt;h3 className="detail-label"&gt;
                   &lt;i className="material-symbols-outlined"&gt;mail&lt;/i&gt; Email
                   address
                 &lt;/h3&gt;
                 &lt;p className="detail-text"&gt;{user.email}&lt;/p&gt;
-              &lt;/article&gt;
-              &lt;article&gt;
-                &lt;h3 className="detail-label"&gt;
-                  &lt;i className="material-symbols-outlined"&gt;home&lt;/i&gt; Physical
-                  address
-                &lt;/h3&gt;
-                &lt;p className="detail-muted"&gt;No address&lt;/p&gt;
               &lt;/article&gt;
             &lt;/section&gt;
           &lt;/main&gt;
@@ -268,7 +229,7 @@ export default Dashboard;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-15T13:54:44.176Z
+                at 2025-05-19T08:59:41.443Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

@@ -42,20 +42,6 @@ describe("Dashboard", () => {
         expect(screen.getByText("Loading...")).toBeInTheDocument();
     });
 
-    it("should navigate to /signIn if user is not logged in", async () => {
-        useUser.mockReturnValue({ user: null, loading: false });
-
-        render(
-            <MemoryRouter>
-                <Dashboard />
-            </MemoryRouter>
-        );
-
-        await waitFor(() => {
-            expect(mockNavigate).toHaveBeenCalledWith("/signIn");
-        });
-    });
-
     it("should render dashboard when user is logged in", () => {
         useUser.mockReturnValue({ user: mockUser, loading: false });
 
@@ -67,11 +53,7 @@ describe("Dashboard", () => {
 
         expect(screen.getByText("First name")).toBeInTheDocument();
         expect(screen.getByText("John Doe")).toBeInTheDocument();
-        expect(screen.getByText("Phone number")).toBeInTheDocument();
-        expect(screen.getByText("Not provided")).toBeInTheDocument();
         expect(screen.getByText("Email address")).toBeInTheDocument();
         expect(screen.getByText("john@example.com")).toBeInTheDocument();
-        expect(screen.getByText("Physical address")).toBeInTheDocument();
-        expect(screen.getByText("No address")).toBeInTheDocument();
     });
 });

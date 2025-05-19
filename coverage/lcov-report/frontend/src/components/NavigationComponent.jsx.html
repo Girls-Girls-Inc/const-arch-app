@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
@@ -117,7 +117,15 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -125,18 +133,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">31x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -181,13 +197,11 @@ import { useNavigate } from "react-router-dom";
 &nbsp;
 const NavigationComponent = () =&gt; {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { setUser } = useUser();
+  const { user, setUser, isAdmin } = useUser();
   const navigate = useNavigate();
 &nbsp;
   return (
     &lt;&gt;
-      {/* Mobile Menu Button */}
-&nbsp;
       &lt;button
         className="hamburger-btn_ca d-md-none"
         onClick={() =&gt; setMenuOpen((prev) =&gt; !prev)}
@@ -195,7 +209,6 @@ const NavigationComponent = () =&gt; {
         ☰
       &lt;/button&gt;
 &nbsp;
-      {/* Mobile Dropdown Menu */}
       {menuOpen &amp;&amp; (
         &lt;div className="mobile-dropdown-nav d-md-none"&gt;
           &lt;IconButton
@@ -203,15 +216,26 @@ const NavigationComponent = () =&gt; {
             label="My Profile"
             route="/dashboard"
           /&gt;
-          &lt;IconButton icon={"search"} label="Search" route="/search" /&gt;
+          &lt;IconButton icon="search" label="Search" route="/search" /&gt;
           &lt;IconButton icon="bookmark" label="Bookmarks" route="/bookmarks" /&gt;
-          &lt;IconButton icon="folder" label="Directory" route="/directory" /&gt;
-          &lt;IconButton icon="group" label="Manage Users" route="/manageUsers" /&gt;
-          &lt;IconButton
-            icon={"upload_file"}
-            label="Manage uploads"
-            route="/manageUploads"
-          /&gt;
+&nbsp;
+          {isAdmin &amp;&amp; (
+            &lt;&gt;
+              {console.log("admin user!!")};
+              &lt;IconButton icon="folder" label="Directory" route="/directory" /&gt;
+              &lt;IconButton
+                icon="group"
+                label="Manage Users"
+                route="/manageUsers"
+              /&gt;
+              &lt;IconButton
+                icon="upload_file"
+                label="Manage uploads"
+                route="/manageUploads"
+              /&gt;
+            &lt;/&gt;
+          )}
+&nbsp;
           &lt;IconButton
             onClick={() =&gt; handleLogout(setUser, navigate)}
             icon="logout"
@@ -232,7 +256,7 @@ export default NavigationComponent;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-15T13:54:44.176Z
+                at 2025-05-19T08:59:41.443Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
