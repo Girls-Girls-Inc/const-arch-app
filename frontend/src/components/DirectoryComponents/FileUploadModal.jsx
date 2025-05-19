@@ -14,7 +14,8 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import axios from "axios";
-const HOST_URL = process.env.VITE_API_HOST_URL || "http://localhost:4001";
+
+const HOST_URL = process.env.VITE_API_HOST_URL;
 class Upload {
   constructor(
     id,
