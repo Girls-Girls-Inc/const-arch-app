@@ -1,7 +1,9 @@
-// backend/db.js
 const admin = require('firebase-admin');
 
-const serviceAccount = process.env.SERVICE_ACCOUNT_KEY;
+const serviceAccountBase64 = process.env.SERVICE_ACCOUNT_KEY_BASE64;
+
+// Decode base64 and parse JSON
+const serviceAccount = JSON.parse(Buffer.from(serviceAccountBase64, 'base64').toString('utf-8'));
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
