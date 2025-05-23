@@ -7,7 +7,11 @@ import {
 } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
-const firebaseConfig = import.meta.env.VITE_FIREBASE_API_KEY;
+const firebaseConfig = {
+  import.meta.env.VITE_FIREBASE_API_KEY,
+  // other config values
+};
+
 
 const app = initializeApp(firebaseConfig);
 
