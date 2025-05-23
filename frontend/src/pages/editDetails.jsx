@@ -12,17 +12,20 @@ import IconButton from "../components/IconButton";
 export default function EditUploadDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [upload, setUpload] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Editable fields
   const [fileName, setFileName] = useState("");
   const [fileType, setFileType] = useState("");
+  const [tags, setTags] = useState("");
+
+  // Read-only fields
   const [uploadedBy, setUploadedBy] = useState("");
   const [uploadDate, setUploadDate] = useState("");
-  const [bookmarkCount, setBookmarkCount] = useState(0);
+  const [bookmarkCount, setBookmarkCount] = useState("");
   const [directoryId, setDirectoryId] = useState("");
-  const [updatedAt, setUpdatedAt] = useState(null);
-  const [visibility, setVisibility] = useState("public");
-  const [tags, setTags] = useState("");
+  const [visibility, setVisibility] = useState("");
 
   useEffect(() => {
     const fetchUpload = async () => {
@@ -31,15 +34,15 @@ export default function EditUploadDetails() {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const data = docSnap.data();
+          setUpload(data);
           setFileName(data.fileName || "");
           setFileType(data.fileType || "");
-          setUploadedBy(data.uploadedBy || "");
-          setUploadDate(data.uploadDate || "");
-          setBookmarkCount(data.bookmarkCount || 0);
-          setDirectoryId(data.directoryId || "");
-          setUpdatedAt(data.updatedAt?.toDate?.() || null);
-          setVisibility(data.visibility || "public");
           setTags((data.tags || []).join(", "));
+          setUploadedBy(data.uploadedBy || "");
+          setUploadDate(new Date(data.uploadDate).toLocaleString());
+          setBookmarkCount(data.bookmarkCount ?? "0");
+          setDirectoryId(data.directoryId || "N/A");
+          setVisibility(data.visibility || "public");
         } else {
           toast.error("Upload not found");
           navigate("/manageUploads");
@@ -61,11 +64,6 @@ export default function EditUploadDetails() {
       await updateDoc(docRef, {
         fileName,
         fileType,
-        uploadedBy,
-        uploadDate,
-        bookmarkCount: Number(bookmarkCount),
-        directoryId,
-        visibility,
         tags: tags.split(",").map((tag) => tag.trim()),
         updatedAt: Timestamp.now(),
       });
@@ -78,11 +76,11 @@ export default function EditUploadDetails() {
 
   if (loading) {
     return (
-      <div className="d-flex justify-content-center align-items-center" style={{ height: "50vh" }}>
-        <div className="spinner-border text-primary" role="status">
+      <section className="d-flex justify-content-center align-items-center" style={{ height: "50vh" }}>
+        <section className="spinner-border text-primary" role="status">
           <span className="visually-hidden">Loading...</span>
-        </div>
-      </div>
+        </section>
+      </section>
     );
   }
 
@@ -90,42 +88,49 @@ export default function EditUploadDetails() {
     <main>
       <Toaster position="top-center" />
       <NavigationComponent />
-      <div className="dashboard-container">
+      <section className="dashboard-container">
         <NavigationDashLeft />
         <section className="dashboard-container-righty">
-          <div className="dashboard-details">
+          <article className="dashboard-details">
             <h2 className="right-title">Edit Upload Details</h2>
             <form className="dashboard-details-grid-form" onSubmit={handleUpdate}>
-              <div className="dashboard-details-grid">
-                <InputField id="fileName" label="File Name" value={fileName} onChange={(e) => setFileName(e.target.value)} icon="description" />
-                <InputField id="fileType" label="File Type" value={fileType} onChange={(e) => setFileType(e.target.value)} icon="article" />
-                <InputField id="uploadedBy" label="Uploaded By" value={uploadedBy} onChange={(e) => setUploadedBy(e.target.value)} icon="person" />
-                <InputField id="uploadDate" label="Upload Date" value={uploadDate} onChange={(e) => setUploadDate(e.target.value)} icon="event" />
-                <InputField id="bookmarkCount" label="Bookmark Count" type="number" value={bookmarkCount} onChange={(e) => setBookmarkCount(e.target.value)} icon="bookmark" />
-                <InputField id="directoryId" label="Directory ID" value={directoryId} onChange={(e) => setDirectoryId(e.target.value)} icon="folder" />
-                <InputField id="tags" label="Tags" value={tags} onChange={(e) => setTags(e.target.value)} icon="sell" />
-                <div className="form-group">
-                  <label htmlFor="visibility" className="form-label">Visibility</label>
-                  <select
-                    id="visibility"
-                    name="visibility"
-                    className="form-select"
-                    value={visibility}
-                    onChange={(e) => setVisibility(e.target.value)}
-                  >
-                    <option value="public">Public</option>
-                    <option value="private">Private</option>
-                  </select>
-                </div>
-              </div>
-              <div className="d-flex justify-content-center mt-4 gap-3">
+              <section className="dashboard-details-grid">
+                <InputField
+                  id="fileName"
+                  label="File Name"
+                  value={fileName}
+                  onChange={(e) => setFileName(e.target.value)}
+                  icon="description"
+                />
+                <InputField
+                  id="fileType"
+                  label="File Type"
+                  value={fileType}
+                  onChange={(e) => setFileType(e.target.value)}
+                  icon="article"
+                />
+                <InputField
+                  id="tags"
+                  label="Tags"
+                  value={tags}
+                  onChange={(e) => setTags(e.target.value)}
+                  icon="sell"
+                />
+
+                <p><strong>Uploaded By:</strong> {uploadedBy}</p>
+                <p><strong>Upload Date:</strong> {uploadDate}</p>
+                <p><strong>Bookmark Count:</strong> {bookmarkCount}</p>
+                <p><strong>Directory ID:</strong> {directoryId}</p>
+              </section>
+
+              <footer className="d-flex justify-content-center mt-4 gap-3">
                 <IconButton icon="save" label="Save Changes" type="submit" />
                 <IconButton icon="arrow_back" label="Back to Upload" route={`/editUpload/${id}`} />
-              </div>
+              </footer>
             </form>
-          </div>
+          </article>
         </section>
-      </div>
+      </section>
     </main>
   );
 }

@@ -154,55 +154,65 @@ export default function SignUp() {
             <i className="material-symbols-outlined">arrow_back</i>
           </Link>
         </button>
-        <h2 className="form-title">Sign Up with</h2>
-        <div className="social-login">
-          <button onClick={handleGoogleSignUp} className="social-button">
-            <img
-              src="/icons/google.svg"
-              alt="Google Icon"
-              className="social-icon"
-            />
-            Google
-          </button>
-        </div>
-        <p className="seperator">
-          <span>or</span>
+        <header>
+      <h2 id="signup-heading" className="form-title">Sign Up with</h2>
+    </header>
+
+    <section className="social-login" aria-label="Social Sign Up">
+      <button onClick={handleGoogleSignUp} className="social-button">
+        <img
+          src="/icons/google.svg"
+          alt="Google Icon"
+          className="social-icon"
+        />
+        Google
+      </button>
+    </section>
+
+    <p className="seperator" role="presentation">
+      <span>or</span>
+    </p>
+
+    <form onSubmit={handleSignup} aria-label="Sign Up Form">
+      <fieldset>
+        <legend className="visually-hidden">Create an Account</legend>
+
+        <InputField
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          icon="person"
+          required
+        />
+
+        <InputField
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          icon="mail"
+          required
+        />
+
+        <PasswordInputField
+          placeholder="Password"
+          value={password}
+          onChange={handlePasswordChange}
+          required
+        />
+      </fieldset>
+
+      <button className="login-button" type="submit">
+        Sign Up
+      </button>
+
+      <footer>
+        <p className="signup-text">
+          Already have an account? <Link to="/signin">Login Instead</Link>
         </p>
-
-        <form onSubmit={handleSignup}>
-          <InputField
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            icon="person"
-            required
-          />
-
-          <InputField
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            icon="mail"
-            required
-          />
-
-          <PasswordInputField
-            placeholder="Password"
-            value={password}
-            onChange={handlePasswordChange}
-            required
-          />
-
-          <button className="login-button" type="submit">
-            Sign Up
-          </button>
-
-          <p className="signup-text">
-            Already have an account? <Link to="/signin">Login Instead</Link>
-          </p>
-        </form>
+      </footer>
+    </form>
       </div>
 
       {/* Display toasts */}

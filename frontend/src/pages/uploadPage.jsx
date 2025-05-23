@@ -5,9 +5,9 @@ const UploadPage = () => {
   return (
     <main>
       <h1>Upload Page</h1>
-      <div className="upload-page">
+      <section className="upload-page">
         <Dropzone />
-      </div>
+      </section>
     </main>
   );
 };

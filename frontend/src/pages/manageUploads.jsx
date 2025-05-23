@@ -101,90 +101,92 @@ function ManageUploads() {
     );
 
   if (!isAdmin)
-    return (
-      <div className="alert alert-danger m-4">
-        You do not have permission to view this page.
-      </div>
-    );
-
   return (
-    <main>
-      <Toaster position="top-center" reverseOrder={false} />
-      <NavigationComponent />
-
-      <section className="dashboard-container">
-        <NavigationDashLeft />
-
-        <section className="dashboard-container-righty">
-          <main className="dashboard-details">
-            <h2 className="right-title">Manage Uploads</h2>
-
-            <div
-              className="table-responsive"
-              style={{ maxHeight: "65vh", overflowY: "auto" }}
-            >
-              {uploads.length > 0 ? (
-                <table className="table table-striped table-hover table-borderless w-100 rounded-4 overflow-hidden shadow">
-                  <thead className="thead-dark bg-dark text-white">
-                    <tr>
-                      <th scope="col">Delete</th>
-                      <th scope="col">File Name</th>
-                      <th scope="col">File</th>
-                      <th scope="col">Uploaded By</th>
-                      <th scope="col">Upload Date</th>
-                      <th scope="col">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {uploads.map((upload) => (
-                      <tr key={upload.id}>
-                        <td>
-                          <button
-                            onClick={() => handleDelete(upload.id)}
-                            className="btn btn-danger btn-sm"
-                            title="Delete"
-                          >
-                            <i className="material-symbols-outlined">delete</i>
-                          </button>
-                        </td>
-                        <td>{upload.fileName}</td>
-                        <td>
-                          {upload.filePath ? (
-                            <a
-                              href={upload.filePath}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="btn btn-sm btn-outline-primary"
-                              title="Open file"
-                            >
-                              <i className="material-symbols-outlined">link</i>
-                            </a>
-                          ) : (
-                            <span className="text-muted">No file</span>
-                          )}
-                        </td>
-                        <td>{upload.uploadedBy}</td>
-                        <td>{upload.uploadDate}</td>
-                        <td>
-                          <IconButton
-                            route={`/editUpload/${upload.id}`}
-                            icon="info"
-                            label="Details"
-                          />
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              ) : (
-                <p>No uploads found</p>
-              )}
-            </div>
-          </main>
-        </section>
-      </section>
-    </main>
+    <section role="alert" className="alert alert-danger m-4">
+      You do not have permission to view this page.
+    </section>
   );
+
+return (
+  <main>
+    <Toaster position="top-center" reverseOrder={false} />
+    <NavigationComponent />
+
+    <section className="dashboard-container">
+      <NavigationDashLeft />
+
+      <section className="dashboard-container-righty">
+        <article className="dashboard-details">
+          <header>
+            <h2 className="right-title">Manage Uploads</h2>
+          </header>
+
+          <section
+            className="table-responsive"
+            style={{ maxHeight: "65vh", overflowY: "auto" }}
+          >
+            {uploads.length > 0 ? (
+              <table className="table table-striped table-hover table-borderless w-100 rounded-4 overflow-hidden shadow">
+                <thead className="thead-dark bg-dark text-white">
+                  <tr>
+                    <th scope="col">Delete</th>
+                    <th scope="col">File Name</th>
+                    <th scope="col">File</th>
+                    <th scope="col">Uploaded By</th>
+                    <th scope="col">Upload Date</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {uploads.map((upload) => (
+                    <tr key={upload.id}>
+                      <td>
+                        <button
+                          onClick={() => handleDelete(upload.id)}
+                          className="btn btn-danger btn-sm"
+                          title="Delete"
+                        >
+                          <i className="material-symbols-outlined">delete</i>
+                        </button>
+                      </td>
+                      <td>{upload.fileName}</td>
+                      <td>
+                        {upload.filePath ? (
+                          <a
+                            href={upload.filePath}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn btn-sm btn-outline-primary"
+                            title="Open file"
+                          >
+                            <i className="material-symbols-outlined">link</i>
+                          </a>
+                        ) : (
+                          <span className="text-muted">No file</span>
+                        )}
+                      </td>
+                      <td>{upload.uploadedBy}</td>
+                      <td>{upload.uploadDate}</td>
+                      <td>
+                        <IconButton
+                          route={`/editUpload/${upload.id}`}
+                          icon="info"
+                          label="Details"
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No uploads found</p>
+            )}
+          </section>
+        </article>
+      </section>
+    </section>
+  </main>
+);
 }
 
 export default ManageUploads;

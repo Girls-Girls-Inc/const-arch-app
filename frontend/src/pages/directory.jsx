@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/userContext";
 import "../index.css";
@@ -11,14 +11,12 @@ import DirectoryBlock from "../components/DirectoryComponents/DirectoryBlock";
 import CreateFolderModal from "../components/DirectoryComponents/CreateFolderModal";
 
 const Directory = () => {
-  const { user, loading, setUser } = useUser();
+  const { user, loading } = useUser();
   const navigate = useNavigate();
-  const [menuOpen, setMenuOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalStep, setModalStep] = useState(1);
   const [uploadedFile, setUploadedFile] = useState(null);
   const [showFolderModal, setShowFolderModal] = useState(false);
-
   const [currentFolderId, setCurrentFolderId] = useState(null);
   const [breadcrumb, setBreadcrumb] = useState([]);
 
@@ -45,11 +43,15 @@ const Directory = () => {
 
       <section className="dashboard-container">
         <NavigationDashLeft />
+
         <section className="dashboard-container-righty">
-          <main className="dashboard-details directory-dash">
-            <h2 className="right-title">Directory</h2>
-            <div>
-              <div className="directory-subhead">
+          <article className="dashboard-details directory-dash">
+            <header>
+              <h2 className="right-title">Directory</h2>
+            </header>
+
+            <section aria-label="Directory actions" className="mb-3">
+              <nav className="directory-subhead d-flex gap-3">
                 <IconButton
                   onClick={handleOpenModal}
                   icon="upload_file"
@@ -61,18 +63,18 @@ const Directory = () => {
                   icon="create_new_folder"
                   label="Create Folder"
                 />
-              </div>
+              </nav>
+            </section>
 
-              <div className="folder-container">
-                <DirectoryBlock
-                  currentFolderId={currentFolderId}
-                  setCurrentFolderId={setCurrentFolderId}
-                  breadcrumb={breadcrumb}
-                  setBreadcrumb={setBreadcrumb}
-                />
-              </div>
-            </div>
-          </main>
+            <section aria-label="Folder contents" className="folder-container">
+              <DirectoryBlock
+                currentFolderId={currentFolderId}
+                setCurrentFolderId={setCurrentFolderId}
+                breadcrumb={breadcrumb}
+                setBreadcrumb={setBreadcrumb}
+              />
+            </section>
+          </article>
         </section>
       </section>
 

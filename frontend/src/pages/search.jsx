@@ -126,106 +126,116 @@ const SearchPage = () => {
     };
   };
 
-  return (
-    <main>
-      <Toaster position="top-right" reverseOrder={false} />
-      <NavigationComponent />
-      <section className="dashboard-container">
-        <NavigationDashLeft />
-        <section className="dashboard-container-righty">
-          <main className="dashboard-details w-100">
+return (
+  <main>
+    <Toaster position="top-right" reverseOrder={false} />
+    <NavigationComponent />
+
+    <section className="dashboard-container">
+      <NavigationDashLeft />
+
+      <section className="dashboard-container-righty">
+        <article className="dashboard-details w-100">
+          <header>
             <h2 className="right-title mb-4">Search Documents</h2>
+          </header>
 
-            <div className="search-filter-wrapper d-flex gap-3 align-items-center flex-wrap mb-3">
-              <div className="flex-grow-1">
-                <InputField
-                  id="search-docs"
-                  type="text"
-                  placeholder="Search by file name..."
-                  icon="search"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  required={false}
-                />
-              </div>
-
-              <IconButton
-                icon="filter_alt"
-                label={"Filter"}
-                ariaLabel="Toggle Tag Filter"
-                onClick={() => setShowTagFilter(!showTagFilter)}
+          <form className="search-filter-wrapper d-flex gap-3 align-items-center flex-wrap mb-3" role="search">
+            <div className="flex-grow-1">
+              <InputField
+                id="search-docs"
+                type="text"
+                placeholder="Search by file name..."
+                icon="search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                required={false}
               />
             </div>
 
-            {showTagFilter && (
-              <div className="tag-filter-dropdown mb-4">
-                <select
-                  className="form-select"
-                  value={selectedTag}
-                  onChange={(e) => setSelectedTag(e.target.value)}
-                >
-                  <option value="">All Tags</option>
-                  {uniqueTags.map((tag, idx) => (
-                    <option key={idx} value={tag}>
-                      {tag}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
+            <IconButton
+              icon="filter_alt"
+              label="Filter"
+              ariaLabel="Toggle Tag Filter"
+              onClick={() => setShowTagFilter(!showTagFilter)}
+            />
+          </form>
 
-            {loading ? (
-              <p>Loading documents...</p>
-            ) : filteredDocs.length > 0 ? (
-              <section className="document-list">
-                {filteredDocs.map((doc) => {
-                  const icon = getFileTypeIcon(doc.filePath);
-                  return (
-                    <article
-                      key={doc.id}
-                      className="document-card d-flex align-items-start p-3 mb-3 border rounded shadow-sm"
-                      onClick={() => window.open(doc.filePath, "_blank")}
+          {showTagFilter && (
+            <aside className="tag-filter-dropdown mb-4">
+              <label htmlFor="tag-filter" className="visually-hidden">Filter by tag</label>
+              <select
+                id="tag-filter"
+                className="form-select"
+                value={selectedTag}
+                onChange={(e) => setSelectedTag(e.target.value)}
+              >
+                <option value="">All Tags</option>
+                {uniqueTags.map((tag, idx) => (
+                  <option key={idx} value={tag}>
+                    {tag}
+                  </option>
+                ))}
+              </select>
+            </aside>
+          )}
+
+          {loading ? (
+            <p>Loading documents...</p>
+          ) : filteredDocs.length > 0 ? (
+            <section className="document-list">
+              {filteredDocs.map((doc) => {
+                const icon = getFileTypeIcon(doc.filePath);
+                return (
+                  <article
+                    key={doc.id}
+                    className="document-card d-flex align-items-start p-3 mb-3 border rounded shadow-sm"
+                    onClick={() => window.open(doc.filePath, "_blank")}
+                    role="button"
+                    aria-label={`Open ${doc.fileName}`}
+                  >
+                    <i
+                      className="material-symbols-outlined me-3"
+                      style={{ fontSize: "48px", color: "#007847" }}
                     >
-                      <i
-                        className="material-symbols-outlined me-3"
-                        style={{ fontSize: "48px", color: "#007847" }}
-                      >
-                        {icon}
-                      </i>
-                      <div className="flex-grow-1">
-                        <h5 className="mb-1">{doc.fileName}</h5>
-                        <small className="text-muted">
-                          Date: {formatDate(doc.uploadDate)}
-                        </small>
-                        <div className="d-flex flex-wrap gap-1 mt-2">
-                          {doc.tags?.map((tag, idx) => (
-                            <span key={idx} className="badge bg-secondary">
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                      <button
-                        className="bookmark-doc"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleBookmark(doc.id, doc.fileName);
-                        }}
-                      >
-                        <i className="material-symbols-outlined">bookmark</i>
-                      </button>
-                    </article>
-                  );
-                })}
-              </section>
-            ) : (
-              <p>No documents found.</p>
-            )}
-          </main>
-        </section>
+                      {icon}
+                    </i>
+                    <section className="flex-grow-1">
+                      <h5 className="mb-1">{doc.fileName}</h5>
+                      <small className="text-muted">
+                        Date: {formatDate(doc.uploadDate)}
+                      </small>
+                      <footer className="d-flex flex-wrap gap-1 mt-2">
+                        {doc.tags?.map((tag, idx) => (
+                          <span key={idx} className="badge bg-secondary">
+                            {tag}
+                          </span>
+                        ))}
+                      </footer>
+                    </section>
+                    <button
+                      className="bookmark-doc"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleBookmark(doc.id, doc.fileName);
+                      }}
+                      aria-label={`Bookmark ${doc.fileName}`}
+                    >
+                      <i className="material-symbols-outlined">bookmark</i>
+                    </button>
+                  </article>
+                );
+              })}
+            </section>
+          ) : (
+            <p>No documents found.</p>
+          )}
+        </article>
       </section>
-    </main>
-  );
+    </section>
+  </main>
+);
+
 };
 
 export default SearchPage;
