@@ -8,13 +8,13 @@ import {
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+  apiKey: "AIzaSyC0S4dqBkJWRhRY1FQTxCOFeEtz2F74LSU",
+  authDomain: "girls-girls-inc.firebaseapp.com",
+  projectId: "girls-girls-inc",
+  storageBucket: "girls-girls-inc.firebasestorage.app",
+  messagingSenderId: "717282603854",
+  appId: "1:717282603854:web:2189badddb08917f81e41f",
+  measurementId: "G-9MENT0139W"
 };
 
 const app = initializeApp(firebaseConfig);
