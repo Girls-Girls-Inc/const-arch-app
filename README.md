@@ -21,6 +21,26 @@ git clone git@github.com:Girls-Girls-Inc/const-arch-app.git
 cd const-arch-app
 ```
 
+### Copy the environment file
+Copy `.env`(found in our submission docuementation) - which contains the Service Account Key - into the top level directory.
+
+```
+const-arch-app/
+├── README.md
+├── app.js
+├── babel.config.cjs
+├── backend
+├── coverage
+├── firebase-debug.log
+├── frontend
+├── jest.config.mjs
+├── jest.setup.js
+├── node_modules
+├── .env                  <<<< here
+├── package-lock.json
+└── package.json
+```
+
 ### Start the Server
 
 This command installs all required dependencies and starts the server:
