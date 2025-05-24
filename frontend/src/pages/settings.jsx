@@ -13,9 +13,11 @@ import NavigationDashLeft from "../components/NavigationDashLeft";
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-import { getAuth, updateProfile, EmailAuthProvider,
+import {
+  getAuth, updateProfile, EmailAuthProvider,
   reauthenticateWithCredential,
-  updatePassword, } from "firebase/auth";
+  updatePassword,
+} from "firebase/auth";
 
 const SettingsPage = () => {
   const { user, loading, setUser } = useUser();
@@ -79,11 +81,11 @@ const SettingsPage = () => {
 
       if (email && email !== user.email) updates.email = email;
       if (password && newPassword) {
-          const credential = EmailAuthProvider.credential(user.email, password);
-          const auth = getAuth();
-          await reauthenticateWithCredential(auth.currentUser, credential);
+        const credential = EmailAuthProvider.credential(user.email, password);
+        const auth = getAuth();
+        await reauthenticateWithCredential(auth.currentUser, credential);
 
-          await updatePassword(auth.currentUser, newPassword);
+        await updatePassword(auth.currentUser, newPassword);
       }
 
       const hasProfileChange =
@@ -141,85 +143,85 @@ const SettingsPage = () => {
   if (loading) return <p className="loading-message">Loading...</p>;
 
   return (
-  <main>
-    <Toaster position="top-center" reverseOrder={false} />
-    <NavigationComponent />
+    <main>
+      <Toaster position="top-center" reverseOrder={false} />
+      <NavigationComponent />
 
-    <section className="dashboard-container">
-      <NavigationDashLeft />
+      <section className="dashboard-container">
+        <NavigationDashLeft />
 
-      <section className="dashboard-container-righty">
-        <article className="dashboard-details">
-          <header>
-            <h2 className="right-title">Settings</h2>
-          </header>
+        <section className="dashboard-container-righty">
+          <article className="dashboard-details">
+            <header>
+              <h2 className="right-title">Settings</h2>
+            </header>
 
-          <section aria-label="Profile Picture Upload">
-            <InputImage
-              canUpload={true}
-              onImageUpload={(file) => setSelectedImageFile(file)}
-            />
-          </section>
-
-          <form
-            className="dashboard-details-grid-form"
-            onSubmit={handleSave}
-            aria-label="User Settings Form"
-          >
-            <fieldset className="dashboard-details-grid">
-              <legend className="visually-hidden">Profile Details</legend>
-
-              <InputField
-                id="username"
-                name="username"
-                type="text"
-                placeholder="Enter username"
-                icon="badge"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required={false}
+            <section aria-label="Profile Picture Upload">
+              <InputImage
+                canUpload={true}
+                onImageUpload={(file) => setSelectedImageFile(file)}
               />
-              <InputField
-                id="email"
-                name="email"
-                type="email"
-                placeholder="Enter email"
-                icon="mail"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required={false}
-              />
-              <PasswordInputField
-                id="CurrentPassword"
-                name="CurrentPassword"
-                type="password"
-                placeholder="Current password"
-                icon="lock"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required={false}
-              />
-              <PasswordInputField
-                id="newPassword"
-                name="newPassword"
-                type="password"
-                placeholder="New password"
-                icon="lock_reset"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                required={false}
-              />
-            </fieldset>
+            </section>
 
-            <footer className="d-flex justify-content-center w-100 mt-4">
-              <IconButton icon="check" label="Save Changes" type="submit" />
-            </footer>
-          </form>
-        </article>
+            <form
+              className="dashboard-details-grid-form"
+              onSubmit={handleSave}
+              aria-label="User Settings Form"
+            >
+              <fieldset className="dashboard-details-grid">
+                <legend className="visually-hidden">Profile Details</legend>
+
+                <InputField
+                  id="username"
+                  name="username"
+                  type="text"
+                  placeholder="Enter username"
+                  icon="badge"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required={false}
+                />
+                <InputField
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="Enter email"
+                  icon="mail"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required={false}
+                />
+                <PasswordInputField
+                  id="CurrentPassword"
+                  name="CurrentPassword"
+                  type="password"
+                  placeholder="Current password"
+                  icon="lock"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required={false}
+                />
+                <PasswordInputField
+                  id="newPassword"
+                  name="newPassword"
+                  type="password"
+                  placeholder="New password"
+                  icon="lock_reset"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  required={false}
+                />
+              </fieldset>
+
+              <footer className="d-flex justify-content-center w-100 mt-4">
+                <IconButton icon="check" label="Save Changes" type="submit" />
+              </footer>
+            </form>
+          </article>
+        </section>
       </section>
-    </section>
-  </main>
-);
+    </main>
+  );
 
 };
 
