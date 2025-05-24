@@ -101,71 +101,79 @@ const BookmarksPage = () => {
   };
 
   return (
-    <main>
-      <Toaster position="top-center" reverseOrder={false} />
-      <NavigationComponent />
-      <section className="dashboard-container">
-        <NavigationDashLeft />
-        <section className="dashboard-container-righty">
-          <main className="dashboard-details w-100">
-            <h2 className="right-title mb-4">My Bookmarks</h2>
+  <main>
+    <Toaster position="top-center" reverseOrder={false} />
+    <NavigationComponent />
 
-            {loading ? (
-              <p>Loading bookmarks...</p>
-            ) : documents.length > 0 ? (
-              <section className="document-list">
-                {documents.map((doc) => {
-                  const icon = getFileTypeIcon(doc.filePath);
-                  return (
-                    <article
-                      key={doc.id}
-                      className="document-card d-flex align-items-start p-3 mb-3 border rounded shadow-sm"
-                      onClick={() => window.open(doc.filePath, "_blank")}
+    <section className="dashboard-container">
+      <NavigationDashLeft />
+
+      <section className="dashboard-container-righty">
+        <article className="dashboard-details w-100">
+          <header>
+            <h2 className="right-title mb-4">My Bookmarks</h2>
+          </header>
+
+          {loading ? (
+            <p>Loading bookmarks...</p>
+          ) : documents.length > 0 ? (
+            <section className="document-list">
+              {documents.map((doc) => {
+                const icon = getFileTypeIcon(doc.filePath);
+                return (
+                  <article
+                    key={doc.id}
+                    className="document-card d-flex align-items-start p-3 mb-3 border rounded shadow-sm"
+                    onClick={() => window.open(doc.filePath, "_blank")}
+                  >
+                    <span
+                      className="material-symbols-outlined me-3"
+                      style={{ fontSize: "48px", color: "#007847" }}
+                      aria-hidden="true"
                     >
-                      <i
-                        className="material-symbols-outlined me-3"
-                        style={{ fontSize: "48px", color: "#007847" }}
-                      >
-                        {icon}
-                      </i>
-                      <div className="flex-grow-1">
-                        <h5 className="mb-1">{doc.fileName}</h5>
-                        <small className="text-muted">
-                          Date: {formatDate(doc.uploadDate)}
-                        </small>
-                        <div className="d-flex flex-wrap gap-1 mt-2">
-                          {doc.tags?.map((tag, idx) => (
-                            <span key={idx} className="badge bg-secondary">
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
+                      {icon}
+                    </span>
+
+                    <section className="flex-grow-1">
+                      <h5 className="mb-1">{doc.fileName}</h5>
+                      <small className="text-muted">
+                        Date: {formatDate(doc.uploadDate)}
+                      </small>
+                      <footer className="d-flex flex-wrap gap-1 mt-2">
+                        {doc.tags?.map((tag, idx) => (
+                          <span key={idx} className="badge bg-secondary">
+                            {tag}
+                          </span>
+                        ))}
+                      </footer>
+                    </section>
+
+                    <aside>
                       <button
                         className="bookmark-doc"
-                        style={{
-                          borderColor: "#777",
-                          color: "red",
-                        }}
+                        style={{ borderColor: "#777", color: "red" }}
                         onClick={(e) => {
                           e.stopPropagation();
                           handleRemoveBookmark(doc.id, doc.fileName);
                         }}
+                        aria-label={`Remove bookmark for ${doc.fileName}`}
                       >
                         <i className="material-symbols-outlined">bookmark</i>
                       </button>
-                    </article>
-                  );
-                })}
-              </section>
-            ) : (
-              <p>No bookmarks found.</p>
-            )}
-          </main>
-        </section>
+                    </aside>
+                  </article>
+                );
+              })}
+            </section>
+          ) : (
+            <p>No bookmarks found.</p>
+          )}
+        </article>
       </section>
-    </main>
-  );
+    </section>
+  </main>
+);
+
 };
 
 export default BookmarksPage;

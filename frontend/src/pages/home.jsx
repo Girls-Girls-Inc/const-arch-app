@@ -1,39 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 import "../index.css";
 import { Toaster } from "react-hot-toast";
 
 export default function Home() {
   useEffect(() => {
     document.body.classList.add("home-page");
-
     return () => {
       document.body.classList.remove("home-page");
     };
   }, []);
+
   return (
     <main>
       <Toaster position="top-right" />
-      <div className="home-container">
-        <h2 className="form-title">Constitutional Archive App</h2>
 
-        <div className="welcome-image-container">
+      <section className="home-container">
+        <header>
+          <h2 className="form-title">Ink & Parchment Archive</h2>
+        </header>
+
+        <figure className="welcome-image-container">
           <img src="/assets/logo.png" alt="Logo" className="welcome-image" />
-        </div>
-        <div>
+        </figure>
+
+        <section aria-label="Welcome Message and Actions">
           <p>
-            Welcome to Constitutional Archive App<br></br>
+            Welcome to Ink And Parchment
+            <br />
           </p>
-          <br></br>
-          <Link className="btn_ca" to="/signin">
-            Sign In
-          </Link>
-          <Link className="btn_ca" to="/signup">
-            Sign Up
-          </Link>
-        </div>
-      </div>
+
+          <nav className="mt-3">
+            <Link className="btn_ca" to="/signin">
+              Sign In
+            </Link>
+            <Link className="btn_ca" to="/signup">
+              Sign Up
+            </Link>
+          </nav>
+        </section>
+      </section>
     </main>
   );
 }

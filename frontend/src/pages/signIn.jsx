@@ -81,7 +81,8 @@ export default function SigninPage() {
         </button>
 
         <h2 className="form-title">Login with</h2>
-        <div className="social-login">
+
+        <section className="social-login" aria-label="Social Login">
           <button onClick={handleGoogleSignIn} className="social-button">
             <img
               src="/icons/google.svg"
@@ -90,42 +91,60 @@ export default function SigninPage() {
             />
             Google
           </button>
-        </div>
-        <p className="seperator">
+        </section>
+
+        <p className="seperator" role="presentation">
           <span>or</span>
         </p>
-        <form onSubmit={LoginButton} className="login-form">
-          <InputField
-            id="sign-up-email"
-            type="email"
-            placeholder="Email Address"
-            icon="mail"
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <PasswordInputField
-            id="sign-up-password"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+
+        <form onSubmit={LoginButton} className="login-form" aria-label="Email Login Form">
+          <fieldset>
+            <legend className="visually-hidden">Login Credentials</legend>
+
+            <InputField
+              id="sign-up-email"
+              type="email"
+              placeholder="Email Address"
+              icon="mail"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+
+            <PasswordInputField
+              id="sign-up-password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </fieldset>
 
           {errorMsg && (
-            <div className="container mt-3">
-              <div className="alert alert-danger" role="alert">
-                {errorMsg}
-              </div>
-            </div>
+            <aside role="alert" className="alert alert-danger mt-3">
+              {errorMsg}
+            </aside>
           )}
 
-          <a href="#" className="forgot-password-link" onClick={() => forgotPassword(email)}>
-            Forgot Password?
-          </a>
-          <button className="login-button">Login</button>
-          <p className="signup-text">
-            Don&apos;t have an account? <Link to="/signup">Signup Instead</Link>
-          </p>
+          <nav>
+            <a
+              href="#"
+              className="forgot-password-link"
+              onClick={() => forgotPassword(email)}
+            >
+              Forgot Password?
+            </a>
+          </nav>
+
+          <button className="login-button" type="submit">
+            Login
+          </button>
+
+          <footer>
+            <p className="signup-text">
+              Don&apos;t have an account? <Link to="/signup">Signup Instead</Link>
+            </p>
+          </footer>
         </form>
+
       </div>
     </main>
   );

@@ -70,69 +70,70 @@ const ManageUsers = () => {
     }
   };
 
-  return (
-    <main>
-      <Toaster position="top-center" reverseOrder={false} />
-      <NavigationComponent />
+return (
+  <main>
+    <Toaster position="top-center" reverseOrder={false} />
+    <NavigationComponent />
 
-      <section className="dashboard-container">
-        <NavigationDashLeft />
+    <section className="dashboard-container">
+      <NavigationDashLeft />
 
-        <section className="dashboard-container-righty">
-          <main className="dashboard-details">
-            <h2 className="right-title">Manage users:</h2>
+      <section className="dashboard-container-righty">
+        <article className="dashboard-details">
+          <header>
+            <h2 className="right-title">Manage Users</h2>
+          </header>
 
-            <div
-              className="table-responsive"
-              style={{ maxHeight: "65vh", overflowY: "auto" }}
-            >
-              {!loading && !isAdmin && (
-                <p>You do not have permission to view this page.</p>
-              )}
+          <section
+            className="table-responsive"
+            style={{ maxHeight: "65vh", overflowY: "auto" }}
+          >
+            {!loading && !isAdmin && (
+              <p>You do not have permission to view this page.</p>
+            )}
 
-              {!loading && isAdmin && !usersLoading && users.length > 0 && (
-                <table className="table table-striped table-hover table-borderless w-100 rounded-4 overflow-hidden shadow">
-                  <thead className="thead-dark bg-dark text-white">
-                    <tr>
-                      <th scope="col">Email</th>
-                      <th scope="col">Admin</th>
+            {!loading && isAdmin && !usersLoading && users.length > 0 && (
+              <table className="table table-striped table-hover table-borderless w-100 rounded-4 overflow-hidden shadow">
+                <thead className="thead-dark bg-dark text-white">
+                  <tr>
+                    <th scope="col">Email</th>
+                    <th scope="col">Admin</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map((user) => (
+                    <tr key={user.id}>
+                      <td>{user.email}</td>
+                      <td>
+                        <fieldset className="form-check form-switch">
+                          <input
+                            className="form-check-input bg-success border-success"
+                            type="checkbox"
+                            role="switch"
+                            id={`adminSwitch-${user.id}`}
+                            checked={user.isAdmin}
+                            onChange={() =>
+                              handleAdminToggle(user.id, user.isAdmin)
+                            }
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor={`adminSwitch-${user.id}`}
+                          >
+                            {user.isAdmin ? "Admin" : "User"}
+                          </label>
+                        </fieldset>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {users.map((user) => (
-                      <tr key={user.id}>
-                        <td>{user.email}</td>
-                        <td>
-                          <div className="form-check form-switch">
-                            <input
-                              className="form-check-input bg-success border-success"
-                              type="checkbox"
-                              role="switch"
-                              id={`adminSwitch-${user.id}`}
-                              checked={user.isAdmin}
-                              onChange={() =>
-                                handleAdminToggle(user.id, user.isAdmin)
-                              }
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor={`adminSwitch-${user.id}`}
-                            >
-                              {user.isAdmin ? "Admin" : "User"}
-                            </label>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              )}
-            </div>
-          </main>
-        </section>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </section>
+        </article>
       </section>
-    </main>
-  );
-};
-
+    </section>
+  </main>
+);
+}
 export default ManageUsers;

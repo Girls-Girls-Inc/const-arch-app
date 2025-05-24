@@ -1,4 +1,5 @@
 const admin = require('firebase-admin');
+require('dotenv').config();
 
 const serviceAccountBase64 = process.env.SERVICE_ACCOUNT_KEY;
 
