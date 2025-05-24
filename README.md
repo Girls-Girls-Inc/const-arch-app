@@ -22,7 +22,7 @@ cd const-arch-app
 ```
 
 ### Copy the environment file
-Copy `.env`(found in our submission docuementation) - which contains the Service Account Key - into the top level directory.
+Copy `.env` (found in our submission documentation) - which contains the Service Account Key - into the top-level directory.
 
 ```
 const-arch-app/
