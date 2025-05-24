@@ -17,7 +17,7 @@ export default function Home() {
 
       <section className="home-container">
         <header>
-          <h2 className="form-title">Constitutional Archive App</h2>
+          <h2 className="form-title">Ink & Parchment Archive</h2>
         </header>
 
         <figure className="welcome-image-container">
@@ -26,7 +26,7 @@ export default function Home() {
 
         <section aria-label="Welcome Message and Actions">
           <p>
-            Welcome to Constitutional Archive App
+            Welcome to Ink And Parchment
             <br />
           </p>
 
