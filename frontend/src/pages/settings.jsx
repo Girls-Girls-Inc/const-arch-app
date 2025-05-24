@@ -13,7 +13,9 @@ import NavigationDashLeft from "../components/NavigationDashLeft";
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-import { getAuth, updateProfile } from "firebase/auth";
+import { getAuth, updateProfile, EmailAuthProvider,
+  reauthenticateWithCredential,
+  updatePassword, } from "firebase/auth";
 
 const SettingsPage = () => {
   const { user, loading, setUser } = useUser();
@@ -77,8 +79,11 @@ const SettingsPage = () => {
 
       if (email && email !== user.email) updates.email = email;
       if (password && newPassword) {
-        updates.password = password;
-        updates.newPassword = newPassword;
+          const credential = EmailAuthProvider.credential(user.email, password);
+          const auth = getAuth();
+          await reauthenticateWithCredential(auth.currentUser, credential);
+
+          await updatePassword(auth.currentUser, newPassword);
       }
 
       const hasProfileChange =
